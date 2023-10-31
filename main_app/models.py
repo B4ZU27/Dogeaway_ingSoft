@@ -6,11 +6,13 @@ from django.db import models
 
 class Usuario(models.Model):
     nombre = models.CharField(max_length=100)
+    apellido = models.CharField(max_length=100)
+    correo = models.EmailField(max_length=100)
     contrasena = models.CharField(max_length=100)
     fotografia = models.ImageField(upload_to='usuarios/', null=True, blank=True)
     telefono = models.CharField(max_length=20)
     fecha_de_nacimiento = models.DateField()
-    ubicacion = models.CharField(max_length=100)
+    direccion = models.CharField(max_length=100)
 
     def __str__(self):
         usuario_data = {
@@ -18,7 +20,7 @@ class Usuario(models.Model):
             "contrasena": self.contrasena,
             "telefono": self.telefono,
             "fecha_de_nacimiento": self.fecha_de_nacimiento,
-            "ubicacion": self.ubicacion
+            "direccion": self.direccion
         }
         return json.dumps(usuario_data, indent=2)
 

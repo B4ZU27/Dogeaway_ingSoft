@@ -1,0 +1,17 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Registro</title>
+    <style>
+        /* Estilos CSS aquí */
+    </style>
+</head>
+<body>
+    <form method="post">
+        {% csrf_token %}
+        <h1>Registro</h1>
+        {{ form.as_p }}
+        <input type="submit" value="Registrar">
+    </form>
+</body>
+</html>
