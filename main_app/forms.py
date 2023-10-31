@@ -2,10 +2,11 @@ from django import forms
 from django.contrib.auth.forms import AuthenticationForm
 from .models import Usuario, Mascota
 
-class   LoginForm(forms.ModelForm):
+class LoginForm(forms.ModelForm):
     class Meta:
         model = Usuario
         fields = ['correo', 'contrasena']
+        
 class RegistroForm(forms.ModelForm):
     class Meta:
         model = Usuario
