@@ -1,25 +1,22 @@
-import json
 from django.db import models
+from django.contrib.auth.models import AbstractUser #Importa el modelo base de USUARIO de DJANGO
+import json
 
 # Create your models here.
 #HACER MIGRACIONES CON MODIFICACIONES DE LOS MODELOS
 
 #*-----USUARIO-----*
-class Usuario(models.Model):
-    nombre = models.CharField(max_length=100)
-    apellido = models.CharField(max_length=100)
-    correo = models.EmailField(max_length=100)
-    contrasena = models.CharField(max_length=100)
+#Este modelo ya viene con: username, first_name, last_name, email, password, is_staff, is_active, date_joined, last_login
+class Usuario(AbstractUser):
     fotografia = models.ImageField(upload_to='usuarios/', null=True, blank=True)
     telefono = models.CharField(max_length=20)
     fecha_de_nacimiento = models.DateField()
     direccion = models.CharField(max_length=100)
-    verificacion = models.BooleanField()
 
     def __str__(self):
         usuario_data = {
-            "nombre": self.nombre,
-            "contrasena": self.contrasena,
+            "nombre": self.username,
+            "contrasena": self.password,
             "telefono": self.telefono,
             "fecha_de_nacimiento": self.fecha_de_nacimiento,
             "direccion": self.direccion
@@ -56,7 +53,7 @@ class Mascota(models.Model):
 
 #*-----IMAGENES_MASCOTA-----*
 class ImagenMascota(models.Model):
-    mascota = models.ForeignKey(Mascota, on_delete=models.CASCADE)
+    mascota = models.OneToOneField(Mascota, on_delete=models.CASCADE)
     imagen_1 = models.ImageField(upload_to='mascota_imagenes/')
     imagen_2 = models.ImageField(upload_to='mascota_imagenes/')
     imagen_3 = models.ImageField(upload_to='mascota_imagenes/')
@@ -66,6 +63,16 @@ class ImagenMascota(models.Model):
 
     def __str__(self):
         return f'Imágenes de {self.mascota.nombre}'
+
+#*-----PREFERENCIAS*-----
+#Revisar y ajustar los campos en base decidamos nuestro formulario
+class Preferencias(models.Model):
+    mascota = models.OneToOneField(Mascota, on_delete=models.CASCADE)
+    preferencia_tamaño = models.CharField(max_length=15, choices=Mascota.TAMAÑO_CHOICES)
+    preferencia_raza = models.CharField(max_length=100)
+    preferencia_edad_min = models.IntegerField()
+    preferencia_edad_max = models.IntegerField()
+
 
 #*-----MATCH-----*
 class Match(models.Model):
