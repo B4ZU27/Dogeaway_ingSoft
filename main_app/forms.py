@@ -13,7 +13,21 @@ class LoginForm(AuthenticationForm):
 class UserForm(UserCreationForm):
     class Meta:
         model = Usuario
-        fields = ['username', 'email', 'password1', 'password2', 'fotografia', 'telefono', 'fecha_de_nacimiento', 'direccion']
+        fields = ['username', 'email', 'password1', 'password2', 'telefono', 'fecha_de_nacimiento', 'direccion']
+        widgets = {
+            'telefono': forms.TextInput(attrs={'placeholder': 'Ejemplo: (123) 456-7890'}),
+            'direccion': forms.Textarea(attrs={'rows': 2}),
+            'fecha_de_nacimiento': forms.DateInput(attrs={'placeholder': 'YYYY-MM-DD'}),
+        }
+        labels = {
+        'username': 'Nombre de usuario',
+        'email': 'Correo electrónico',
+        'password1': 'Contraseña',
+        'password2': 'Confirmar contraseña',
+        'telefono' : 'Telefono',
+        'direccion': 'Direccion',
+        'fecha_de_nacimiento': 'Fecha de nacimiento'
+        }
 
 #-----MASCOTA SIGNUP-----*
 class MascotaForm(forms.ModelForm):

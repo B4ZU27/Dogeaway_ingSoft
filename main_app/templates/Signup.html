@@ -1,17 +1,18 @@
-<!DOCTYPE html>
-<html>
-<head>
-    <title>Registro</title>
-    <style>
-        /* Estilos CSS aquí */
-    </style>
-</head>
-<body>
-    <form method="post">
-        {% csrf_token %}
-        <h1>Registro</h1>
-        {{ form.as_p }}
-        <input type="submit" value="Registrar">
-    </form>
-</body>
-</html>
+{% include "layouts/base.html" %}
+
+{% block content %}
+
+<form method="post">
+    {% csrf_token %}
+    {{ form.username.label_tag }}  {{ form.username }}
+    {{ form.email.label_tag }}     {{ form.email }}
+    {{ form.password1.label_tag }} {{ form.password1 }}
+    {{ form.password2.label_tag }} {{ form.password2 }}
+    {{ form.telefono.label_tag }}  {{ form.telefono }}
+    {{ form.domicilio.label_tag }} {{ form.domicilio }}
+    {{ form.fecha_de_nacimiento.label_tag }} {{ form.fecha_de_nacimiento }}
+    <button type="submit">Registrar</button>
+</form>
+
+{% endblock content%}
+

@@ -1,0 +1,21 @@
+{% include "layouts/base.html" %}
+
+{% block content %}
+
+<h1>Lista de Usuarios</h1>
+<ul>
+    {% for usuario in usuarios %}
+        <li>
+            Nombre de usuario: {{ usuario.username }}<br>
+            Email: {{ usuario.email }}<br>
+            <!-- Agrega más campos personalizados si los tienes -->
+        </li>
+    {% endfor %}
+</ul>
+
+{% endblock content %}
+
+
+
+
+

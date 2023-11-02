@@ -13,6 +13,10 @@ class Usuario(AbstractUser):
     fecha_de_nacimiento = models.DateField()
     direccion = models.CharField(max_length=100)
 
+      # Definir related_name para grupos y permisos
+    groups = models.ManyToManyField('auth.Group', related_name='usuarios')
+    user_permissions = models.ManyToManyField('auth.Permission', related_name='usuarios')
+
     def __str__(self):
         usuario_data = {
             "nombre": self.username,

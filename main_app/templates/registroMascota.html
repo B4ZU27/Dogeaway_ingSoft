@@ -1,17 +1,10 @@
-<!DOCTYPE html>
-<html>
-<head>
-    <title>Registro Mascota</title>
-    <style>
-        /* Estilos CSS aquí */
-    </style>
-</head>
-<body>
-    <form method="post">
-        {% csrf_token %}
-        <h1>Registro de mascotas</h1>
-        {{ form.as_p }}
-        <input type="submit" value="Registrar">
-    </form>
-</body>
-</html>
+{% include "layouts/base.html" %}
+
+{% block content %}
+<h2> Registro de mascotas</h2>
+
+<p> Te gustaria registrar mas mascotas????</p>
+{% endblock content %}
+
+
+   
