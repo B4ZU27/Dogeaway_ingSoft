@@ -5,6 +5,9 @@ from django.http import HttpResponse
 from .models import Usuario
 from .forms import UserForm, LoginForm, MascotaForm, PreferenciasForm
 
+# Superuser -> admin
+# Password -> interpol1155
+
 # Create your views here.
 def hello(request):
     return HttpResponse("Hello world")
@@ -22,23 +25,26 @@ def login(request):
         if form.is_valid():
             user = form.get_user()
             login(request, user)
-            return redirect('') #Agregar la direccion del HOME
+            return redirect('/') #Agregar la direccion del HOME
     else:
         form = LoginForm()
-    return render(request, 'login.html', {'form': form})
+    return render(request, 'login.html', {'form': form,
+                                        'title' : "Login"})
 
 #-----SIGNUP VIEW-----*
 def signup(request):
     if request.method == 'POST':
         form = UserForm(request.POST)
         if form.is_valid():
-            form.save()
-            return redirect('/')  # Redirige a la página de inicio después del registro
+            # Guardar el usuario en la base de datos
+            user = form.save()
+            # Autenticar al usuario y redirigirlo a otra vista
+            login(request, user)
+            return redirect('/registro_mascota/')  
     else:
         form = UserForm()
     return render(request,'Signup.html', {'form': form , 
-                                        'title': "Sign up",
-                                        'link': "{% static 'css/registros.css' %}"})
+                                        'title': "Sign up"})
 
 #-----SIGNUP_MASCOTA VIEW-----*
 def registro_mascota(request):
