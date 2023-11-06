@@ -1,6 +1,7 @@
 from django.shortcuts import render, redirect
 from django.views.generic import ListView
 from django.contrib.auth import authenticate, login
+from django.contrib import messages
 from django.http import HttpResponse
 from .models import Usuario
 from .forms import UserForm, LoginForm, MascotaForm, PreferenciasForm
@@ -26,6 +27,9 @@ def login(request):
             user = form.get_user()
             login(request, user)
             return redirect('/') #Agregar la direccion del HOME
+        
+        else:
+             messages.error(request,form.errors)
     else:
         form = LoginForm()
     return render(request, 'login.html', {'form': form,
@@ -40,7 +44,9 @@ def signup(request):
             user = form.save()
             # Autenticar al usuario y redirigirlo a otra vista
             login(request, user)
-            return redirect('/registro_mascota/')  
+            return redirect('')  
+        else:
+             messages.error(request,form.errors)
     else:
         form = UserForm()
     return render(request,'Signup.html', {'form': form , 

@@ -4,9 +4,18 @@
 <form method="post" style="background-color: #f0f0f0; padding: 20px;">
     {% csrf_token %}
     {{ form.username.label_tag }} {{ form.username }}
+    {{ form.username.errors }} 
     {{ form.password.label_tag }} {{ form.password }}
+   {{ form.password.errors }} 
     <button type="submit" style="background-color: #007bff; color: #fff; padding: 10px;">Iniciar sesión</button>
 </form>
+{% if messages %}
+    <div class="alert alert-danger">
+            {% for message in messages %}
+                {{ message }}
+            {% endfor %}
+    </div>
+{% endif %}
 {% endblock content %}
 
 

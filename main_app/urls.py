@@ -4,7 +4,7 @@ from . import views
 from .views import ListaUsuariosView
 
 urlpatterns = [
-    path('home/', views.index),
+    path('', views.index),
     path('login/', views.login, name='login'),
     path('signup/', views.signup, name='signup'),
     path('registro_mascota/', views.registro_mascota, name='registro_mascota'),
