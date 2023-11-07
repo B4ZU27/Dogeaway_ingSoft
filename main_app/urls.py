@@ -1,14 +1,12 @@
 from django.urls import path
 from . import views 
 #------------------
-from .views import ListaUsuariosView
 
 urlpatterns = [
     path('', views.index),
-    path('login/', views.login, name='login'),
+    path('login/', views.login_view, name='login'),
     path('signup/', views.signup, name='signup'),
-    path('registro_mascota/', views.registro_mascota, name='registro_mascota'),
-    path('lista_usuario/', ListaUsuariosView.as_view(), name='lista_usuarios'),
-    path('lista_de_usuarios/', views.lista_usuarios, name='lista_usuario'),
+    path('registro_mascota/', views.registro_mascota, name='registro de mascota'),
+    path('lista/', views.ListaUsuariosView.as_view(), name='lista de usuarios'),
     #path('preferencias/', views.preferencias, name='preferencias')
 ]

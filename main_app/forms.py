@@ -8,6 +8,10 @@ class LoginForm(AuthenticationForm):
     class Meta:
         model = Usuario
         fields = ['username', 'password']
+        labels = {
+        'username': 'Nombre de usuario',
+        'password1': 'Contraseña'
+        }
 
 #-----USER SIGNUP-----*
 class UserForm(UserCreationForm):
@@ -16,7 +20,7 @@ class UserForm(UserCreationForm):
         fields = ['username', 'email', 'password1', 'password2', 'telefono', 'fecha_de_nacimiento', 'direccion']
         widgets = {
             'telefono': forms.TextInput(attrs={'placeholder': 'Ejemplo: (123) 456-7890'}),
-            'direccion': forms.Textarea(attrs={'rows': 2}),
+            'direccion': forms.TextInput(attrs={'placeholder': 'Pues tu casa we'}),
             'fecha_de_nacimiento': forms.DateInput(attrs={'placeholder': 'YYYY-MM-DD'}),
         }
         labels = {

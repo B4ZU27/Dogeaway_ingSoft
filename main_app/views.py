@@ -20,7 +20,7 @@ def index(request): #Renderizar Paginas html aqui en views
     })
 
 #-----LOGIN VIEW-----*
-def login(request):
+def login_view(request):
     if request.method == 'POST':
         form = LoginForm(data=request.POST)
         if form.is_valid():
@@ -66,11 +66,7 @@ def registro_mascota(request):
 #-----PREFERENCIAS VIEW-----*
 
 #-----LISTAUSUARIOS VIEW-----*
-def lista_usuarios(request):
-    return render(request, 'listaUsuarios.html')
-
-#Lista de ususarios
 class ListaUsuariosView(ListView):
     model = Usuario
-    template_name = 'main_app/listaUsuarios.html'  # Reemplaza 'tu_app' con el nombre de tu aplicación
+    template_name = 'lista.html'  
     context_object_name = 'usuarios'

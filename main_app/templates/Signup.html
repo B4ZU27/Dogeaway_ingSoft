@@ -6,8 +6,9 @@
     {% csrf_token %}
     {% csrf_token %}
     {{ form.username.label_tag }}  {{ form.username }}
-    {{ form.username.errors }}  {# Muestra errores para el campo 'username' #}
-
+    <div class="alert alert-danger"> 
+        {{ form.username.errors }}  {# Muestra errores para el campo 'username' #}
+    </div>
     {{ form.email.label_tag }}     {{ form.email }}
     {{ form.email.errors }}  {# Muestra errores para el campo 'email' #}
 
