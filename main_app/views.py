@@ -1,6 +1,7 @@
 from django.shortcuts import render, redirect
 from django.views.generic import ListView
 from django.contrib.auth import authenticate, login
+from django.contrib.auth.decorators import login_required
 from django.contrib import messages
 from django.http import HttpResponse
 from .models import Usuario
@@ -51,7 +52,22 @@ def signup(request):
                                         'title': "Sign up"})
 
 #-----SIGNUP_MASCOTA VIEW-----*
+@login_required
 def registro_mascota(request):
+    if request.method == 'POST':
+        form = MascotaForm(request.POST)
+        if form.is_valid():
+            mascota = form.save(commit=False)  # Guarda el formulario sin commit para poder modificarlo
+            mascota.dueño = request.user  # Asigna el usuario autenticado como dueño de la mascota
+            mascota.save()  # Guarda la mascota con el dueño asignado
+            return redirect('/preferencias/')  # Redirige a la página de inicio después del registro
+    else:
+        form = MascotaForm()
+    return render(request, 'registroMascota.html', {'form': form, 'title': "Registro de mascota"})
+
+#-----PREFERENCIAS VIEW-----*
+@login_required
+def preferencias_view(request):
     if request.method == 'POST':
         form = MascotaForm(request.POST)
         if form.is_valid():
@@ -59,10 +75,7 @@ def registro_mascota(request):
             return redirect('/')  # Redirige a la página de inicio después del registro
     else:
         form = UserForm()
-    return render(request, 'registroMascota.html', {'form': form})
-
-#-----PREFERENCIAS VIEW-----*
-
+    return render(request, 'registroMascota.html', {'form': form, 'title': "Preferencias"})
 #-----LISTAUSUARIOS VIEW-----*
 class ListaUsuariosView(ListView):
     model = Usuario

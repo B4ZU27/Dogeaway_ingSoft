@@ -13,7 +13,10 @@
         <ul>
             <li><a href="/">Home</a></li>
             {% if user.is_authenticated %}
-                <li> Hola u{{ user.username }}</li>  
+                <li> Hola {{ user.username }}</li>
+                <li> <a href="{% url 'logout' %}" id="logout-link">Cerrar sesión</a></li>
+                
+  
             {% else %}
                 <li><a href="/login/">Login</a></li>
                 <li><a href="/signup/">Registro</a></li>

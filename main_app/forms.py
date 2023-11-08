@@ -33,7 +33,7 @@ class UserForm(UserCreationForm):
 class MascotaForm(forms.ModelForm):
     class Meta:
         model = Mascota
-        fields = ['dueño', 'nombre', 'peso', 'sexo', 'tamaño', 'descripcion', 'raza', 'tiene_cartilla']
+        fields = ['nombre', 'peso', 'sexo', 'tamaño', 'descripcion', 'raza', 'tiene_cartilla']
 
 #-----IMAGENES DE MASCOTA-----*
 class ImagenMascotaForm(forms.ModelForm):

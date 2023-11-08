@@ -74,3 +74,16 @@ button[type="submit"] {
     display: block;
     margin-top: 10px; /* Agrega espacio entre los campos y el botón */
 } 
+
+#logout-link {
+    background-color: #ff0000; /* Color de fondo rojo */
+    color: #ffffff; /* Color del texto blanco */
+    padding: 10px 20px; /* Espaciado interno para hacer que parezca un botón */
+    text-decoration: none; /* Quita la subraya del enlace */
+    border-radius: 5px; /* Bordes redondeados */
+}
+
+/* Cambiar el color del enlace cuando se coloca el cursor encima */
+#logout-link:hover {
+    background-color: #cc0000; /* Cambiar el color de fondo cuando se coloca el cursor encima */
+}
