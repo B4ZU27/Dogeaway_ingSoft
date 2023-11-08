@@ -1,5 +1,9 @@
 {% include "layouts/base.html" %}
 
+{# Aqui se manda llamare a un css adicional #}
+{% block estilos_adicionales %}
+<link rel="stylesheet" href="{% static 'css/registros.css' %}">
+{% endblock estilos_adicionales %}
 {% block content %}
 
     <form method="post" style="background-color: #f0f0f0; padding: 40px;">

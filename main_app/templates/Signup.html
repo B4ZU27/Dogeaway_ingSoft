@@ -4,7 +4,6 @@
 
 <form method="POST" style="background-color: #f0f0f0; padding: 20px;">
     {% csrf_token %}
-    {% csrf_token %}
     {{ form.username.label_tag }}  {{ form.username }}
     <div class="alert alert-danger"> 
         {{ form.username.errors }}  {# Muestra errores para el campo 'username' #}

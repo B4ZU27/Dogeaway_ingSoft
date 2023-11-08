@@ -125,3 +125,6 @@ DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
 #Le movi a esta madre
 AUTH_USER_MODEL = 'main_app.Usuario'  
+
+#Para que lleve al home
+LOGOUT_REDIRECT_URL = '/'  

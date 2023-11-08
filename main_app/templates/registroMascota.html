@@ -1,9 +1,39 @@
 {% include "layouts/base.html" %}
 
 {% block content %}
-<h2> Registro de mascotas</h2>
-
-<p> Te gustaria registrar mas mascotas????</p>
+  <h2>Crear una nueva mascota</h2>
+  <form method="post" style="background-color: #f0f0f0; padding: 20px;">
+    {% csrf_token %}
+    {{ form.nombre.label_tag }} {{ form.nombre }}
+    <div class="alert alert-danger">
+      {{ form.nombre.errors }}
+    </div>
+    {{ form.peso.label_tag }} {{ form.peso }}
+    <div class="alert alert-danger">
+      {{ form.peso.errors }}
+    </div>
+    {{ form.sexo.label_tag }} {{ form.sexo }}
+    <div class="alert alert-danger">
+      {{ form.sexo.errors }}
+    </div>
+    {{ form.tamano.label_tag }} {{ form.tamano }}
+    <div class="alert alert-danger">
+      {{ form.tamano.errors }}
+    </div>
+    {{ form.descripcion.label_tag }} {{ form.descripcion }}
+    <div class="alert alert-danger">
+      {{ form.descripcion.errors }}
+    </div>
+    {{ form.raza.label_tag }} {{ form.raza }}
+    <div class="alert alert-danger">
+      {{ form.raza.errors }}
+    </div>
+    {{ form.tiene_cartilla.label_tag }} {{ form.tiene_cartilla }}
+    <div class="alert alert-danger">
+      {{ form.tiene_cartilla.errors }}
+    </div>
+    <button type="submit" style="background-color: #007bff; color: #fff; padding: 10px;">Crear Mascota</button>
+  </form>
 {% endblock content %}
 
 

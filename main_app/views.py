@@ -60,7 +60,7 @@ def registro_mascota(request):
             mascota = form.save(commit=False)  # Guarda el formulario sin commit para poder modificarlo
             mascota.dueño = request.user  # Asigna el usuario autenticado como dueño de la mascota
             mascota.save()  # Guarda la mascota con el dueño asignado
-            return redirect('/preferencias/')  # Redirige a la página de inicio después del registro
+            return redirect('/preferencias/', mascota_id=mascota.id)  # Redirige a la página de inicio después del registro
     else:
         form = MascotaForm()
     return render(request, 'registroMascota.html', {'form': form, 'title': "Registro de mascota"})
@@ -69,12 +69,14 @@ def registro_mascota(request):
 @login_required
 def preferencias_view(request):
     if request.method == 'POST':
-        form = MascotaForm(request.POST)
+        form = MPreferenciasForm(request.POST)
         if form.is_valid():
-            form.save()
+            pref = form.save(commit=False)  # Guarda el formulario sin commit para poder modificarlo
+            pref.mascota= Mascota.objects.get(id=mascota_id)  
+            mascota.save()  # Guarda 
             return redirect('/')  # Redirige a la página de inicio después del registro
     else:
-        form = UserForm()
+        form = PreferenciasFormForm()
     return render(request, 'registroMascota.html', {'form': form, 'title': "Preferencias"})
 #-----LISTAUSUARIOS VIEW-----*
 class ListaUsuariosView(ListView):
