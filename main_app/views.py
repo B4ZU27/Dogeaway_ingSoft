@@ -22,18 +22,16 @@ def index(request): #Renderizar Paginas html aqui en views
 #-----LOGIN VIEW-----*
 def login_view(request):
     if request.method == 'POST':
-        form = LoginForm(data=request.POST)
-        if form.is_valid():
-            user = form.get_user()
+        print(request.POST)  # Imprime los datos del formulario en la consola
+        username = request.POST.get("username", "")  # Usa get para evitar errores si la clave no existe
+        password = request.POST.get("password", "")
+        user = authenticate(request, username=username, password=password)
+        if user is not None:
             login(request, user)
-            return redirect('/') #Agregar la direccion del HOME
-        
+            return redirect('/')  
         else:
-             messages.error(request,form.errors)
-    else:
-        form = LoginForm()
-    return render(request, 'login.html', {'form': form,
-                                        'title' : "Login"})
+            messages.error(request,"No fuiste autenticado")
+    return render(request, 'Login.html', {'title' : "Login"})
 
 #-----SIGNUP VIEW-----*
 def signup(request):
@@ -44,7 +42,7 @@ def signup(request):
             user = form.save()
             # Autenticar al usuario y redirigirlo a otra vista
             login(request, user)
-            return redirect('')  
+            return redirect('/')  
         else:
              messages.error(request,form.errors)
     else:

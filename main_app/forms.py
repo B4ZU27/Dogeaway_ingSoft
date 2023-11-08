@@ -7,11 +7,7 @@ from .models import Usuario, Mascota, ImagenMascota, Preferencias
 class LoginForm(AuthenticationForm):
     class Meta:
         model = Usuario
-        fields = ['username', 'password']
-        labels = {
-        'username': 'Nombre de usuario',
-        'password1': 'Contraseña'
-        }
+        fields = ['email', 'password']
 
 #-----USER SIGNUP-----*
 class UserForm(UserCreationForm):

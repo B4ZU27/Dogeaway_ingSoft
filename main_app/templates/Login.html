@@ -1,14 +1,19 @@
 {% include "layouts/base.html" %}
 
 {% block content %}
-<form method="post" style="background-color: #f0f0f0; padding: 20px;">
-    {% csrf_token %}
-    {{ form.username.label_tag }} {{ form.username }}
-    {{ form.username.errors }} 
-    {{ form.password.label_tag }} {{ form.password }}
-   {{ form.password.errors }} 
-    <button type="submit" style="background-color: #007bff; color: #fff; padding: 10px;">Iniciar sesión</button>
-</form>
+
+    <form method="post" style="background-color: #f0f0f0; padding: 40px;">
+        {% csrf_token %}
+        <label for="id_username">Nombre de usuario:</label>
+        <input type="text" id="id_username" name="username" required>
+    
+        <label for="id_password">Contraseña:</label>
+        <input type="password" id="id_password" name="password" required>
+    
+        <button type="submit">Iniciar sesión</button>
+    </form>
+    
+
 {% if messages %}
     <div class="alert alert-danger">
             {% for message in messages %}

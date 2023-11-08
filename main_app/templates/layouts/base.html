@@ -12,8 +12,13 @@
     <nav class="navbar">
         <ul>
             <li><a href="/">Home</a></li>
-            <li><a href="/login/">Login</a></li>
-            <li><a href="/signup/">Registro</a></li>
+            {% if user.is_authenticated %}
+                <li> Hola u{{ user.username }}</li>  
+            {% else %}
+                <li><a href="/login/">Login</a></li>
+                <li><a href="/signup/">Registro</a></li>
+                <li> Hola {{ user.username }}</li>  
+            {% endif %}
             <li><a href="/lista/">Lista de Usuarios</a></li>
         </ul>
     </nav>
