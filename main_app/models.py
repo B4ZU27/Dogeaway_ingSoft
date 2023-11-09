@@ -47,10 +47,8 @@ class Mascota(models.Model):
     tamaño = models.CharField(max_length=15, choices=TAMAÑO_CHOICES)
     descripcion = models.TextField()
     raza = models.CharField(max_length=100)
-    tiene_cartilla = models.BooleanField() #¿No deberia ser una imagen de la cartilla?maye
-    #¿Eliminar los siguientes ya con la creacion de la clase MATCH?
+    tiene_cartilla = models.BooleanField()
     likes = models.ManyToManyField("self", symmetrical=False, related_name="liked_by", blank=True)
-    matches = models.ManyToManyField("self", symmetrical=False, related_name="matched_with", blank=True)
     
     def __str__(self):
         return self.nombre        
@@ -71,12 +69,11 @@ class ImagenMascota(models.Model):
 #*-----PREFERENCIAS*-----
 #Revisar y ajustar los campos en base decidamos nuestro formulario
 class Preferencias(models.Model):
-    mascota = models.OneToOneField(Mascota, on_delete=models.CASCADE)
+    usuario = models.OneToOneField(Usuario, on_delete=models.CASCADE, null=True)
     preferencia_tamaño = models.CharField(max_length=15, choices=Mascota.TAMAÑO_CHOICES)
     preferencia_raza = models.CharField(max_length=100)
     preferencia_edad_min = models.IntegerField()
     preferencia_edad_max = models.IntegerField()
-
 
 #*-----MATCH-----*
 class Match(models.Model):

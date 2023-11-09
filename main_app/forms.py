@@ -45,4 +45,4 @@ class ImagenMascotaForm(forms.ModelForm):
 class PreferenciasForm(forms.ModelForm):
     class Meta:
         model = Preferencias
-        fields = ['mascota', 'preferencia_tamaño', 'preferencia_raza', 'preferencia_edad_min', 'preferencia_edad_max']
+        fields = ['preferencia_tamaño', 'preferencia_raza', 'preferencia_edad_min', 'preferencia_edad_max']
