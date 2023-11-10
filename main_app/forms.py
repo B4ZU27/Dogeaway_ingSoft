@@ -20,7 +20,7 @@ class UserForm(UserCreationForm):
             'fecha_de_nacimiento': forms.DateInput(attrs={'placeholder': 'YYYY-MM-DD'}),
         }
         labels = {
-        'username': 'Nombre de usuario',
+        'username': 'Nombre completo',
         'email': 'Correo electrónico',
         'password1': 'Contraseña',
         'password2': 'Confirmar contraseña',

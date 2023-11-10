@@ -1,38 +1,108 @@
-{% include "layouts/base.html" %}
+{% extends "layouts/base.html" %}
+
+{% block estilos_adicionales %}
+    <link rel="stylesheet" href="/static/css/registros.css">
+    <style>
+        /* Agrega tus estilos CSS personalizados aquí */
+        /* Por ejemplo, puedes personalizar el diseño del formulario */
+
+        form {
+            background-color: #005264;
+            padding: 40px;
+            border-radius: 40px;
+            width: 900px;
+            height: auto;
+            margin: 20px auto;
+            box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.1);
+            text-align: center;
+        }
+
+        label {
+            display: block;
+            margin-bottom: 10px;
+            color: white;
+        }
+
+        input {
+            width: 100%;
+            padding: 10px;
+            margin-bottom: 15px;
+            box-sizing: border-box;
+        }
+
+        button {
+            background-color: #AC902E;
+            color: white;
+            padding: 10px 15px;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+        }
+
+        h1 {
+            color: white;
+        }
+    </style>
+{% endblock estilos_adicionales %}
 
 {% block content %}
+    <form method="post">
+        <h1>REGISTRO DE USUARIO</h1><br><br>
+        {% csrf_token %}
+        {{ form.username.label_tag }}
+        {{ form.username }}
+        <div>
+            {{ form.username.errors }}
+        </div>
 
-<form method="POST" style="background-color: #f0f0f0; padding: 20px;">
-    {% csrf_token %}
-    {{ form.username.label_tag }}  {{ form.username }}
-    <div class="alert alert-danger"> 
-        {{ form.username.errors }}  {# Muestra errores para el campo 'username' #}
-    </div>
-    {{ form.email.label_tag }}     {{ form.email }}
-    {{ form.email.errors }}  {# Muestra errores para el campo 'email' #}
+        {{ form.email.label_tag }}
+        {{ form.email }}
+        <div>
+            {{ form.email.errors }}
+        </div>
 
-    {{ form.password1.label_tag }} {{ form.password1 }}
-    {{ form.password1.errors }}  {# Muestra errores para el campo 'password1' #}
+        {{ form.password1.label_tag }}
+        {{ form.password1 }}
+        <div>
+            {{ form.password1.errors }}
+        </div>
 
-    {{ form.password2.label_tag }} {{ form.password2 }}
-    {{ form.password2.errors }}  {# Muestra errores para el campo 'password2' #}
+        {{ form.password2.label_tag }}
+        {{ form.password2 }}
+        <div>
+            {{ form.password2.errors }}
+        </div>
 
-    {{ form.telefono.label_tag }}  {{ form.telefono }}
-    {{ form.telefono.errors }}  {# Muestra errores para el campo 'telefono' #}
+        {{ form.telefono.label_tag }}
+        {{ form.telefono }}
+        <div>
+            {{ form.telefono.errors }}
+        </div>
 
-    {{ form.direccion.label_tag }} {{ form.direccion }}
-    {{ form.direccion.errors }}  {# Muestra errores para el campo 'domicilio' #}
+        {{ form.direccion.label_tag }}
+        {{ form.direccion }}
+        <div>
+            {{ form.direccion.errors }}
+        </div>
 
-    {{ form.fecha_de_nacimiento.label_tag }} {{ form.fecha_de_nacimiento }}
-    {{ form.fecha_de_nacimiento.errors }}  {# Muestra errores para el campo 'fecha_de_nacimiento' #}
-    <button type="submit" style="background-color: #007bff; color: #fff; padding: 10px;">Registrar</button>
-</form>
-{% if messages %}
-    <div class="alert alert-danger">
+        {{ form.fecha_de_nacimiento.label_tag }}
+        {{ form.fecha_de_nacimiento }}
+        <div>
+            {{ form.fecha_de_nacimiento.errors }}
+        </div>
+
+        <p>Ya estas registrado? <a href="#">Iniciar Sesion</a></p>
+
+        <button type="submit">Registrarse</button>
+    </form>
+
+    {% if messages %}
+        <div class="alert alert-danger">
             {% for message in messages %}
                 {{ message }}
             {% endfor %}
-    </div>
-{% endif %}
-{% endblock content%}
+        </div>
+    {% endif %}
+{% endblock content %}
+
 

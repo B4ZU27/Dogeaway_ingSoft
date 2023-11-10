@@ -1,30 +1,67 @@
-{% include "layouts/base.html" %}
+{% extends "layouts/base.html" %}
 
-{# Aqui se manda llamare a un css adicional #}
 {% block estilos_adicionales %}
-<link rel="stylesheet" href="{% static 'css/registros.css' %}">
-{% endblock estilos_adicionales %}
-{% block content %}
+    <link rel="stylesheet" href="/static/css/registros.css">
+    <style>
+        /* Agrega tus estilos CSS personalizados aquí */
+        /* Por ejemplo, puedes personalizar el diseño del formulario */
+        *{
+            font-style: arial; 
+        }/*pongan otra letra mas facha por que no se cual poner xd*/
 
-    <form method="post" style="background-color: #f0f0f0; padding: 40px;">
+        form {
+            background-color: #005264;
+            padding: 40px;
+            border-radius: 40px;
+            width: 900px;
+            height: 600px; 
+            margin: 20px auto;
+            box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.1);
+}
+
+        .form, h1{
+            color: white;
+            text-align: center;
+        }
+
+        label {
+            display: block;
+            margin-bottom: 10px;
+        }
+
+        input {
+            width: 100%;
+            padding: 8px;
+            margin-bottom: 15px;
+            box-sizing: border-box;
+        }
+
+        button {
+            background-color: #AC902E;
+            color: white;
+            padding: 10px 15px;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+        }
+    </style>
+{% endblock estilos_adicionales %}
+
+{% block content %}
+    <form method="post">
+        <h1>INICIAR SESIÓN</h1>
         {% csrf_token %}
-        <label for="id_username">Nombre de usuario:</label>
-        <input type="text" id="id_username" name="username" required>
-    
-        <label for="id_password">Contraseña:</label>
-        <input type="password" id="id_password" name="password" required>
-    
+        {{ form.as_p }}
         <button type="submit">Iniciar sesión</button>
     </form>
-    
 
-{% if messages %}
-    <div class="alert alert-danger">
+    {% if messages %}
+        <div class="alert alert-danger">
             {% for message in messages %}
                 {{ message }}
             {% endfor %}
-    </div>
-{% endif %}
+        </div>
+    {% endif %}
 {% endblock content %}
 
 
