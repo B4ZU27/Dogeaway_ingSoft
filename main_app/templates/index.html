@@ -1,5 +1,5 @@
 {% extends "layouts/base.html" %}
-
+{% load static %}
 {% block content %}
 <!DOCTYPE html>
 <html lang="en">
@@ -25,7 +25,7 @@
     <!--------------------------  OBJETIVO  -------------------------->
     
             <div class="objetivo" id="objetivo">
-                <img src="../img/home/objetivo.png" alt="">
+                <img src="{% static 'imagenes/home/objetivo.png' %}" alt="">
                 <div class="texto">
                     <h1>OBJETIVO</h1>
                     <p>Creemos que la cruza responsable es la clave para evitar <br/>

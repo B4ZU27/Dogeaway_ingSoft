@@ -1,3 +1,4 @@
+{% load static %}
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -23,9 +24,25 @@
             <li><a href="/lista/">Lista de Usuarios</a></li>
         </ul>
     </nav>
-    <div class="header">
-        <h1>{{ title }}</h1>
-    </div>
+
+
+<!--
+    Estó de verde es el header (el navbar de arriba), pero falta ponerle los comandos que hay arriba para que no pierda funcionalidad
+    <header>
+        <nav>
+            <div class="logo">
+                <a href="home.html">
+                    <img src="{% static 'imagenes/LOGO.png' %}" alt="">
+                </a>
+            </div>
+            <ul>
+                <li><a href="#">INICIO</a></li>
+                <li><a href="#">REGISTRARSE</a></li>
+                <li><a href="#">INICIAR SESION</a></li>
+            </ul>
+        </nav>
+    </header>
+-->
     <div class="content">
         {% block content %}{% endblock %}
     </div>
