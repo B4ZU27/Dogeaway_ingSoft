@@ -4,8 +4,6 @@
 
 {% endblock estilos_adicionales %}
 
-
-
 {% block content %}
 <h2>Preferencias</h2>
   <form method="post" style="background-color: #f0f0f0; padding: 20px;">
@@ -26,7 +24,8 @@
     <div class="alert alert-danger">
       {{ form.preferencia_edad_max.errors }}
     </div>
-    <button type="submit" style="background-color: #007bff; color: #fff; padding: 10px;">Guardar Preferencias</button>
+    <button type="submit" name="submit_form" style="background-color: #007bff; color: #fff; padding: 10px;">Guardar Preferencias</button>
+    <button type="submit" style="background-color: #007bff; color: #fff; padding: 10px;">Omitir</button>
   </form>
 
 {% endblock content %}

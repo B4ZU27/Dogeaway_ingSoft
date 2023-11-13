@@ -1,0 +1,24 @@
+<!--{% extends 'layouts/base.html' %} NO MOSTRABA EL CONTENIDO CON EL BASE.HTML--> 
+
+{% block content %}
+  <h2>Mis Mascotas</h2>
+  
+  <form method="post">
+    {% csrf_token %}
+    {% if mascotas %}
+      <ul>
+        {% for mascota in mascotas %}
+          <li>
+            <label>
+              <input type="radio" name="mascota_id" value="{{ mascota.id }}"> {{ mascota.nombre }}
+            </label>
+          </li>
+        {% endfor %}
+      </ul>
+      <button type="submit">Seleccionar Mascota</button>
+    {% endif %}
+
+    <p>¿Quieres registrar una nueva mascota?</p>
+    <a href="{% url 'registro_mascota' %}">Registrar nueva mascota</a>
+  </form>
+{% endblock %}

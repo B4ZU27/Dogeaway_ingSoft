@@ -1,0 +1,21 @@
+{% extends 'layouts/base.html' %}
+
+{% block content %}
+  <h2>Subir Imágenes para {{ mascota.nombre }}</h2>
+
+  <form method="post" enctype="multipart/form-data" style="background-color: #f0f0f0; padding: 20px;">
+    {% csrf_token %}
+
+    {% for field in form %}
+      <div class="form-group">
+        {{ field.label_tag }}
+        {{ field }}
+        <div class="alert alert-danger">
+          {{ field.errors }}
+        </div>
+      </div>
+    {% endfor %}
+
+    <button type="submit" class="btn btn-primary">Guardar Imágenes</button>
+  </form>
+{% endblock %}

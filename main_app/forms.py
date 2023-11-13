@@ -39,7 +39,7 @@ class MascotaForm(forms.ModelForm):
 class ImagenMascotaForm(forms.ModelForm):
     class Meta:
         model = ImagenMascota
-        fields = ['mascota', 'imagen_1', 'imagen_2', 'imagen_3', 'imagen_4', 'imagen_5', 'imagen_6']
+        fields = ['imagen_1', 'imagen_2', 'imagen_3', 'imagen_4', 'imagen_5', 'imagen_6']
 
 #-----TEST DE PREFERENCIAS-----*
 class PreferenciasForm(forms.ModelForm):
