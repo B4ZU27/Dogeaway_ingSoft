@@ -8,44 +8,6 @@
     font-family: 'Roboto', sans-serif;
 }
 
-
-
-
-
-
-
-
-
-/* Estilo para el navbar 
-.navbar {
-    background-color: #005264;
-    color: #fff;
-    padding: 10px;
-}
-
-.navbar ul {
-    list-style: none;
-    padding: 0;
-    display: flex;
-}
-
-.navbar li {
-    margin-right: 20px;
-}
-
-.navbar a {
-    text-decoration: none;
-    color: #fff;
-}
-
-/* Estilo para el header 
-.header {
-    background-color: #f2f2f2;
-    padding: 20px;
-    text-align: center;
-}
-
-/* Estilo para el footer */
 .footer {
     background-color: #333;
     color: #fff;

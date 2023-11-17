@@ -29,7 +29,7 @@ def user_login(request):
         if form.is_valid():
             user = form.get_user()
             login(request, user)
-            return redirect('mascotas_usuario') #Agregar la direccion del HOME
+            return redirect('mascotas_usuario') #Agregar la direccion del HOME LOGEADO
     else:
         form = LoginForm()
     return render(request, 'Login.html', {'form': form})
