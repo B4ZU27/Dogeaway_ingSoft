@@ -1,40 +1,65 @@
 {% include "layouts/base.html" %}
 
 {% block content %}
+<div style="margin-top: 100px"></div>
   <h2>Crear una nueva mascota</h2>
-  <form method="post" style="background-color: #f0f0f0; padding: 20px;">
+  <form method="post" enctype="multipart/form-data" style="background-color: #f0f0f0; padding: 20px; margin-top: 30px">
     {% csrf_token %}
-    {{ form.nombre.label_tag }} {{ form.nombre }}
+
+    {# Formulario para datos de mascota #}
+    {{ mascota_form.nombre.label_tag }}{{ mascota_form.nombre }} 
     <div class="alert alert-danger">
-      {{ form.nombre.errors }}
+        {{ mascota_form.nombre.errors }}
     </div>
-    {{ form.peso.label_tag }} {{ form.peso }}
+    {{ mascota_form.peso.label_tag }} {{ mascota_form.peso }}
     <div class="alert alert-danger">
-      {{ form.peso.errors }}
+        {{ mascota_form.peso.errors }}
     </div>
-    {{ form.sexo.label_tag }} {{ form.sexo }}
+    {{ mascota_form.sexo.label_tag }} {{ mascota_form.sexo }}
     <div class="alert alert-danger">
-      {{ form.sexo.errors }}
+      {{ mascota_form.sexo.errors }}
     </div>
-    {{ form.tamano.label_tag }} {{ form.tamano }}
+    {{ mascota_form.tamaño.label_tag }} {{ mascota_form.tamaño }}
     <div class="alert alert-danger">
-      {{ form.tamano.errors }}
+      {{ mascota_form.tamaño.errors }}
     </div>
-    {{ form.descripcion.label_tag }} {{ form.descripcion }}
+    {{ mascota_form.descripcion.label_tag }} {{ mascota_form.descripcion }}
     <div class="alert alert-danger">
-      {{ form.descripcion.errors }}
+      {{ mascota_form.descripcion.errors }}
     </div>
-    {{ form.raza.label_tag }} {{ form.raza }}
+    {{ mascota_form.raza.label_tag }} {{ mascota_form.raza }}
     <div class="alert alert-danger">
-      {{ form.raza.errors }}
+      {{ mascota_form.raza.errors }}
     </div>
-    {{ form.tiene_cartilla.label_tag }} {{ form.tiene_cartilla }}
+    {{ mascota_form.tiene_cartilla.label_tag }} {{ mascota_form.tiene_cartilla }}
     <div class="alert alert-danger">
-      {{ form.tiene_cartilla.errors }}
+      {{ mascota_form.tiene_cartilla.errors }}
     </div>
-    <button type="submit" style="background-color: #007bff; color: #fff; padding: 10px;">Crear Mascota</button>
-  </form>
+    <div style="width: 98%; height: 4px; background-color: black; border: 5px solid black; margin: 10px; margin-top: 20px; margin-bottom: 20px; border-radius: 10px"></div>
+    {# Formulario para imágenes de mascota #}
+    <!-- {% for field in imagen_form %}
+        <div class="form-group">
+            {{ field.label_tag }}
+            {{ field }}
+            <div class="alert alert-danger">
+                {{ field.errors }}
+            </div>
+        </div>
+    {% endfor %}-->
+    <div class="form-group">
+      {{ imagen_form.imagen_1.label_tag }}
+      {{ imagen_form.imagen_1 }}
+      <div class="alert alert-danger">
+          {{ imagen_form.imagen_1.errors }}
+      </div>
+  </div>
+  <div class="form-group">
+    {{ imagen_form.imagen_2.label_tag }}
+    {{ imagen_form.imagen_2 }}
+    <div class="alert alert-danger">
+        {{ imagen_form.imagen_2.errors }}
+    </div>
+  </div>
+    <button type="submit" style="background-color: #007bff; color: #fff; padding: 10px;">Guardar</button>
+</form>
 {% endblock content %}
-
-
-   

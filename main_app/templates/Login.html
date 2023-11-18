@@ -95,6 +95,7 @@
 {% endblock estilos_adicionales %}
 
 {% block content %}
+<div style="margin-top: 100px"></div>
     <div class="login">
         <form method="post">
             <img src="{% static 'imagenes/login/login.png' %}" alt="" width="20%">
@@ -102,7 +103,7 @@
             {% csrf_token %}
 
             <div class="input-container">
-                <label for="id_username">Correo:</label>
+                <label for="id_username">Nombre de usuario:</label>
                 <div class="icon">
                     <img src="{% static 'imagenes/login/user.png' %}" alt="">
                 </div>
@@ -117,7 +118,7 @@
                 {{ form.password }}
             </div>
 
-            <button type="submit">¡COMENZEMOS!</button>
+            <button type="submit">Iniciar sesion</button>
         </form>
     </div>
 

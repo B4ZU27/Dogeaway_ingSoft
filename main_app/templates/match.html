@@ -1,0 +1,51 @@
+{% extends "layouts/base.html" %}
+
+{% block content %}
+{# ESTO NO ESTA PROBADO PERO ES UNA IDEA DE LO QUE SE NECESITA HACER #}
+<div id="mascota-container">
+    {% for mascota in mascotas %}
+        <div class="mascota" style="display: none;">
+            <h1>{{ mascota.nombre }}</h1>
+            <p>{{ mascota.descripcion }}</p>
+            <!-- Agrega más detalles de la mascota según tus necesidades -->
+        </div>
+    {% endfor %}
+
+    <button id="btn-siguiente-mascota">Siguiente Mascota</button>
+</div>
+
+<script>
+document.addEventListener('DOMContentLoaded', function() {
+    // Variables
+    const mascotaContainer = document.getElementById('mascota-container');
+    const botonesMascota = document.querySelectorAll('.mascota');
+    let indiceMascotaActual = 0;
+
+    // Función para mostrar la mascota actual
+    function mostrarMascotaActual() {
+        botonesMascota.forEach((mascota, index) => {
+            mascota.style.display = index === indiceMascotaActual ? 'block' : 'none';
+        });
+    }
+
+    // Evento al hacer clic en el botón "Siguiente Mascota"
+    document.getElementById('btn-siguiente-mascota').addEventListener('click', function() {
+        // Incrementa el índice de la mascota actual
+        indiceMascotaActual = (indiceMascotaActual + 1) % botonesMascota.length;
+        mostrarMascotaActual();
+    });
+
+    // Mostrar la primera mascota al cargar la página
+    mostrarMascotaActual();
+});
+</script>
+
+
+
+
+{% endblock content %}
+
+
+
+
+

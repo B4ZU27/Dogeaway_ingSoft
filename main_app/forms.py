@@ -5,9 +5,10 @@ from .models import Usuario, Mascota, ImagenMascota, Preferencias
 
 # -----USER LOGIN-----
 class LoginForm(AuthenticationForm):
+    #email = forms.EmailField(label='Correo electrónico')  # Agrega el campo de email
     class Meta:
         model = Usuario
-        fields = ['email', 'password']
+        fields = ['username', 'password']
 
 #-----USER SIGNUP-----*
 class UserForm(UserCreationForm):
@@ -34,12 +35,31 @@ class MascotaForm(forms.ModelForm):
     class Meta:
         model = Mascota
         fields = ['nombre', 'peso', 'sexo', 'tamaño', 'descripcion', 'raza', 'tiene_cartilla']
+        labels = {
+            'tiene_cartilla': '¿Tiene cartilla de vacunación?',
+            'nombre': 'Nombre',
+        }
+
 
 #-----IMAGENES DE MASCOTA-----*
 class ImagenMascotaForm(forms.ModelForm):
     class Meta:
         model = ImagenMascota
         fields = ['imagen_1', 'imagen_2', 'imagen_3', 'imagen_4', 'imagen_5', 'imagen_6']
+    def clean(self):
+        cleaned_data = super().clean()
+        num_imagenes_llenas = sum(1 for field_name in self.fields if cleaned_data.get(field_name) is not None)
+        
+        if num_imagenes_llenas >= 2:
+            # Marcamos el formulario como válido
+            self.cleaned_data['is_valid'] = True
+        else:
+            # Marcamos el formulario como no válido
+            self.add_error(None, "Se requieren al menos dos imágenes.")
+            self.cleaned_data['is_valid'] = False
+
+        return self.cleaned_data
+
 
 #-----TEST DE PREFERENCIAS-----*
 class PreferenciasForm(forms.ModelForm):

@@ -1,24 +1,33 @@
-<!--{% extends 'layouts/base.html' %} NO MOSTRABA EL CONTENIDO CON EL BASE.HTML--> 
+{% extends 'layouts/base.html' %} <!--NO MOSTRABA EL CONTENIDO CON EL BASE.HTML -->
+{% block estilos_adicionales %}
+
+{% endblock estilos_adicionales %}
+
 
 {% block content %}
-  <h2>Mis Mascotas</h2>
-  
+<div style="margin-top: 100px"></div>
+<h1>Mis Mascotas</h1>
+
+{% if mascotas %}
   <form method="post">
     {% csrf_token %}
-    {% if mascotas %}
-      <ul>
-        {% for mascota in mascotas %}
-          <li>
-            <label>
-              <input type="radio" name="mascota_id" value="{{ mascota.id }}"> {{ mascota.nombre }}
-            </label>
-          </li>
-        {% endfor %}
-      </ul>
-      <button type="submit">Seleccionar Mascota</button>
-    {% endif %}
-
-    <p>¿Quieres registrar una nueva mascota?</p>
-    <a href="{% url 'registro_mascota' %}">Registrar nueva mascota</a>
+    <ul>
+      {% for mascota in mascotas %}
+        <li>
+          <label>
+            <input type="radio" name="mascota_id" value="{{ mascota.id }}"> {{ mascota.nombre }}
+          </label>
+        </li>
+      {% endfor %}
+    </ul>
+    <button type="submit">Seleccionar Mascota</button>
   </form>
-{% endblock %}
+{% endif %}
+
+{% if mascotas.count < 6 %}
+  <p>¿Quieres registrar una nueva mascota?<a href="{% url 'registro_mascota' %}"> Registrar mascota</a></p>
+{% else %}
+  <p>Ya tienes el máximo de mascotas registradas.</p>
+{% endif %}
+
+{% endblock content %}
