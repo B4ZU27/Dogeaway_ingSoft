@@ -5,29 +5,41 @@ from .models import Usuario, Mascota, ImagenMascota, Preferencias
 
 # -----USER LOGIN-----
 class LoginForm(AuthenticationForm):
-    #email = forms.EmailField(label='Correo electrónico')  # Agrega el campo de email
     class Meta:
         model = Usuario
         fields = ['username', 'password']
+        widgets = {
+            'username': forms.TextInput(attrs={'class': 'input-field', 'placeholder': 'Correo electrónico:'}),
+            'password': forms.PasswordInput(attrs={'class': 'input-field', 'placeholder': 'Contraseña:'}),
+        }
 
 #-----USER SIGNUP-----*
 class UserForm(UserCreationForm):
+    password1 = forms.CharField(
+        label='Contraseña',
+        widget=forms.PasswordInput(attrs={'class': 'input-field', 'placeholder': 'Contraseña:'})
+    )
+    password2 = forms.CharField(
+        label='Confirmar contraseña',
+        widget=forms.PasswordInput(attrs={'class': 'input-field', 'placeholder': 'Confirmar contraseña:'})
+    )
+
     class Meta:
         model = Usuario
         fields = ['username', 'email', 'password1', 'password2', 'telefono', 'fecha_de_nacimiento', 'direccion']
         widgets = {
-            'telefono': forms.TextInput(attrs={'placeholder': 'Ejemplo: (123) 456-7890'}),
-            'direccion': forms.TextInput(attrs={'placeholder': 'Pues tu casa we'}),
-            'fecha_de_nacimiento': forms.DateInput(attrs={'placeholder': 'YYYY-MM-DD'}),
+            'username': forms.TextInput(attrs={'class': 'input-field', 'placeholder': 'Nombre completo:'}),
+            'email': forms.EmailInput(attrs={'class': 'input-field', 'placeholder': 'Correo electrónico:'}),
+            'telefono': forms.TextInput(attrs={'class': 'input-field', 'placeholder': 'Ejemplo: (123) 456-7890'}),
+            'direccion': forms.TextInput(attrs={'class': 'input-field', 'placeholder': 'Direccion:'}),
+            'fecha_de_nacimiento': forms.DateInput(attrs={'class': 'input-field', 'placeholder': 'YYYY-MM-DD'}),
         }
         labels = {
-        'username': 'Nombre completo',
-        'email': 'Correo electrónico',
-        'password1': 'Contraseña',
-        'password2': 'Confirmar contraseña',
-        'telefono' : 'Telefono',
-        'direccion': 'Direccion',
-        'fecha_de_nacimiento': 'Fecha de nacimiento'
+            'username': 'Nombre completo',
+            'email': 'Correo electrónico',
+            'telefono': 'Telefono',
+            'direccion': 'Direccion',
+            'fecha_de_nacimiento': 'Fecha de nacimiento',
         }
 
 #-----MASCOTA SIGNUP-----*

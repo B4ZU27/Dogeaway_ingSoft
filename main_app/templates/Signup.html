@@ -3,8 +3,6 @@
 {% block estilos_adicionales %}
     <link rel="stylesheet" href="/static/css/registros.css">
     <style>
-        /* Agrega tus estilos CSS personalizados aquí */
-        /* Por ejemplo, puedes personalizar el diseño del formulario */
 
         form {
             background-color: #005264;
@@ -16,6 +14,38 @@
             box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.1);
             text-align: center;
             margin-top: 130px;
+            display: flex;
+            flex-direction: column;  
+        }
+
+        body {
+            background-color: #D9D9D9; 
+            margin: 0; 
+            padding: 0;
+        }
+
+        .input-container {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            margin-bottom: 15px;
+            position: relative; 
+        }
+
+        .input-container label {
+            color: white;
+            margin-bottom: 5px;
+        }
+
+        .input-container input {
+            width: 20%; 
+            padding: 8px 30px 8px 8px; 
+            box-sizing: border-box;
+            border: none;
+            border-bottom: 1px solid white;
+            background-color: transparent;
+            color: white;
+            outline: none;
         }
 
         label {
@@ -24,25 +54,42 @@
             color: white;
         }
 
-        input {
-            width: 100%;
-            padding: 10px;
-            margin-bottom: 15px;
-            box-sizing: border-box;
+        .button-container {
+            margin-top: 20px;  
+            display: flex;
+            justify-content: center;  
         }
 
         button {
-            background-color: #AC902E;
+            background-color: #005264;
             color: white;
             padding: 10px 15px;
             border: none;
             border-radius: 4px;
             cursor: pointer;
+            display: block;
+            margin: 0 auto;
         }
+
+        button:hover {
+            transition: 0.5s;
+            background-color: #BD7219;
+            border-radius: 50px;
+        }
+
 
         h1 {
             color: white;
         }
+
+        p {
+            color: white; 
+        }
+
+        p a {
+            color: #BD7219; 
+        }
+        
     </style>
 {% endblock estilos_adicionales %}
 
@@ -50,51 +97,47 @@
     <form method="post">
         <h1>REGISTRO DE USUARIO</h1><br><br>
         {% csrf_token %}
-        {{ form.username.label_tag }}
-        {{ form.username }}
-        <div>
-            {{ form.username.errors }}
+        
+        <div class="input-container">
+            <label for="id_username"></label>
+            {{ form.username }}
         </div>
 
-        {{ form.email.label_tag }}
-        {{ form.email }}
-        <div>
-            {{ form.email.errors }}
+        <div class="input-container">
+            <label for="id_email"></label>
+            {{ form.email }}
         </div>
 
-        {{ form.password1.label_tag }}
-        {{ form.password1 }}
-        <div>
-            {{ form.password1.errors }}
+        <div class="input-container">
+            <label for="id_password1"></label>
+            {{ form.password1 }}
         </div>
 
-        {{ form.password2.label_tag }}
-        {{ form.password2 }}
-        <div>
-            {{ form.password2.errors }}
+        <div class="input-container">
+            <label for="id_password2"></label>
+            {{ form.password2 }}
         </div>
 
-        {{ form.telefono.label_tag }}
-        {{ form.telefono }}
-        <div>
-            {{ form.telefono.errors }}
+        <div class="input-container">
+            <label for="id_telefono"></label>
+            {{ form.telefono }}
         </div>
 
-        {{ form.direccion.label_tag }}
-        {{ form.direccion }}
-        <div>
-            {{ form.direccion.errors }}
+        <div class="input-container">
+            <label for="id_direccion"></label>
+            {{ form.direccion }}
         </div>
 
-        {{ form.fecha_de_nacimiento.label_tag }}
-        {{ form.fecha_de_nacimiento }}
-        <div>
-            {{ form.fecha_de_nacimiento.errors }}
+        <div class="input-container">
+            <label for="id_fecha_de_nacimiento"></label>
+            {{ form.fecha_de_nacimiento }}
         </div>
 
-        <p>Ya estas registrado? <a href="#">Iniciar Sesion</a></p>
-
-        <button type="submit">Registrarse</button>
+        <p>Ya estas registrado? <a href="/login"> Iniciar Sesión</a></p>
+       
+        <div class="button-container">
+            <button type="submit">Registrarse</button>
+        </div>        
     </form>
 
     {% if messages %}
@@ -105,5 +148,3 @@
         </div>
     {% endif %}
 {% endblock content %}
-
-
