@@ -6,6 +6,7 @@ from django.contrib.auth import authenticate, login
 from django.http import HttpResponse
 from .models import Usuario, Mascota
 from .forms import UserForm, LoginForm, MascotaForm, PreferenciasForm, ImagenMascotaForm
+from django.urls import reverse
 
 # Create your views here.
 def hello(request):
@@ -40,7 +41,7 @@ def user_login(request):
         if form.is_valid():
             user = form.get_user()
             login(request, user)
-            return redirect('mascotas/') #Agregar la direccion del HOME LOGEADO
+            return redirect('mascotas_usuario')  # Corregir a 'login' si esa es tu URL de inicio de sesión
     else:
         form = LoginForm()
     return render(request, 'Login.html', {'form': form})

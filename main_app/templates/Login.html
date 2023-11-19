@@ -11,7 +11,7 @@
             background-color: #005264;
             padding: 40px;
             border-radius: 40px;
-            width: 900px;
+            width: 60%; 
             height: auto;
             margin: 20px auto;
             box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.1);
@@ -25,6 +25,7 @@
         }
 
         .login {
+            background-color: #D9D9D9;
             display: flex;
             flex-direction: column;
             align-items: center;
@@ -32,7 +33,7 @@
         }
 
         .login > img {
-            width: 5%;
+            width: 100%; 
             height: auto;
             margin-bottom: 20px;
         }
@@ -42,7 +43,7 @@
             flex-direction: column;
             align-items: center;
             margin-bottom: 15px;
-            position: relative; /* Para posicionar las imágenes */
+            position: relative; 
         }
 
         .input-container label {
@@ -51,8 +52,8 @@
         }
 
         .input-container input {
-            width: 35%;
-            padding: 8px 30px 8px 8px; /* Agregado padding derecho para la imagen */
+            width: 20%; 
+            padding: 8px 30px 8px 8px; 
             box-sizing: border-box;
             border: none;
             border-bottom: 1px solid white;
@@ -63,16 +64,15 @@
 
         .input-container .icon {
             position: absolute;
-            right: 35%; 
+            right: 40%;
             top: 50%;
             transform: translateY(-50%);
-            width: 20px; 
+            width: 20px;
             height: auto;
         }
 
-
         .icon img {
-            width: 100%; 
+            width: 100%;
         }
 
         button {
@@ -91,11 +91,22 @@
             background-color: #BD7219;
             border-radius: 50px;
         }
+
+        h1 {
+            font-size: 1.5em; 
+        }
+
+        @media only screen and (max-width: 1200px) {
+            form {
+                width: 80%;
+            }
+        }
+
     </style>
 {% endblock estilos_adicionales %}
 
 {% block content %}
-<div style="margin-top: 100px"></div>
+    <div style="margin-top: 100px"></div>
     <div class="login">
         <form method="post">
             <img src="{% static 'imagenes/login/login.png' %}" alt="" width="20%">
@@ -103,7 +114,7 @@
             {% csrf_token %}
 
             <div class="input-container">
-                <label for="id_username">Nombre de usuario:</label>
+                <label for="id_username">Correo:</label>
                 <div class="icon">
                     <img src="{% static 'imagenes/login/user.png' %}" alt="">
                 </div>
@@ -118,7 +129,7 @@
                 {{ form.password }}
             </div>
 
-            <button type="submit">Iniciar sesion</button>
+            <button type="submit">Iniciar sesión</button>
         </form>
     </div>
 
