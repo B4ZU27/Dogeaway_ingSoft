@@ -12,8 +12,12 @@ class Usuario(AbstractUser):
     telefono = models.CharField(max_length=20)
     fecha_de_nacimiento = models.DateField()
     direccion = models.CharField(max_length=100)
+    
+    #Verificacion del usuario
+    fotografia_identificacion = models.ImageField(upload_to='identificaciones/', null=True, blank=True)
+    verificado = models.BooleanField(default=False)
 
-      # Definir related_name para grupos y permisos
+    # Definir related_name para grupos y permisos
     groups = models.ManyToManyField('auth.Group', related_name='usuarios')
     user_permissions = models.ManyToManyField('auth.Permission', related_name='usuarios')
 

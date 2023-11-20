@@ -1,0 +1,28 @@
+{% extends "layouts/base.html" %}
+
+{% block estilos_adicionales %}
+    <!-- Agrega tus estilos personalizados aquí -->
+{% endblock estilos_adicionales %}
+
+{% block content %}
+    <form method="post">
+        <h1>Detalles de Mascota</h1><br><br>
+        
+        <div class="input-container">
+            <label for="id_nombre">Nombre:</label>
+            <p>{{ mascota.nombre }}</p>
+        </div>
+
+        <div class="input-container">
+            <label for="id_peso">Peso:</label>
+            <p>{{ mascota.peso }}</p>
+        </div>
+
+        <!-- Agrega más campos según sea necesario -->
+
+        <div class="button-container">
+            <a href="{% url 'mascota_actualizar' %}" class="button">Editar Mascota</a>
+            <a href="{% url 'mascota_eliminar' %}" class="button">Eliminar Mascota</a>
+        </div>
+    </form>
+{% endblock content %}

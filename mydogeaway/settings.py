@@ -37,7 +37,9 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
+    'channels', #Es para el Chat
     'main_app' #Aqui agregue la aplicacion, la conecte
+    
 ]
 
 MIDDLEWARE = [
@@ -69,6 +71,7 @@ TEMPLATES = [
 ]
 
 WSGI_APPLICATION = 'mydogeaway.wsgi.application'
+ASGI_APPLICATION = 'mydogeaway.asgi.application'
 
 
 # Database

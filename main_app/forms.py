@@ -42,6 +42,18 @@ class UserForm(UserCreationForm):
             'fecha_de_nacimiento': 'Fecha de nacimiento',
         }
 
+#-----VERIFICACION-----*
+class VerificacionForm(forms.ModelForm):
+    class Meta:
+        model = Usuario
+        fields = ['fotografia_identificacion']
+        labels = {
+            'fotografia_identificacion': 'Subir foto de identificación',
+        }
+        widgets = {
+            'fotografia_identificacion': forms.ClearableFileInput(attrs={'class': 'input-field'}),
+        }
+
 #-----MASCOTA SIGNUP-----*
 class MascotaForm(forms.ModelForm):
     class Meta:

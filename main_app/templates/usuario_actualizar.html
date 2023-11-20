@@ -1,0 +1,28 @@
+{% extends "layouts/base.html" %}
+
+{% block estilos_adicionales %}
+    <!-- Agrega tus estilos personalizados aquí -->
+{% endblock estilos_adicionales %}
+
+{% block content %}
+    <form method="post">
+        <h1>Editar Usuario</h1><br><br>
+        {% csrf_token %}
+        
+        <div class="input-container">
+            <label for="id_username">Nombre de usuario:</label>
+            {{ form.username }}
+        </div>
+
+        <div class="input-container">
+            <label for="id_email">Correo electrónico:</label>
+            {{ form.email }}
+        </div>
+
+        <!-- Agrega más campos según sea necesario -->
+
+        <div class="button-container">
+            <button type="submit">Guardar Cambios</button>
+        </div>
+    </form>
+{% endblock content %}

@@ -1,0 +1,16 @@
+{% extends "layouts/base.html" %}
+
+{% block estilos_adicionales %}
+    <!-- Agrega tus estilos personalizados aquí -->
+{% endblock estilos_adicionales %}
+
+{% block content %}
+    <form method="post">
+        <h1>Confirmar Eliminación de Cuenta</h1><br><br>
+        <p>¿Estás seguro de que deseas eliminar tu cuenta?</p>
+        {% csrf_token %}
+        <div class="button-container">
+            <button type="submit">Sí, eliminar cuenta</button>
+        </div>
+    </form>
+{% endblock content %}

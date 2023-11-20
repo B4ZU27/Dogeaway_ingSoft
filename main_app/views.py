@@ -3,10 +3,14 @@ from django.views.decorators.csrf import csrf_exempt
 from django.shortcuts import redirect, render, get_object_or_404
 from django.views.generic import ListView
 from django.contrib.auth import authenticate, login
+from django.views.generic.edit import UpdateView
+from django.views.generic.edit import DeleteView
+from django.views.generic import DetailView
+from django.urls import reverse_lazy
+from django.contrib import messages
 from django.http import HttpResponse
-from .models import Usuario, Mascota
-from .forms import UserForm, LoginForm, MascotaForm, PreferenciasForm, ImagenMascotaForm
-from django.urls import reverse
+from .models import Usuario, Mascota, Match, Chat
+from .forms import UserForm, LoginForm, MascotaForm, PreferenciasForm, ImagenMascotaForm, VerificacionForm
 
 # Create your views here.
 def hello(request):
@@ -41,7 +45,12 @@ def user_login(request):
         if form.is_valid():
             user = form.get_user()
             login(request, user)
-            return redirect('mascotas_usuario')  # Corregir a 'login' si esa es tu URL de inicio de sesión
+
+            # Verifica si el usuario está verificado antes de redirigir
+            if not user.verificado:
+                messages.warning(request, 'Debes completar la verificación de identificación antes de iniciar sesión.')
+                return redirect('verificacion')
+            return redirect('mascotas_usuario')  # Corrige a la URL de inicio de sesión si es diferente
     else:
         form = LoginForm()
     return render(request, 'Login.html', {'form': form})
@@ -51,13 +60,35 @@ def signup(request):
     if request.method == 'POST':
         form = UserForm(request.POST)
         if form.is_valid():
-            form.save()
-            return redirect('regitro_mascota')  # Redirige a la página de preferencias después del registro
+            user = form.save(commit=False)
+            user.set_password(form.cleaned_data['password1'])
+            user.save()
+
+            # Redirige a la página de verificación después del registro exitoso
+            messages.success(request, 'Registro exitoso. Ahora procede con la verificación de identificación.')
+            return redirect('verificacion')
     else:
         form = UserForm()
-    return render(request,'Signup.html', {'form': form , 
-                                        'title': "Sign up",
-                                        'link': "{% static 'css/registros.css' %}"})
+    return render(request, 'Signup.html', {'form': form, 'title': "Sign up", 'link': "{% static 'css/registros.css' %}"})
+
+#-----VERIFICACION-----*
+def verificacion(request):
+    if request.method == 'POST':
+        form = VerificacionForm(request.POST, request.FILES, instance=request.user)
+
+        if form.is_valid():
+            form.save()
+            # Marcar al usuario como verificado después de enviar la foto de identificación
+            request.user.verificado = True
+            request.user.save()
+
+            messages.success(request, 'Verificación exitosa. Ahora puedes iniciar sesión.')
+            return redirect('login')
+        else:
+            messages.error(request, 'Hubo un problema con tu solicitud de verificación. Asegúrate de cargar una foto de identificación.')
+    else:
+        form = VerificacionForm(instance=request.user)
+    return render(request, 'verificacion.html', {'form': form})
 
 #-----PREFERENCIAS VIEW-----*
 @login_required
@@ -144,12 +175,72 @@ def cargar_imagenes_mascota(request, mascota_id):
             imagenes_mascota = form.save(commit=False)
             imagenes_mascota.mascota = mascota
             imagenes_mascota.save()
-            return redirect('mascotas_usuario')  # Redirige a la siguiente página después de cargar las imágenes
+            return redirect('mascotas_usuario')
     else:
         form = ImagenMascotaForm()
 
     return render(request, 'registroImagenes_Mascota.html', {'form': form, 'mascota': mascota})
 
+#-----EDITAR USUARIO-----*
+class UsuarioUpdateView(UpdateView):
+    model = Usuario
+    template_name = 'usuario_actualizar.html'
+    fields = ['telefono', 'fecha_de_nacimiento', 'direccion']
+
+    def get_success_url(self):
+        return reverse_lazy('home')
+
+#-----ELIMINAR USUARIO-----*
+class UsuarioDeleteView(DeleteView):
+    model = Usuario
+    template_name = 'usuario_eliminar.html'
+
+    def get_success_url(self):
+        return reverse_lazy('logout')
+
+#-----DETALLE USUARIO-----*
+class UsuarioDetailView(DetailView):
+    model = Usuario
+    template_name = 'usuario_detalle.html'
+    context_object_name = 'usuario'
+
+    def get_object(self, queryset=None):
+        return self.request.user
+    
+#-----EDITAR MASCOTA-----*
+class MascotaUpdateView(UpdateView):
+    model = Mascota
+    template_name = 'mascota_actualizar.html'
+    fields = ['nombre', 'peso', 'sexo', 'tamaño', 'descripcion', 'raza', 'tiene_cartilla']
+
+    def get_success_url(self):
+        return reverse_lazy('home')
+
+#-----ELIMINAR MASCOTA-----*
+class MascotaDeleteView(DeleteView):
+    model = Mascota
+    template_name = 'mascota_eliminar.html'
+
+    def get_success_url(self):
+        return reverse_lazy('mascotas_usuario')
+
+#-----DETALLE MASCOTA-----*
+class MascotaDetailView(DetailView):
+    model = Mascota
+    template_name = 'mascota_detalle.html'
+    context_object_name = 'mascota'
+
+    def get_object(self, queryset=None):
+        mascota_seleccionada_id = self.request.session.get('mascota_seleccionada_id')
+        return get_object_or_404(Mascota, id=mascota_seleccionada_id, dueño=self.request.user)
+
+#-----CHAT-----*
+@login_required
+def chat_view(request, match_id):
+    match = get_object_or_404(Match, id=match_id)
+    mensajes = Chat.objects.filter(match=match).order_by('fecha_mensaje')
+
+    return render(request, 'chat.html', {'match': match, 'mensajes': mensajes})
 
 #Lista de ususarios
 class ListaUsuariosView(ListView):
