@@ -23,6 +23,7 @@
 
         <div class="button-container">
             <button type="submit">Guardar Cambios</button>
+            <a href="{% url 'usuario_detalles' pk=usuario.id %}">Cancelar</a>
         </div>
     </form>
 {% endblock content %}

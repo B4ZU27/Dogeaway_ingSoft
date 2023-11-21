@@ -1,0 +1,13 @@
+{% extends "layouts/base.html" %}
+
+{% block content %}
+  <h2>Usuarios Bloqueados</h2>
+  <ul>
+    {% for usuario in usuarios_bloqueados %}
+      <li>
+        {{ usuario.username }}
+        <a href="{% url 'desbloquear_usuario' usuario.id %}">Desbloquear</a>
+      </li>
+    {% endfor %}
+  </ul>
+{% endblock %}

@@ -16,6 +16,9 @@ class Usuario(AbstractUser):
     #Verificacion del usuario
     fotografia_identificacion = models.ImageField(upload_to='identificaciones/', null=True, blank=True)
     verificado = models.BooleanField(default=False)
+    
+    #Bloqueos
+    usuarios_bloqueados = models.ManyToManyField('self', symmetrical=False, related_name='usuarios_bloqueadores')
 
     # Definir related_name para grupos y permisos
     groups = models.ManyToManyField('auth.Group', related_name='usuarios')
@@ -84,6 +87,8 @@ class Match(models.Model):
     mascota1 = models.ForeignKey(Mascota, on_delete=models.CASCADE, related_name='mascota1')
     mascota2 = models.ForeignKey(Mascota, on_delete=models.CASCADE, related_name='mascota2')
     fecha_match = models.DateTimeField(auto_now_add=True)
+    
+    bloqueado = models.BooleanField(default=False)  # Nuevo campo
 
     def __str__(self):
         return f'Match entre {self.mascota1.nombre} y {self.mascota2.nombre}'
@@ -95,6 +100,18 @@ class Chat(models.Model):
     destinatario = models.ForeignKey(Usuario, on_delete=models.CASCADE, related_name='destinatario')
     mensaje = models.TextField()
     fecha_mensaje = models.DateTimeField(auto_now_add=True)
+    
+    bloqueado = models.BooleanField(default=False)  # Nuevo campo
 
     def __str__(self):
         return f'Mensaje de {self.remitente.nombre} para {self.destinatario.nombre} en el chat de {self.match}'
+
+#-----REPORTES-----*
+class Reportes(models.Model):
+    reportador = models.ForeignKey(Usuario, on_delete=models.CASCADE, related_name='reportes_realizados')
+    usuario_reportado = models.ForeignKey(Usuario, on_delete=models.CASCADE, related_name='reportes_recibidos')
+    motivo = models.TextField()
+    fecha_reporte = models.DateTimeField(auto_now_add=True)
+
+    def __str__(self):
+        return f'Reporte de {self.reportador.username} a {self.usuario_reportado.username}'

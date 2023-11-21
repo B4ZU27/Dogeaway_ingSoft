@@ -21,8 +21,8 @@
         <!-- Agrega más campos según sea necesario -->
 
         <div class="button-container">
-            <a href="{% url 'usuario_actualizar' %}" class="button">Editar Usuario</a>
-            <a href="{% url 'usuario_eliminar' %}" class="button">Eliminar Cuenta</a>
+            <a href="{% url 'usuario_actualizar' pk=usuario.id %}" class="button">Editar Usuario</a>
+            <a href="{% url 'usuario_eliminar' pk=usuario.id %}" class="button">Eliminar Cuenta</a>
         </div>
     </form>
 {% endblock content %}

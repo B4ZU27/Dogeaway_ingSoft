@@ -20,13 +20,19 @@ urlpatterns = [
     
     path('usuario/<int:pk>/actualizar/', views.UsuarioUpdateView.as_view(), name='usuario_actualizar'),
     path('usuario/<int:pk>/eliminar/', views.UsuarioDeleteView.as_view(), name='usuario_eliminar'),
-    path('usuario/detalles/', views.UsuarioDetailView.as_view(), name='usuario_detalles'),
+    path('usuario/<int:pk>/detalles/', views.UsuarioDetailView.as_view(), name='usuario_detalles'),
+
     
     path('mascota/<int:pk>/actualizar/', views.MascotaUpdateView.as_view(), name='mascota_actualizar'),
     path('mascota/<int:pk>/eliminar/', views.MascotaDeleteView.as_view(), name='mascota_eliminar'),
     path('mascota/detalles/', views.MascotaDetailView.as_view(), name='mascota_detalles'),
     
     path('chat/<int:match_id>/', views.chat_view, name='chat'),
+    
+    path('reportar/<int:usuario_id>/', views.reportar_usuario, name='reportar_usuario'),
+    path('bloquear/<int:usuario_id>/', views.bloquear_usuario, name='bloquear_usuario'),
+    path('desbloquear/<int:usuario_id>/', views.desbloquear_usuario, name='desbloquear_usuario'),
+    path('usuarios_bloqueados/', views.lista_usuarios_bloqueados, name='lista_usuarios_bloqueados'),
 
     path('MATCH/', views.match_view, name='Match'),
     path('logout/', LogoutView.as_view(), name='logout'),

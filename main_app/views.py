@@ -10,7 +10,7 @@ from django.urls import reverse_lazy
 from django.contrib import messages
 from django.http import HttpResponse
 from .models import Usuario, Mascota, Match, Chat
-from .forms import UserForm, LoginForm, MascotaForm, PreferenciasForm, ImagenMascotaForm, VerificacionForm
+from .forms import UserForm, LoginForm, MascotaForm, PreferenciasForm, ImagenMascotaForm, VerificacionForm, ReportesForm
 
 # Create your views here.
 def hello(request):
@@ -185,7 +185,8 @@ def cargar_imagenes_mascota(request, mascota_id):
 class UsuarioUpdateView(UpdateView):
     model = Usuario
     template_name = 'usuario_actualizar.html'
-    fields = ['telefono', 'fecha_de_nacimiento', 'direccion']
+    form_class = UserForm
+    #fields = ['telefono', 'fecha_de_nacimiento', 'direccion'] #Agregar mas campos para editar
 
     def get_success_url(self):
         return reverse_lazy('home')
@@ -198,14 +199,15 @@ class UsuarioDeleteView(DeleteView):
     def get_success_url(self):
         return reverse_lazy('logout')
 
-#-----DETALLE USUARIO-----*
+#-----DETALLE USUARIO-----
 class UsuarioDetailView(DetailView):
     model = Usuario
     template_name = 'usuario_detalle.html'
     context_object_name = 'usuario'
 
     def get_object(self, queryset=None):
-        return self.request.user
+        return self.request.user  # Devuelve el usuario autenticado
+
     
 #-----EDITAR MASCOTA-----*
 class MascotaUpdateView(UpdateView):
@@ -240,7 +242,64 @@ def chat_view(request, match_id):
     match = get_object_or_404(Match, id=match_id)
     mensajes = Chat.objects.filter(match=match).order_by('fecha_mensaje')
 
+    if request.method == 'POST':
+        mensaje = request.POST.get('mensaje')
+        if mensaje:
+            Chat.objects.create(
+                match=match,
+                remitente=request.user,
+                mensaje=mensaje
+            )
     return render(request, 'chat.html', {'match': match, 'mensajes': mensajes})
+
+#-----REPORTAR USUARIO-----*
+def reportar_usuario(request, usuario_id):
+    usuario_reportado = get_object_or_404(Usuario, id=usuario_id)
+
+    if request.method == 'POST':
+        form = ReportesForm(request.POST)
+        if form.is_valid():
+            reporte = form.save(commit=False)
+            reporte.reportador = request.user
+            reporte.usuario_reportado = usuario_reportado
+            reporte.save()
+            return redirect('home')
+    else:
+        form = ReportesForm()
+
+    return render(request, 'reportar_usuario.html', {'form': form, 'usuario_reportado': usuario_reportado})
+
+#-----BLOQUEAR USUARIO-----*
+@login_required
+def bloquear_usuario(request, usuario_id):
+    usuario_a_bloquear = get_object_or_404(Usuario, id=usuario_id)
+
+    # Agregar el usuario a la lista de bloqueados
+    request.user.usuarios_bloqueados.add(usuario_a_bloquear)
+
+    # Bloquear los matches y chats existentes
+    Match.objects.filter(mascota1__dueño=request.user, mascota2__dueño=usuario_a_bloquear).update(bloqueado=True)
+    Match.objects.filter(mascota1__dueño=usuario_a_bloquear, mascota2__dueño=request.user).update(bloqueado=True)
+    Chat.objects.filter(match__mascota1__dueño=request.user, match__mascota2__dueño=usuario_a_bloquear).update(bloqueado=True)
+    Chat.objects.filter(match__mascota1__dueño=usuario_a_bloquear, match__mascota2__dueño=request.user).update(bloqueado=True)
+
+    return redirect('home')
+
+#-----DESBLOQUEAR USUARIO-----*
+@login_required
+def desbloquear_usuario(request, usuario_id):
+    usuario_a_desbloquear = get_object_or_404(Usuario, id=usuario_id)
+
+    # Eliminar al usuario de la lista de bloqueados
+    request.user.usuarios_bloqueados.remove(usuario_a_desbloquear)
+
+    return redirect('home')
+
+#-----LISTA USUARIOS BLOQUEADOS-----*
+@login_required
+def lista_usuarios_bloqueados(request):
+    usuarios_bloqueados = request.user.usuarios_bloqueados.all()
+    return render(request, 'lista_usuarios_bloqueados.html', {'usuarios_bloqueados': usuarios_bloqueados})
 
 #Lista de ususarios
 class ListaUsuariosView(ListView):

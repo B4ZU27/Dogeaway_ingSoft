@@ -1,7 +1,7 @@
 from django import forms
 from django.contrib.auth.forms import AuthenticationForm
 from django.contrib.auth.forms import UserCreationForm
-from .models import Usuario, Mascota, ImagenMascota, Preferencias
+from .models import Usuario, Mascota, ImagenMascota, Preferencias, Reportes
 
 # -----USER LOGIN-----
 class LoginForm(AuthenticationForm):
@@ -90,3 +90,9 @@ class PreferenciasForm(forms.ModelForm):
     class Meta:
         model = Preferencias
         fields = ['preferencia_tamaño', 'preferencia_raza', 'preferencia_edad_min', 'preferencia_edad_max']
+
+#-----REPORTES FORM-----*
+class ReportesForm(forms.ModelForm):
+    class Meta:
+        model = Reportes
+        fields = ['motivo']
