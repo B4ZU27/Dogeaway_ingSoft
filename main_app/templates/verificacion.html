@@ -1,7 +1,18 @@
 {% extends 'layouts/base.html' %}
+{% load static %}
+{% block estilos_adicionales %}
+    <link rel="stylesheet" href="{% static 'css/verificacion.css' %}">
+{% endblock %}
 
 {% block content %}
-  <h2>Verificación de Identificación</h2>
+  <div class="usuario-logueado">
+    <img src="{% static 'imagenes/verificacion/verificacion.png' %}" alt="Icono de verificación">
+    <h1>¡Hola {{ user.username }}!</h1><br>
+  </div>
+
+  <h2>VERIFICA TU CUENTA</h2>
+
+  <p>Para garantizar la seguridad de nuestra comunidad, requerimos una rápida verificación de tu identidad.<br> Este proceso es simple, seguro y necesario para brindarte una experiencia confiable. ¡Gracias por tu cooperación!</p>
   {% if messages %}
     <ul class="messages">
       {% for message in messages %}
@@ -12,7 +23,11 @@
   
   <form method="post" enctype="multipart/form-data">
     {% csrf_token %}
-    {{ form.as_p }}
-    <button type="submit">Enviar Verificación</button>
-  </form>
+    <div class="file-upload">
+      <p class="archivo">Sube tu idetificación.</p>
+        <label for="file-input">Seleccionar Archivo</label>
+        <input type="file" id="file-input" name="archivo" />
+    </div>
+    <button type="submit">Enviar Archivo</button>
+</form>
 {% endblock %}

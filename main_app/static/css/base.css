@@ -25,13 +25,12 @@
     margin: 0 auto;
 }
 
-/* Estilos para las etiquetas */
+
 label {
     display: block;
     margin-bottom: 10px;
 }
 
-/* Estilos para los campos de entrada */
 input[type="text"],
 input[type="email"],
 input[type="password"] {
@@ -44,25 +43,15 @@ input[type="password"] {
     color: #000;
 }
 
-/* Estilo para el botón de envío */
 button[type="submit"] {
     display: block;
-    margin-top: 10px; /* Agrega espacio entre los campos y el botón */
+    margin-top: 10px;
+    
 } 
 
 #logout-link {
-    background-color: #ff0000; /* Color de fondo rojo */
-    color: #ffffff; /* Color del texto blanco */
-    padding: 10px 20px; /* Espaciado interno para hacer que parezca un botón */
-    text-decoration: none; /* Quita la subraya del enlace */
-    border-radius: 5px; /* Bordes redondeados */
+    color: #ffffff; 
 }
-
-/* Cambiar el color del enlace cuando se coloca el cursor encima */
-#logout-link:hover {
-    background-color: #cc0000; /* Cambiar el color de fondo cuando se coloca el cursor encima */
-}
-
 
 
 /*------------------------------------------------------ HEADER ------------------------------------------------------*/
@@ -90,14 +79,13 @@ header nav ul li{
     display: inline-block;
     padding: 0px 20px;
 }
-
 header nav ul li:hover {
     transition: 0.5s;
     background-color: #BD7219;
     border-radius: 50px;
   }
 
-header nav ul li a{
+header nav ul li a {
     color: white;
     font-size: 20px;
 }
@@ -112,7 +100,6 @@ header nav .logo{
 header nav .logo img{
     width: 200px;
 }
-
 
 /*----------------------------------------------------  PRESENTACION  ----------------------------------------------------*/
 

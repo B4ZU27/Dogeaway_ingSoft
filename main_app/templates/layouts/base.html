@@ -19,7 +19,7 @@
             </div>
             <ul>
                 {% if user.is_authenticated and user.verificado %}
-                    <li>Hola {{ user.username }}</li>
+                <!--<li class="hola">¡Hola {{ user.username }}!</li>-->
                     {% if mascota_seleccionada %}
                         <li>Mascota Seleccionada: <a href="{% url 'Match' %}">{{ mascota_seleccionada.nombre }}</a></li>
                         <!-- Puedes mostrar más información aquí según sea necesario -->
