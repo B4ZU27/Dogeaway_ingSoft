@@ -158,11 +158,18 @@ def match_view(request):
         usuario_id_actual = request.session.get('usuario.id')
         # Filtra las mascotas excluyendo aquellas que pertenecen al usuario actual
         lista_mascotas = Mascota.objects.exclude(dueño__id=usuario_id_actual)
+        for mascota in lista_mascotas:
+            print(mascota.nombre)
+            print(mascota.raza)
+            print(mascota.descripcion)
     else:
         mascota_seleccionada = None
             # Redirige a la página de inicio después de seleccionar una mascota
 
-    return render(request, 'Elegir_Mascota.html', {'mascota_selec': mascota_seleccionada, 'mascotas': lista_mascotas})
+    return render(request, 'match.html', { 
+        'title': "Match",
+        'mascota_selec': mascota_seleccionada,
+        'mascotas': lista_mascotas})
 
 #----IMAGENES MASCOTA-----*
 @login_required
@@ -304,5 +311,5 @@ def lista_usuarios_bloqueados(request):
 #Lista de ususarios
 class ListaUsuariosView(ListView):
     model = Usuario
-    template_name = 'lista.html'  # Reemplaza 'tu_app' con el nombre de tu aplicación
+    template_name = 'lista.html'  
     context_object_name = 'usuarios'

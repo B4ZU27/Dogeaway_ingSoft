@@ -2,12 +2,14 @@
 
 {% block content %}
 {# ESTO NO ESTA PROBADO PERO ES UNA IDEA DE LO QUE SE NECESITA HACER #}
+<div style="margin-top: 100px"></div>
+<h1>Match en construccion</h1>
 <div id="mascota-container">
     {% for mascota in mascotas %}
         <div class="mascota" style="display: none;">
             <h1>{{ mascota.nombre }}</h1>
             <p>{{ mascota.descripcion }}</p>
-            <!-- Agrega más detalles de la mascota según tus necesidades -->
+            
         </div>
     {% endfor %}
 
