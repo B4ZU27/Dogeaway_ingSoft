@@ -1,4 +1,9 @@
 {% extends "layouts/base.html" %}
+{% load static %}
+{% block estilos_adicionales %}
+    <link rel="stylesheet" href="{% static 'css/match.css' %}">
+{% endblock %}
+
 
 {% block content %}
 {# ESTO NO ESTA PROBADO PERO ES UNA IDEA DE LO QUE SE NECESITA HACER #}
@@ -6,15 +11,30 @@
 <h1>Match en construccion</h1>
 <div id="mascota-container">
     {% for mascota in mascotas %}
-        <div class="mascota" style="display: none;">
-            <h1>{{ mascota.nombre }}</h1>
-            <p>{{ mascota.descripcion }}</p>
-            
-        </div>
-    {% endfor %}
+    <div class="mascota">
+        <div class="card text-center">
+            <div class="card-header">
+                <h1>{{ mascota.nombre }}</h1>
+            </div>
 
-    <button id="btn-siguiente-mascota">Siguiente Mascota</button>
+            <div class="card-body">
+                <h5 class="card-title">{{ mascota.raza }}</h5>
+                <p class="card-text">{{ mascota.descripcion }}</p>
+                <button href="#" type="button" id="btn-siguiente-mascota" class="btn btn-outline-danger">
+                    <i class="bi bi-arrow-through-heart"></i> Match
+                </button>
+            </div>
+
+            <div class="d-grid gap-2">
+                <button type="button" class="btn btn-outline-secondary">
+                    <i class="bi bi-arrow-down"></i>
+                </button>
+            </div>
+        </div>
+    </div>
+    {% endfor %}
 </div>
+
 
 <script>
 document.addEventListener('DOMContentLoaded', function() {

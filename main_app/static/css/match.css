@@ -1,0 +1,12 @@
+#mascota-container {
+    display: flex;
+    justify-content: center; /* Centra horizontalmente */
+    margin-top: 100px;
+    width: auto;
+    height: 100vh; /* Establece la altura al 100% del viewport */
+}
+
+.mascota {
+    display: none;
+    /* Agrega cualquier estilo adicional que necesites para las mascotas individuales */
+}
