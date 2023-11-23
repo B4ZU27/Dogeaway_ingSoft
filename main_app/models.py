@@ -40,8 +40,12 @@ class Mascota(models.Model):
     dueño = models.ForeignKey(Usuario, on_delete=models.CASCADE)
     nombre = models.CharField(max_length=100)
     peso = models.FloatField(null=True, blank=True, validators=[
-            MinValueValidator(0),  # El peso no puede ser menor que 0
+            MinValueValidator(5),  # El peso no puede ser menor que 0
             MaxValueValidator(150)  # El peso no puede ser mayor que 100
+        ])
+    edad = models.FloatField(null=True, blank=True, validators=[
+            MinValueValidator(2),  # El peso no puede ser menor que 0
+            MaxValueValidator(12)  # El peso no puede ser mayor que 100
         ])
     SEXO_CHOICES = (
         ('M', 'Macho'),

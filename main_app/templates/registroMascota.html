@@ -14,23 +14,34 @@
     <div class="input-container">
         {{ mascota_form.nombre.label_tag }}
         {{ mascota_form.nombre }} 
-        <div class="alert-error">
-            {{ mascota_form.nombre.errors }}
+    </div>
+    <div class="select-container">
+        {{ mascota_form.raza.label_tag }}
+        {{ mascota_form.raza }}
+        <div style="color: red">
+            {{ mascota_form.raza.errors }}
         </div>
     </div>
-    
     <div class="select-container">
-        {{ mascota_form.peso.label_tag }} en KG
+        {{ mascota_form.edad.label_tag }} 
+        {{ mascota_form.edad }}
+        
+        {{ mascota_form.edad.errors }}
+        
+    </div>
+
+    <div class="select-container">
+        {{ mascota_form.peso.label_tag }} 
         {{ mascota_form.peso }}
-        <div class="alert-error">
-            {{ mascota_form.peso.errors }}
-        </div>
+        
+        {{ mascota_form.peso.errors }}
+        
     </div>
     
     <div class="select-container">
         {{ mascota_form.sexo.label_tag }}
         {{ mascota_form.sexo }}
-        <div class="alert-error">
+        <div style="color: red">
             {{ mascota_form.sexo.errors }}
         </div>
     </div>
@@ -38,7 +49,7 @@
     <div class="select-container">
         {{ mascota_form.tamaño.label_tag }}
         {{ mascota_form.tamaño }}
-        <div class="alert-error">
+        <div style="color: red">
             {{ mascota_form.tamaño.errors }}
         </div>
     </div>
@@ -46,29 +57,23 @@
     <div class="input-container">
         {{ mascota_form.descripcion.label_tag }}
         {{ mascota_form.descripcion }}
-        <div class="alert-error">
+        <div style="color: red">
             {{ mascota_form.descripcion.errors }}
         </div>
     </div>
     
-    <div class="select-container">
-        {{ mascota_form.raza.label_tag }}
-        {{ mascota_form.raza }}
-        <div class="alert-error">
-            {{ mascota_form.raza.errors }}
-        </div>
-    </div>
+    
     
     <div class="input-container">
         {{ mascota_form.tiene_cartilla.label_tag }}
         {{ mascota_form.tiene_cartilla }}
-        <div class="alert-error">
+        <div style="color: red">
             {{ mascota_form.tiene_cartilla.errors }}
         </div>
     </div>
     
     {# Formulario para imágenes de mascota #}
-    <div class="file-upload-container">
+    <!-- <div class="file-upload-container">
         <p>Sube imagenes de tu mascota!</p>
         
         <div class="form-group">
@@ -96,7 +101,7 @@
             <p>No hay imagen_2 asociada</p>
         {% endif %}
        </div>
-    </div>
+    </div> -->
     <button class="button-submit" type="submit">Guardar</button>
   </form>
 </div>

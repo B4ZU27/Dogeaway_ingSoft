@@ -134,12 +134,4 @@ form {
 
 .alert-error {
     color: #721c24; /* Color del texto */
-    background-color: #f8d7da; /* Color de fondo */
-    border-color: #f5c6cb; /* Color del borde */
-
-    /* Puedes agregar más estilos según tus necesidades */
-    padding: 8px; /* Ajusta el espaciado interno */
-    margin-top: 5px; /* Ajusta el margen superior */
-    border: 1px solid transparent;
-    border-radius: .25rem;
 }
