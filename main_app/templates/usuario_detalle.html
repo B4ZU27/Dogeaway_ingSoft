@@ -1,14 +1,21 @@
 {% extends "layouts/base.html" %}
 {% load static %}
 
-{% block estilos_adicionales %}
-    <link rel="stylesheet" href="{% static 'css/usuario_detalle.css' %}">
-{% endblock %}
-
 {% block content %}
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="{% static 'css/usuario_detalle.css' %}">
+    <title></title>
+</head>
+
+<body>
     <form method="post">
         <h1>Detalles de Usuario</h1><br><br>
-        
+
         <div class="input-container">
             <label for="id_username">Nombre de usuario:</label>
             <p>{{ usuario.username }}</p>
@@ -26,4 +33,7 @@
             <a href="{% url 'usuario_eliminar' pk=usuario.id %}" class="button">Eliminar Cuenta</a>
         </div>
     </form>
+</body>
+
+</html>
 {% endblock content %}

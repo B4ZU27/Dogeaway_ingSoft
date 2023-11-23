@@ -1,14 +1,22 @@
 {% extends "layouts/base.html" %}
 {% load static %}
 
-{% block estilos_adicionales %}
-  <link rel="stylesheet" href="{% static 'css/mascota_detalle.css' %}">
-{% endblock %}
-
 {% block content %}
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="{% static 'css/mascota_detalle.css' %}">
+    <title></title>
+</head>
+
+<body>
+
     <form method="post">
         <h1>Detalles de Mascota</h1><br><br>
-        
+
         <div class="input-container">
             <label for="id_nombre">Nombre:</label>
             <p>{{ mascota.nombre }}</p>
@@ -26,4 +34,7 @@
             <a href="{% url 'mascota_eliminar' %}" class="button">Eliminar Mascota</a>
         </div>
     </form>
+</body>
+
+</html>
 {% endblock content %}

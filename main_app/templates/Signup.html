@@ -1,17 +1,23 @@
 {% extends "layouts/base.html" %}
 {% load static %}
-
-{% block estilos_adicionales %}
-    <link rel="stylesheet" href="{% static 'css/signup.css' %}">
-{% endblock %}
-
 {% block content %}
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="{% static 'css/signup.css' %}">
+    <title></title>
+</head>
+
+<body>
     <div class="signup">
         <form method="post">
             <img src="{% static 'imagenes/login/login.png' %}" alt="" width="20%">
             <h1>REGISTRO DE USUARIO</h1><br><br>
             {% csrf_token %}
-            
+
             <div class="input-container">
                 <label for="id_username"></label>
                 {{ form.username }}
@@ -48,18 +54,21 @@
             </div>
 
             <p>Ya estás registrado? <a href="/login">Iniciar Sesión</a></p>
-           
+
             <div class="button-container">
                 <button type="submit">Registrarse</button>
-            </div>        
+            </div>
         </form>
 
         {% if messages %}
-            <div class="alert alert-danger">
-                {% for message in messages %}
-                    {{ message }}
-                {% endfor %}
-            </div>
+        <div class="alert alert-danger">
+            {% for message in messages %}
+            {{ message }}
+            {% endfor %}
+        </div>
         {% endif %}
     </div>
+</body>
+
+</html>
 {% endblock content %}

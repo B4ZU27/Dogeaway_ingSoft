@@ -1,104 +1,114 @@
 {% include "layouts/base.html" %}
 {% load static %}
-{% block estilos_ad %}
-<link rel="stylesheet" href="{% static 'css/registroMascota.css' %}">
-{% endblock estilos_ad %}
 
 {% block content %}
-<div class="registroMascota">
-  <form method="post" enctype="multipart/form-data">
-    <h1>REGISTRO DE MASCOTA</h1>
-    {% csrf_token %}
+<!DOCTYPE html>
+<html lang="en">
 
-    {# Formulario para datos de mascota #}
-    <div class="input-container">
-        {{ mascota_form.nombre.label_tag }}
-        {{ mascota_form.nombre }} 
-        <div class="alert-error">
-            {{ mascota_form.nombre.errors }}
-        </div>
-    </div>
-    
-    <div class="select-container">
-        {{ mascota_form.peso.label_tag }} en KG
-        {{ mascota_form.peso }}
-        <div class="alert-error">
-            {{ mascota_form.peso.errors }}
-        </div>
-    </div>
-    
-    <div class="select-container">
-        {{ mascota_form.sexo.label_tag }}
-        {{ mascota_form.sexo }}
-        <div class="alert-error">
-            {{ mascota_form.sexo.errors }}
-        </div>
-    </div>
-    
-    <div class="select-container">
-        {{ mascota_form.tamaño.label_tag }}
-        {{ mascota_form.tamaño }}
-        <div class="alert-error">
-            {{ mascota_form.tamaño.errors }}
-        </div>
-    </div>
-    
-    <div class="input-container">
-        {{ mascota_form.descripcion.label_tag }}
-        {{ mascota_form.descripcion }}
-        <div class="alert-error">
-            {{ mascota_form.descripcion.errors }}
-        </div>
-    </div>
-    
-    <div class="select-container">
-        {{ mascota_form.raza.label_tag }}
-        {{ mascota_form.raza }}
-        <div class="alert-error">
-            {{ mascota_form.raza.errors }}
-        </div>
-    </div>
-    
-    <div class="input-container">
-        {{ mascota_form.tiene_cartilla.label_tag }}
-        {{ mascota_form.tiene_cartilla }}
-        <div class="alert-error">
-            {{ mascota_form.tiene_cartilla.errors }}
-        </div>
-    </div>
-    
-    {# Formulario para imágenes de mascota #}
-    <div class="file-upload-container">
-        <p>Sube imagenes de tu mascota!</p>
-        
-        <div class="form-group">
-            {{ imagen_form.imagen_1.label_tag }}
-            {{ imagen_form.imagen_1 }}
-            <div class="alert-error">
-                {{ imagen_form.imagen_1.errors }}
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="{% static 'css/registroMascota.css' %}">
+    <title></title>
+</head>
+
+<body>
+    <div class="registroMascota">
+        <form method="post" enctype="multipart/form-data">
+            <h1>REGISTRO DE MASCOTA</h1>
+            {% csrf_token %}
+
+            {# Formulario para datos de mascota #}
+            <div class="input-container">
+                {{ mascota_form.nombre.label_tag }}
+                {{ mascota_form.nombre }}
+                <div class="alert-error">
+                    {{ mascota_form.nombre.errors }}
+                </div>
             </div>
-            {% if imagen_form.instance.imagen_1 %}
-                <img src="{{ imagen_form.instance.imagen_1.url }}" alt="Imagen 1">
-                <pre>{{ imagen_form.instance|pprint }}</pre>
-            {% endif %}
-        </div>  
 
-      <div class="form-group">
-        {{ imagen_form.imagen_2.label_tag }}
-        {{ imagen_form.imagen_2 }}
-        <div class="alert-error">
-            {{ imagen_form.imagen_2.errors }}
-        </div>
-        {% if imagen_form.instance.imagen_2 %}
-            <img src="{{ imagen_form.instance.imagen_2.url }}" alt="Imagen 2">
-            <pre>{{ imagen_form.instance|pprint }}</pre>
-        {% else %}
-            <p>No hay imagen_2 asociada</p>
-        {% endif %}
-       </div>
+            <div class="select-container">
+                {{ mascota_form.peso.label_tag }} en KG
+                {{ mascota_form.peso }}
+                <div class="alert-error">
+                    {{ mascota_form.peso.errors }}
+                </div>
+            </div>
+
+            <div class="select-container">
+                {{ mascota_form.sexo.label_tag }}
+                {{ mascota_form.sexo }}
+                <div class="alert-error">
+                    {{ mascota_form.sexo.errors }}
+                </div>
+            </div>
+
+            <div class="select-container">
+                {{ mascota_form.tamaño.label_tag }}
+                {{ mascota_form.tamaño }}
+                <div class="alert-error">
+                    {{ mascota_form.tamaño.errors }}
+                </div>
+            </div>
+
+            <div class="input-container">
+                {{ mascota_form.descripcion.label_tag }}
+                {{ mascota_form.descripcion }}
+                <div class="alert-error">
+                    {{ mascota_form.descripcion.errors }}
+                </div>
+            </div>
+
+            <div class="select-container">
+                {{ mascota_form.raza.label_tag }}
+                {{ mascota_form.raza }}
+                <div class="alert-error">
+                    {{ mascota_form.raza.errors }}
+                </div>
+            </div>
+
+            <div class="input-container">
+                {{ mascota_form.tiene_cartilla.label_tag }}
+                {{ mascota_form.tiene_cartilla }}
+                <div class="alert-error">
+                    {{ mascota_form.tiene_cartilla.errors }}
+                </div>
+            </div>
+
+            {# Formulario para imágenes de mascota #}
+            <div class="file-upload-container">
+                <p>Sube imagenes de tu mascota!</p>
+
+                <div class="form-group">
+                    {{ imagen_form.imagen_1.label_tag }}
+                    {{ imagen_form.imagen_1 }}
+                    <div class="alert-error">
+                        {{ imagen_form.imagen_1.errors }}
+                    </div>
+                    {% if imagen_form.instance.imagen_1 %}
+                    <img src="{{ imagen_form.instance.imagen_1.url }}" alt="Imagen 1">
+                    <pre>{{ imagen_form.instance|pprint }}</pre>
+                    {% endif %}
+                </div>
+
+                <div class="form-group">
+                    {{ imagen_form.imagen_2.label_tag }}
+                    {{ imagen_form.imagen_2 }}
+                    <div class="alert-error">
+                        {{ imagen_form.imagen_2.errors }}
+                    </div>
+                    {% if imagen_form.instance.imagen_2 %}
+                    <img src="{{ imagen_form.instance.imagen_2.url }}" alt="Imagen 2">
+                    <pre>{{ imagen_form.instance|pprint }}</pre>
+                    {% else %}
+                    <p>No hay imagen_2 asociada</p>
+                    {% endif %}
+                </div>
+            </div>
+            <button class="button-submit" type="submit">Guardar</button>
+        </form>
     </div>
-    <button class="button-submit" type="submit">Guardar</button>
-  </form>
-</div>
-{% endblock content %}
+</body>
 
+</html>
+{% endblock content %}
