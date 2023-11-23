@@ -35,39 +35,55 @@
     {% endfor %}
 </div>
 
+{% endblock content %}
 
+{# ----------------------------------------------------------------------------------- #}
+
+{% block SCRIPTS %}
 <script>
-document.addEventListener('DOMContentLoaded', function() {
-    // Variables
-    const mascotaContainer = document.getElementById('mascota-container');
-    const botonesMascota = document.querySelectorAll('.mascota');
-    let indiceMascotaActual = 0;
-
-    // Función para mostrar la mascota actual
-    function mostrarMascotaActual() {
-        botonesMascota.forEach((mascota, index) => {
-            mascota.style.display = index === indiceMascotaActual ? 'block' : 'none';
+    document.addEventListener('DOMContentLoaded', function() {
+        // Variables
+        const mascotaContainer = document.getElementById('mascota-container');
+        const botonesMascota = document.querySelectorAll('.mascota');
+        let indiceMascotaActual = 0;
+    
+        // Función para mostrar la mascota actual
+        function mostrarMascotaActual() {
+            botonesMascota.forEach((mascota, index) => {
+                mascota.style.display = index === indiceMascotaActual ? 'block' : 'none';
+            });
+        }
+    
+        // Evento al hacer clic en el botón "Siguiente Mascota"
+        document.getElementById('btn-siguiente-mascota').addEventListener('click', function() {
+            // Incrementa el índice de la mascota actual
+            indiceMascotaActual = (indiceMascotaActual + 1) % botonesMascota.length;
+            mostrarMascotaActual();
         });
-    }
-
-    // Evento al hacer clic en el botón "Siguiente Mascota"
-    document.getElementById('btn-siguiente-mascota').addEventListener('click', function() {
-        // Incrementa el índice de la mascota actual
-        indiceMascotaActual = (indiceMascotaActual + 1) % botonesMascota.length;
+    
+        // Mostrar la primera mascota al cargar la página
         mostrarMascotaActual();
     });
 
-    // Mostrar la primera mascota al cargar la página
-    mostrarMascotaActual();
+$(document).on('click', '#boton-like', function() {
+    var mascota_id = $(this).data('mascota-id');
+
+    $.ajax({
+        method: 'POST',
+        url: '/MATCH/like_mascota/',
+        data: {'mascota_id': mascota_id},
+        success: function(data) {
+            // Manejar la respuesta, por ejemplo, actualizar la interfaz de usuario
+            console.log(data.status);
+        },
+        error: function() {
+            // Manejar errores
+            console.log('Error en la solicitud AJAX');
+        }
+    });
 });
 </script>
-
-
-
-
-{% endblock content %}
-
-
+{% endblock %}
 
 
 

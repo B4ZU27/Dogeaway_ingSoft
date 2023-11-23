@@ -35,5 +35,7 @@ urlpatterns = [
     path('usuarios_bloqueados/', views.lista_usuarios_bloqueados, name='lista_usuarios_bloqueados'),
 
     path('MATCH/', views.match_view, name='Match'),
+    path('MATCH/like_mascota/', views.like_mascota, name='like_mascota'),
+
     path('logout/', LogoutView.as_view(), name='logout'),
 ]

@@ -8,7 +8,7 @@ from django.views.generic.edit import DeleteView
 from django.views.generic import DetailView
 from django.urls import reverse_lazy
 from django.contrib import messages
-from django.http import HttpResponse
+from django.http import HttpResponse, JsonResponse
 from .models import Usuario, Mascota, Match, Chat
 from .forms import UserForm, LoginForm, MascotaForm, PreferenciasForm, ImagenMascotaForm, VerificacionForm, ReportesForm
 
@@ -155,13 +155,8 @@ def match_view(request):
     # Si hay un ID de mascota seleccionada en la sesión, obtén la mascota desde la base de datos
     if mascota_seleccionada_id:
         mascota_seleccionada = get_object_or_404(Mascota, id=mascota_seleccionada_id)
-        usuario_id_actual = request.session.get('usuario.id')
         # Filtra las mascotas excluyendo aquellas que pertenecen al usuario actual
-        lista_mascotas = Mascota.objects.exclude(dueño__id=usuario_id_actual)
-        for mascota in lista_mascotas:
-            print(mascota.nombre)
-            print(mascota.raza)
-            print(mascota.descripcion)
+        lista_mascotas = Mascota.objects.exclude(dueño__id=request.session.get('_auth_user_id'))
     else:
         mascota_seleccionada = None
             # Redirige a la página de inicio después de seleccionar una mascota
@@ -170,6 +165,31 @@ def match_view(request):
         'title': "Match",
         'mascota_selec': mascota_seleccionada,
         'mascotas': lista_mascotas})
+ # - - - LIKE_MASCOTA - - - #
+def like_mascota(request):
+    if request.method == 'POST' and request.is_ajax():
+        mascota_id = request.POST.get('mascota_id')
+        mascota_seleccionada_id = request.session.get('mascota_seleccionada_id')
+
+        if mascota_seleccionada_id:# SI HAY UNA MASCOTA SELECCIONADA
+            mascota_seleccionada = get_object_or_404(Mascota, id=mascota_seleccionada_id)#Conseguir la mascota
+            mascota_liked = mascota_seleccionada.liked_by.filter(id=mascota_id).first()#conseguir el like
+
+            if mascota_liked:
+                # Si ya le dio like a nuestra mascota, MATCH
+                response_data = {'status': 'already_liked', 'message': '¡MATCH!'}
+                # Crear el Match
+                nuevo_match = Match.objects.create(mascota1=mascota_seleccionada, mascota2=get_object_or_404(Mascota, id=mascota_id))
+                #Borramos el like
+                mascota_seleccionada.liked_by.remove(mascota_liked)
+            else:
+                # Si no dio like, agregamos mascota a esa mascota
+                mascota = get_object_or_404(Mascota, id=mascota_id)
+                mascota.liked_by.add(mascota_seleccionada) # revisa que pedo con esto 
+                response_data = {'status': 'like_added'}
+
+        return JsonResponse(response_data)
+
 
 #----IMAGENES MASCOTA-----*
 @login_required
