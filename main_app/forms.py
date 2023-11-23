@@ -69,20 +69,20 @@ class MascotaForm(forms.ModelForm):
 class ImagenMascotaForm(forms.ModelForm):
     class Meta:
         model = ImagenMascota
-        fields = ['imagen_1', 'imagen_2', 'imagen_3', 'imagen_4', 'imagen_5', 'imagen_6']
-    def clean(self):
-        cleaned_data = super().clean()
-        num_imagenes_llenas = sum(1 for field_name in self.fields if cleaned_data.get(field_name) is not None)
-        
-        if num_imagenes_llenas >= 2:
+        fields = ['imagen_1', 'imagen_2']
+    #def clean(self):
+    #    cleaned_data = super().clean()
+    #    num_imagenes_llenas = sum(1 for field_name in self.fields if cleaned_data.get(field_name) is not None)
+    #    
+    #    if num_imagenes_llenas >= 2:
             # Marcamos el formulario como válido
-            self.cleaned_data['is_valid'] = True
-        else:
+    #        self.cleaned_data['is_valid'] = True
+    #    else:
             # Marcamos el formulario como no válido
-            self.add_error(None, "Se requieren al menos dos imágenes.")
-            self.cleaned_data['is_valid'] = False
+    #        self.add_error(None, "Se requieren al menos dos imágenes.")
+     #       self.cleaned_data['is_valid'] = False
 
-        return self.cleaned_data
+      #  return self.cleaned_data
 
 
 #-----TEST DE PREFERENCIAS-----*

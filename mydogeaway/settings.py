@@ -131,3 +131,8 @@ AUTH_USER_MODEL = 'main_app.Usuario'
 
 #Para que lleve al home
 LOGOUT_REDIRECT_URL = '/'  
+
+import os
+# settings.py
+MEDIA_URL = '/media/'
+MEDIA_ROOT = os.path.join(BASE_DIR, 'media')

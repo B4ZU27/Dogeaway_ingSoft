@@ -110,15 +110,15 @@ def registro_mascota(request):
         mascota_form = MascotaForm(request.POST)
         imagen_form = ImagenMascotaForm(request.POST, request.FILES)
 
-        if mascota_form.is_valid():
+        if mascota_form.is_valid() and imagen_form.is_valid():
             mascota = mascota_form.save(commit=False)
             mascota.dueño = request.user
             mascota.save()
 
             # Guardar las imágenes relacionadas con la mascota
-            # imagenes = imagen_form.save(commit=False)
-            # imagenes.mascota = mascota
-            # imagenes.save()
+            imagenes = imagen_form.save(commit=False)
+            imagenes.mascota = mascota
+            imagenes.save()
 
             return redirect('mascotas_usuario')  # Redirige a la página principal de mascotas del usuario
         else:
@@ -129,7 +129,7 @@ def registro_mascota(request):
         mascota_form = MascotaForm()
         imagen_form = ImagenMascotaForm()
 
-    return render(request, 'registroMascota.html', {'mascota_form': mascota_form, 'imagen_form': imagen_form})
+    return render(request, 'registroMascota.html', {'title':"Registro Mascota",'mascota_form': mascota_form, 'imagen_form': imagen_form})
 
 #----ELEGIR MASCOTA-----*
 @csrf_exempt
@@ -146,7 +146,7 @@ def mascotas_usuario(request):
             # Redirige a la página de inicio después de seleccionar una mascota
             return redirect('home')
 
-    return render(request, 'Elegir_Mascota.html', {'mascotas': mascotas})
+    return render(request, 'Elegir_Mascota.html', {'title':"Elegir Mascota",'mascotas': mascotas})
 
 #----MATCH-----*
 @login_required
