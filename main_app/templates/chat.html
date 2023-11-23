@@ -1,5 +1,9 @@
 {% extends "layouts/base.html" %}
+{% load static %}
 
+{% block estilos_adicionales %}
+  <link rel="stylesheet" href="{% static 'css/chat.css' %}">
+{% endblock %}
 {% block content %}
   <h1>Chat para el match {{ match.id }}</h1>
 

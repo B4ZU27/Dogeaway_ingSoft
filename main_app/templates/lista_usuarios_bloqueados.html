@@ -1,5 +1,9 @@
 {% extends "layouts/base.html" %}
+{% load static %}
 
+{% block estilos_adicionales %}
+  <link rel="stylesheet" href="{% static 'css/lista_usuarios_bloqueados.css' %}">
+{% endblock %}
 {% block content %}
   <h2>Usuarios Bloqueados</h2>
   <ul>

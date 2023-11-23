@@ -1,8 +1,9 @@
 {% extends "layouts/base.html" %}
+{% load static %}
 
 {% block estilos_adicionales %}
-
-{% endblock estilos_adicionales %}
+  <link rel="stylesheet" href="{% static 'css/Preferencias.css' %}">
+{% endblock %}
 
 {% block content %}
 <div style="margin-top: 100px"></div>

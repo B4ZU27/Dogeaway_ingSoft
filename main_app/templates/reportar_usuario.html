@@ -1,4 +1,9 @@
 {% extends "layouts/base.html" %}
+{% load static %}
+
+{% block estilos_adicionales %}
+  <link rel="stylesheet" href="{% static 'css/reportar_usuario.css' %}">
+{% endblock %}
 
 {% block content %}
   <h1>Reportar a {{ usuario_reportado.username }}</h1>

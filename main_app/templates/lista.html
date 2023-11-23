@@ -1,5 +1,9 @@
 {% include "layouts/base.html" %}
+{% load static %}
 
+{% block estilos_adicionales %}
+  <link rel="stylesheet" href="{% static 'css/lista.css' %}">
+{% endblock %}
 {% block content %}
 
 <h1>Lista de Usuarios</h1>
