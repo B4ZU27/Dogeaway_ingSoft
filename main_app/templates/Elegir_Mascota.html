@@ -1,138 +1,45 @@
 {% extends 'layouts/base.html' %}
 {% load static %}
-{% block estilos_adicionales %}
-<style>
-  * {
-    font-family: 'Roboto', sans-serif;
-  }
-
-  body {
-    background-color: #D9D9D9;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    height: 100vh;
-    margin: 0;
-  }
-
-  .content-container {
-    background-color: #005264;
-    padding: 40px;
-    border-radius: 40px;
-    width: auto;
-    height: auto;
-    margin: 20px auto;
-    box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.1);
-    margin-top: 50px;
-    text-align: center;
-  }
-
-  h1 {
-    color: white;
-    margin: 10px 0;
-    font-size: 90px;
-    text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5);
-  }
-
-
-  ul {
-    color: white;
-    list-style: none;
-    margin-left: -30%;
-  }
-
-  .content-container p {
-    margin: 10px 0;
-    color: white;
-    margin-bottom: 20px;
-    /* Añade un margen inferior al párrafo */
-  }
-
-  .content-container p a {
-    margin-left: 10px;
-    /* Añade un margen a la izquierda del enlace */
-  }
-
-  a {
-    color: #f09629;
-  }
-
-  a:hover{
-    color: rgb(180, 42, 42);
-  }
-
-  .content-container img {
-    width: 5vw;
-    height: auto;
-  }
-
-  button {
-    background-color: #BD7219;
-    color: white;
-    padding: 10px 15px;
-    border: none;
-    border-radius: 4px;
-    cursor: pointer;
-    display: block;
-    margin: 0 auto;
-  }
-
-  button:hover {
-    transition: 0.5s;
-    background-color: #BD7219;
-    border-radius: 50px;
-  }
-
-  .content-container form {
-    display: flex;
-    flex-direction: column;
-  }
-
-  input[type="radio"] {
-    appearance: none;
-    -webkit-appearance: none;
-    -moz-appearance: none;
-    width: 20px;
-    height: 20px;
-    border-radius: 0;
-    background-color: transparent;
-    border: 2px solid #000;
-  }
-
-  input[type="radio"]:checked {
-    background-color: rgb(200, 255, 48);
-  }
-
-  input[type="radio"]:not(:checked) {
-    background-color: white;
-  }
-</style>
-{% endblock estilos_adicionales %}
 
 {% block content %}
-<div class="content-container">
-  <h1>Mis Mascotas</h1>
+<!DOCTYPE html>
+<html lang="en">
 
-  {% if mascotas %}
-  <form method="post">
-    {% csrf_token %}
-    <ul>
-      {% for mascota in mascotas %}
-      <li>
-        <label>
-          <input type="radio" name="mascota_id" value="{{ mascota.id }}"> {{ mascota.nombre }}
-        </label>
-      </li>
-      {% endfor %}
-    </ul>
-    <button type="submit">Seleccionar Mascota</button>
-  </form>
-  {% endif %}
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="stylesheet" href="{% static 'css/Elegir_Mascota.css' %}">
+  <title></title>
+</head>
 
-  {% if mascotas.count < 6 %} <p>¿Quieres registrar una nueva mascota?<a href="{% url 'registro_mascota' %}"> Registrar
-      mascota</a></p>
-    {% else %}
-    <p>Ya tienes el máximo de mascotas registradas.</p>
+<body>
+  <div class="content-container">s
+    <h1>Mis Mascotas</h1>
+
+    {% if mascotas %}
+    <form method="post">
+      {% csrf_token %}
+      <ul>
+        {% for mascota in mascotas %}
+        <li>
+          <label>
+            <input type="radio" name="mascota_id" value="{{ mascota.id }}"> {{ mascota.nombre }}
+          </label>
+        </li>
+        {% endfor %}
+      </ul>
+      <button type="submit">Seleccionar Mascota</button>
+    </form>
     {% endif %}
-</div>
+
+    {% if mascotas.count < 6 %} <p>¿Quieres registrar una nueva mascota?<a href="{% url 'registro_mascota' %}">
+        Registrar
+        mascota</a></p>
+      {% else %}
+      <p>Ya tienes el máximo de mascotas registradas.</p>
+      {% endif %}
+  </div>
+</body>
+
+</html>
 {% endblock content %}

@@ -1,89 +1,96 @@
 {% extends "layouts/base.html" %}
 {% load static %}
-{% block estilos_adicionales %}
-    <link rel="stylesheet" href="{% static 'css/match.css' %}">
-{% endblock %}
-
 
 {% block content %}
-{# ESTO NO ESTA PROBADO PERO ES UNA IDEA DE LO QUE SE NECESITA HACER #}
-<div style="margin-top: 100px"></div>
-<h1>Match en construccion</h1>
-<div id="mascota-container">
-    {% for mascota in mascotas %}
-    <div class="mascota">
-        <div class="card text-center">
-            <div class="card-header">
-                <h1>{{ mascota.nombre }}</h1>
-            </div>
+<!DOCTYPE html>
+<html lang="en">
 
-            <div class="card-body">
-                <h5 class="card-title">{{ mascota.raza }}</h5>
-                <p class="card-text">{{ mascota.descripcion }}</p>
-                <button href="#" type="button" id="btn-siguiente-mascota" class="btn btn-outline-danger">
-                    <i class="bi bi-arrow-through-heart"></i> Match
-                </button>
-            </div>
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="{% static 'css/match.css' %}">
+    <title></title>
+</head>
 
-            <div class="d-grid gap-2">
-                <button type="button" class="btn btn-outline-secondary">
-                    <i class="bi bi-arrow-down"></i>
-                </button>
+<body>
+    {# ESTO NO ESTA PROBADO PERO ES UNA IDEA DE LO QUE SE NECESITA HACER #}
+    <div style="margin-top: 100px"></div>
+    <h1>Match en construccion</h1>
+    <div id="mascota-container">
+        {% for mascota in mascotas %}
+        <div class="mascota">
+            <div class="card text-center">
+                <div class="card-header">
+                    <h1>{{ mascota.nombre }}</h1>
+                </div>
+
+                <div class="card-body">
+                    <h5 class="card-title">{{ mascota.raza }}</h5>
+                    <p class="card-text">{{ mascota.descripcion }}</p>
+                    <button href="#" type="button" id="btn-siguiente-mascota" class="btn btn-outline-danger">
+                        <i class="bi bi-arrow-through-heart"></i> Match
+                    </button>
+                </div>
+
+                <div class="d-grid gap-2">
+                    <button type="button" class="btn btn-outline-secondary">
+                        <i class="bi bi-arrow-down"></i>
+                    </button>
+                </div>
             </div>
         </div>
+        {% endfor %}
     </div>
-    {% endfor %}
-</div>
 
-{% endblock content %}
+    {% endblock content %}
 
-{# ----------------------------------------------------------------------------------- #}
+    {# ----------------------------------------------------------------------------------- #}
 
-{% block SCRIPTS %}
-<script>
-    document.addEventListener('DOMContentLoaded', function() {
-        // Variables
-        const mascotaContainer = document.getElementById('mascota-container');
-        const botonesMascota = document.querySelectorAll('.mascota');
-        let indiceMascotaActual = 0;
-    
-        // Función para mostrar la mascota actual
-        function mostrarMascotaActual() {
-            botonesMascota.forEach((mascota, index) => {
-                mascota.style.display = index === indiceMascotaActual ? 'block' : 'none';
+    {% block SCRIPTS %}
+    <script>
+        document.addEventListener('DOMContentLoaded', function () {
+            // Variables
+            const mascotaContainer = document.getElementById('mascota-container');
+            const botonesMascota = document.querySelectorAll('.mascota');
+            let indiceMascotaActual = 0;
+
+            // Función para mostrar la mascota actual
+            function mostrarMascotaActual() {
+                botonesMascota.forEach((mascota, index) => {
+                    mascota.style.display = index === indiceMascotaActual ? 'block' : 'none';
+                });
+            }
+
+            // Evento al hacer clic en el botón "Siguiente Mascota"
+            document.getElementById('btn-siguiente-mascota').addEventListener('click', function () {
+                // Incrementa el índice de la mascota actual
+                indiceMascotaActual = (indiceMascotaActual + 1) % botonesMascota.length;
+                mostrarMascotaActual();
             });
-        }
-    
-        // Evento al hacer clic en el botón "Siguiente Mascota"
-        document.getElementById('btn-siguiente-mascota').addEventListener('click', function() {
-            // Incrementa el índice de la mascota actual
-            indiceMascotaActual = (indiceMascotaActual + 1) % botonesMascota.length;
+
+            // Mostrar la primera mascota al cargar la página
             mostrarMascotaActual();
         });
-    
-        // Mostrar la primera mascota al cargar la página
-        mostrarMascotaActual();
-    });
 
-$(document).on('click', '#boton-like', function() {
-    var mascota_id = $(this).data('mascota-id');
+        $(document).on('click', '#boton-like', function () {
+            var mascota_id = $(this).data('mascota-id');
 
-    $.ajax({
-        method: 'POST',
-        url: '/MATCH/like_mascota/',
-        data: {'mascota_id': mascota_id},
-        success: function(data) {
-            // Manejar la respuesta, por ejemplo, actualizar la interfaz de usuario
-            console.log(data.status);
-        },
-        error: function() {
-            // Manejar errores
-            console.log('Error en la solicitud AJAX');
-        }
-    });
-});
-</script>
+            $.ajax({
+                method: 'POST',
+                url: '/MATCH/like_mascota/',
+                data: { 'mascota_id': mascota_id },
+                success: function (data) {
+                    // Manejar la respuesta, por ejemplo, actualizar la interfaz de usuario
+                    console.log(data.status);
+                },
+                error: function () {
+                    // Manejar errores
+                    console.log('Error en la solicitud AJAX');
+                }
+            });
+        });
+    </script>
+</body>
+
+</html>
 {% endblock %}
-
-
-

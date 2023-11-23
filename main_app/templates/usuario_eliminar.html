@@ -1,10 +1,18 @@
 {% extends "layouts/base.html" %}
-
-{% block estilos_adicionales %}
-    <!-- Agrega tus estilos personalizados aquí -->
-{% endblock estilos_adicionales %}
+{% load static %}
 
 {% block content %}
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="{% static 'css/usuario_eliminar.css' %}">
+    <title></title>
+</head>
+
+<body>
     <form method="post">
         <h1>Confirmar Eliminación de Cuenta</h1><br><br>
         <p>¿Estás seguro de que deseas eliminar tu cuenta?</p>
@@ -13,4 +21,7 @@
             <button type="submit">Sí, eliminar cuenta</button>
         </div>
     </form>
+</body>
+
+</html>
 {% endblock content %}

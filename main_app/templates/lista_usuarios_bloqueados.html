@@ -1,13 +1,28 @@
 {% extends "layouts/base.html" %}
+{% load static %}
 
 {% block content %}
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="stylesheet" href="{% static 'css/lista_usuarios_bloqueados.css' %}">
+  <title></title>
+</head>
+
+<body>
   <h2>Usuarios Bloqueados</h2>
   <ul>
     {% for usuario in usuarios_bloqueados %}
-      <li>
-        {{ usuario.username }}
-        <a href="{% url 'desbloquear_usuario' usuario.id %}">Desbloquear</a>
-      </li>
+    <li>
+      {{ usuario.username }}
+      <a href="{% url 'desbloquear_usuario' usuario.id %}">Desbloquear</a>
+    </li>
     {% endfor %}
   </ul>
+</body>
+
+</html>
 {% endblock %}

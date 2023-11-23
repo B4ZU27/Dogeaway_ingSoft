@@ -1,92 +1,104 @@
 {% extends "layouts/base.html" %}
 {% load static %}
-
-
-
 {% block content %}
-    
-<section class="container">
-    <!--------------------------  PRESENTACION  -------------------------->
-            <div class="presentacion" id="presentacion">
-                <div class="cuadro">
-                    <h1>DOGEWAY <br/><span style="color: #45ecbd;">“Encuentra el amor para tu mascota de forma responsable y segura”</span></h1>
-                    <p>Nuestras mascotas son un miembro más de la familia y<br/>
-                        nos preocupamos de que tengan <br/>
-                       una vida feliz y saludable. 
-                    </p>
-                </div>
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="{% static 'css/index.css' %}">
+    <title>HOME</title>
+</head>
+
+<body>
+
+    <section class="container">
+        <!--------------------------  PRESENTACION  -------------------------->
+        <div class="presentacion" id="presentacion">
+            <div class="cuadro">
+                <h1>DOGEWAY <br /><span style="color: #45ecbd;">“Encuentra el amor para tu mascota de forma responsable
+                        y segura”</span></h1>
+                <p>Nuestras mascotas son un miembro más de la familia y<br />
+                    nos preocupamos de que tengan <br />
+                    una vida feliz y saludable.
+                </p>
             </div>
-    
-    <!--------------------------  OBJETIVO  -------------------------->
-    
-            <div class="objetivo" id="objetivo">
-                <img src="{% static 'imagenes/home/objetivo.png' %}" alt="">
-                <div class="texto">
-                    <h1>OBJETIVO</h1>
-                    <p>Creemos que la cruza responsable es la clave para evitar <br/>
-                        enfermedades hereditarias y malformaciones en las camadas.<br/> 
-                        Por eso, hemos creado una plataforma en línea para que puedas <br/>
-                        encontrar la pareja perfecta para tu mascota <br/>
-                        de manera segura y confiable. </p>
-                    <a href="#">¡Únete a nuestra comunidad de amantes de los perros y <br/>
-                        encuentra el amor para tu mascota hoy mismo!</a>
-                </div>
+        </div>
+
+        <!--------------------------  OBJETIVO  -------------------------->
+
+        <div class="objetivo" id="objetivo">
+            <img src="{% static 'imagenes/home/objetivo.png' %}" alt="">
+            <div class="texto">
+                <h1>OBJETIVO</h1>
+                <p>Creemos que la cruza responsable es la clave para evitar <br />
+                    enfermedades hereditarias y malformaciones en las camadas.<br />
+                    Por eso, hemos creado una plataforma en línea para que puedas <br />
+                    encontrar la pareja perfecta para tu mascota <br />
+                    de manera segura y confiable. </p>
+                <a href="#">¡Únete a nuestra comunidad de amantes de los perros y <br />
+                    encuentra el amor para tu mascota hoy mismo!</a>
             </div>
-    
-    <!--------------------------  FUNCIONES   -------------------------->
-          
-            <div class="funciones" id="funciones">
-                <div>
-                    <h1>Busqueda</h1>
-                    <p>Puedes buscar según <br/>
-                        criterios como <br/>
-                        especie, raza, edad y más. <br/>
-                        ¡Encuentra la <br/>
-                        combinación ideal!</p>
-                </div>
-    
-                <div>
-                    <h1>Filtro</h1>
-                    <p>Realiza un filtro genético <br/>
-                        para garantizar la salud<br/>
-                         de tus futuros <br/>
-                        compañeros peludos.</p>
-                </div>
-                
-                <div>
-                    <h1>Interaccion <br/> Social</h1>
-                    <p>Nuestra aplicación fomenta <br/>
-                        la interacción social <br/>
-                        entre los usuarios <br/>
-                        y sus mascotas.</p>
-                </div>
-    
-                <div>
-                    <h1>Expediente</h1>
-                    <p>Mantén un registro detallado<br/> 
-                        de la información de <br/>
-                        tu mascota, incluyendo <br/>
-                        nombre, edad, especie,<br/> 
-                        peso, raza, vacunas,<br/> 
-                        enfermedades y más.</p>
-                </div>
+        </div>
+
+        <!--------------------------  FUNCIONES   -------------------------->
+
+        <div class="funciones" id="funciones">
+            <div>
+                <h1>Busqueda</h1>
+                <p>Puedes buscar según <br />
+                    criterios como <br />
+                    especie, raza, edad y más. <br />
+                    ¡Encuentra la <br />
+                    combinación ideal!</p>
             </div>
-            
-    <!--------------------------  PIE DE PAGINA  -------------------------->
-    
-            <div class="footer" id="footer">
-                <div class="numeros">
-                    <h1>LLAMANOS!</h1>
-                    <p>+52 3377-2886-02</p>
-                    <p>+52 3377-2886-02</p>
-                </div>
-                
-                <div class="correo">
-                    <h1>CORREOS DE CONTACTO</h1>
-                    <p>dogeway@gmail.com</p>
-                </div>
-                
-                <p class="copyright">Copyright © 2023 Dogeway Inc. All rights reserved.</p>
+
+            <div>
+                <h1>Filtro</h1>
+                <p>Realiza un filtro genético <br />
+                    para garantizar la salud<br />
+                    de tus futuros <br />
+                    compañeros peludos.</p>
             </div>
-        </section>
+
+            <div>
+                <h1>Interaccion <br /> Social</h1>
+                <p>Nuestra aplicación fomenta <br />
+                    la interacción social <br />
+                    entre los usuarios <br />
+                    y sus mascotas.</p>
+            </div>
+
+            <div>
+                <h1>Expediente</h1>
+                <p>Mantén un registro detallado<br />
+                    de la información de <br />
+                    tu mascota, incluyendo <br />
+                    nombre, edad, especie,<br />
+                    peso, raza, vacunas,<br />
+                    enfermedades y más.</p>
+            </div>
+        </div>
+
+        <!--------------------------  PIE DE PAGINA  -------------------------->
+
+        <div class="footer" id="footer">
+            <div class="numeros">
+                <h1>LLAMANOS!</h1>
+                <p>+52 3377-2886-02</p>
+                <p>+52 3377-2886-02</p>
+            </div>
+
+            <div class="correo">
+                <h1>CORREOS DE CONTACTO</h1>
+                <p>dogeway@gmail.com</p>
+            </div>
+
+            <p class="copyright">Copyright © 2023 Dogeway Inc. All rights reserved.</p>
+        </div>
+    </section>
+</body>
+
+</html>
 {% endblock content %}

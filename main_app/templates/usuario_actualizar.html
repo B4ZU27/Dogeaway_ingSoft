@@ -1,14 +1,22 @@
 {% extends "layouts/base.html" %}
-
-{% block estilos_adicionales %}
-    <!-- Agrega tus estilos personalizados aquí -->
-{% endblock estilos_adicionales %}
+{% load static %}
 
 {% block content %}
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="{% static 'css/usuario_actualizar.css' %}">
+    <title></title>
+</head>
+
+<body>
     <form method="post">
         <h1>Editar Usuario</h1><br><br>
         {% csrf_token %}
-        
+
         <div class="input-container">
             <label for="id_username">Nombre de usuario:</label>
             {{ form.username }}
@@ -26,4 +34,7 @@
             <a href="{% url 'usuario_detalles' pk=usuario.id %}">Cancelar</a>
         </div>
     </form>
+</body>
+
+</html>
 {% endblock content %}

@@ -1,11 +1,23 @@
 {% extends "layouts/base.html" %}
+{% load static %}
 
 {% block content %}
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="stylesheet" href="{% static 'css/chat.css' %}">
+  <title></title>
+</head>
+
+<body>
   <h1>Chat para el match {{ match.id }}</h1>
 
   <div id="chat-messages">
     {% for mensaje in mensajes %}
-      <p>{{ mensaje.remitente }}: {{ mensaje.mensaje }}</p>
+    <p>{{ mensaje.remitente }}: {{ mensaje.mensaje }}</p>
     {% endfor %}
   </div>
 
@@ -19,7 +31,7 @@
       'ws://' + window.location.host +
       '/ws/chat/{{ match.id }}/');
 
-    chatSocket.onmessage = function(e) {
+    chatSocket.onmessage = function (e) {
       var data = JSON.parse(e.data);
       var chatLog = document.getElementById('chat-messages');
       var message = document.createElement('p');
@@ -27,7 +39,7 @@
       chatLog.appendChild(message);
     };
 
-    chatSocket.onclose = function(e) {
+    chatSocket.onclose = function (e) {
       console.error('Chat socket closed unexpectedly');
     };
 
@@ -40,4 +52,7 @@
       messageInput.value = '';
     }
   </script>
+</body>
+
+</html>
 {% endblock %}
