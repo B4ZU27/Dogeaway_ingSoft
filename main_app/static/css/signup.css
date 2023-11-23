@@ -47,6 +47,7 @@ form {
     background-color: transparent;
     color: white;
     outline: none;
+    border-radius: 5px;
 }
 
 label {
