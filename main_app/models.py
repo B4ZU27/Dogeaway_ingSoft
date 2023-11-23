@@ -38,7 +38,10 @@ class Usuario(AbstractUser):
 class Mascota(models.Model):
     dueño = models.ForeignKey(Usuario, on_delete=models.CASCADE)
     nombre = models.CharField(max_length=100)
-    peso = models.FloatField(null=True, blank=True)
+    peso = models.FloatField(null=True, blank=True, validators=[
+            MinValueValidator(0),  # El peso no puede ser menor que 0
+            MaxValueValidator(150)  # El peso no puede ser mayor que 100
+        ])
     SEXO_CHOICES = (
         ('M', 'Macho'),
         ('H', 'Hembra'),
@@ -53,7 +56,33 @@ class Mascota(models.Model):
     )
     tamaño = models.CharField(max_length=15, choices=TAMAÑO_CHOICES)
     descripcion = models.TextField()
-    raza = models.CharField(max_length=100)
+    RAZA_CHOICES = (
+        ('Bulldog francés', 'Bulldog francés'),
+        ('Labrador retriever', 'Labrador retriever'),
+        ('Golden retriever', 'Golden retriever'),
+        ('Pastor alemán', 'Pastor alemán'),
+        ('Caniche', 'Caniche'),
+        ('Bulldog', 'Bulldog'),
+        ('Rottweiler', 'Rottweiler'),
+        ('Beagle', 'Beagle'),
+        ('Salchicha', 'Salchicha'),
+        ('Braco alemán de pelo corto', 'Braco alemán de pelo corto'),
+        ('Corgi galés de Pembroke', 'Corgi galés de Pembroke'),
+        ('Pastor australiano', 'Pastor australiano'),
+        ('Yorkshire terrier', 'Yorkshire terrier'),
+        ('Cavalier King Charles spaniel', 'Cavalier King Charles spaniel'),
+        ('Doberman pinscher', 'Doberman pinscher'),
+        ('Boxer', 'Boxer'),
+        ('Schnauzer miniatura', 'Schnauzer miniatura'),
+        ('Cane corso', 'Cane corso'),
+        ('Gran danés', 'Gran danés'),
+        ('Shih Tzu', 'Shih Tzu'),
+        ('Husky siberiano', 'Husky siberiano'),
+        ('Chihuahua', 'Chihuahua'),  # Raza agregada
+        ('Solovino', 'Solovino'),  # Raza agregada
+    )
+    raza = models.CharField(max_length=100, choices=RAZA_CHOICES)
+    
     tiene_cartilla = models.BooleanField()
     likes = models.ManyToManyField("self", symmetrical=False, related_name="liked_by", blank=True)
     
