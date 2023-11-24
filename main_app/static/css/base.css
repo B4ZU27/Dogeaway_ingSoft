@@ -9,6 +9,7 @@
 
 body {
     margin-top: 55px; /* Ajuste del margen superior para dejar espacio para la barra de navegación */
+    background: black;
 }
 
 /* HEADER */
@@ -20,7 +21,7 @@ header {
     width: 100%;
     padding: 5px 10px;
     z-index: 100;
-}
+}   
 
 header nav {
     display: flex;
@@ -100,10 +101,4 @@ header nav ul {
     margin: 0;
     padding: 0;
     justify-content: flex-end; 
-}
-
-/* CONTENIDO */
-.content {
-    margin-top: 55px; /* Ajuste del margen superior para dejar espacio para la barra de navegación */
-    padding: 20px; /* Espaciado interno para el contenido */
 }
