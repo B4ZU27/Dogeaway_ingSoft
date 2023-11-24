@@ -1,80 +1,84 @@
 {% extends "layouts/base.html" %}
 {% load static %}
-
+{% block estilos_adicionales %}
+<link rel="stylesheet" href="{% static 'css/match.css' %}">
+{% endblock  %}
 {% block content %}
-<!DOCTYPE html>
-<html lang="en">
-
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="{% static 'css/match.css' %}">
-    <title></title>
-</head>
-
-<body>
-    {# ESTO NO ESTA PROBADO PERO ES UNA IDEA DE LO QUE SE NECESITA HACER #}
     <div style="margin-top: 100px"></div>
-    <h1>Match en construccion</h1>
+    {% for message in messages %}
+    <div class="alert alert-{{ message.tags }}">
+        {{ message }}
+    </div>
+    {% endfor %}
+
     <div id="mascota-container">
         {% for mascota in mascotas %}
-        <div class="mascota">
-            <div class="card text-center">
-                <div class="card-header">
-                    <h1>{{ mascota.nombre }}</h1>
-                </div>
+        <div class="mascota" style="display: none;">
+            <div class="card mb-4">
+                <img src="{% static 'imagenes/mascotas/husky1.jpg' %}" id="mascota_img" class="card-img-top" alt="imagen" style="max-height: 450px; overflow-y: scroll;">
+                <div class="card text-center">
+                    <div class="card-header">
+                        <h1>{{ mascota.nombre }}</h1>
+                    </div>
 
-                <div class="card-body">
-                    <h5 class="card-title">{{ mascota.raza }}</h5>
-                    <p class="card-text">{{ mascota.descripcion }}</p>
-                    <button href="#" type="button" id="btn-siguiente-mascota" class="btn btn-outline-danger">
-                        <i class="bi bi-arrow-through-heart"></i> Match
-                    </button>
-                </div>
+                    <div class="card-body">
+                        
+                        <h5 class="card-title">{{ mascota.raza }}</h5>
+                        <p class="card-text">{{ mascota.descripcion }}</p>
+                        <div class="ditails"></div>
 
+                        <button type="button" class="btn btn-outline-secondary btn-siguiente-mascota">
+                            <h2><i class="bi bi-hand-thumbs-down-fill"></i></h2> 
+                        </button>
+
+                        <button type="button" id="btn-like" class="btn btn-outline-danger btn-siguiente-mascota" data-mascota-id="{{ mascota.id }}">
+                            <h2><i class="bi bi-arrow-through-heart"></i></h2> 
+                        </button> 
+                    </div>
+                </div>
                 <div class="d-grid gap-2">
-                    <button type="button" class="btn btn-outline-secondary">
-                        <i class="bi bi-arrow-down"></i>
+                    <button type="button" id="btn-detalles" class="btn btn-outline-secondary" data-nombre="{{ mascota.nombre }}" data-edad="{{ mascota.edad }}" data-peso="{{ mascota.peso }}" data-sexo="{{ mascota.sexo }}" data-tamaño="{{ mascota.tamaño }}" data-descripcion="{{ mascota.descripcion }}" data-raza="{{ mascota.raza }}" data-tiene-cartilla="{{ mascota.tiene_cartilla }}">
+                        <i class="bi bi-arrow-down"></i> Detalles
                     </button>
                 </div>
             </div>
         </div>
         {% endfor %}
     </div>
-
     {% endblock content %}
 
     {# ----------------------------------------------------------------------------------- #}
 
     {% block SCRIPTS %}
     <script>
-        document.addEventListener('DOMContentLoaded', function () {
-            // Variables
-            const mascotaContainer = document.getElementById('mascota-container');
-            const botonesMascota = document.querySelectorAll('.mascota');
-            let indiceMascotaActual = 0;
-
-            // Función para mostrar la mascota actual
-            function mostrarMascotaActual() {
-                botonesMascota.forEach((mascota, index) => {
-                    mascota.style.display = index === indiceMascotaActual ? 'block' : 'none';
+        window.onload = function() {
+            var mascotas = document.getElementsByClassName('mascota');
+            var indexActual = 0;
+        
+            // Mostrar la primera mascota
+            if (mascotas.length > 0) {
+                mascotas[0].style.display = 'block';
+            }
+        
+            // Agregar evento click a todos los botones
+            var botones = document.getElementsByClassName('btn-siguiente-mascota');
+            for (var i = 0; i < botones.length; i++) {
+                botones[i].addEventListener('click', function() {
+                    // Ocultar mascota actual
+                    mascotas[indexActual].style.display = 'none';
+                    indexActual++;
+        
+                    // Mostrar la siguiente mascota
+                    if (indexActual < mascotas.length) {
+                        mascotas[indexActual].style.display = 'block';
+                    }
                 });
             }
-
-            // Evento al hacer clic en el botón "Siguiente Mascota"
-            document.getElementById('btn-siguiente-mascota').addEventListener('click', function () {
-                // Incrementa el índice de la mascota actual
-                indiceMascotaActual = (indiceMascotaActual + 1) % botonesMascota.length;
-                mostrarMascotaActual();
-            });
-
-            // Mostrar la primera mascota al cargar la página
-            mostrarMascotaActual();
-        });
-
-        $(document).on('click', '#boton-like', function () {
+        };
+        
+        $(document).on('click', '#btn-like', function () {
             var mascota_id = $(this).data('mascota-id');
-
+        
             $.ajax({
                 method: 'POST',
                 url: '/MATCH/like_mascota/',
@@ -89,8 +93,25 @@
                 }
             });
         });
+        document.querySelectorAll('#btn-detalles').forEach(function(btn) {
+            btn.addEventListener('click', function() {
+                var cardBody = this.closest('.mascota').querySelector('.ditails');
+        
+                // Si el botón ya fue clickeado, volver al estado original
+                if (btn.getAttribute('data-clickeado') === 'true') {
+                    cardBody.innerHTML = '';
+                    btn.innerHTML = '<i class="bi bi-arrow-down"></i> Detalles';
+                    btn.setAttribute('data-clickeado', 'false');
+                } else {
+                    // Si el botón no fue clickeado, mostrar todos los detalles
+                    cardBody.innerHTML =  '<p class="card-text">Edad: ' + Math.round(btn.getAttribute('data-edad')) + ' años</p><p class="card-text">Peso: ' + Math.round(btn.getAttribute('data-peso')) + ' kg</p><p>Tiene cartilla: ' + btn.getAttribute('data-tiene-cartilla') + '</p>';
+                    btn.innerHTML = '<i class="bi bi-arrow-up"></i> Menos detalles';
+                    btn.setAttribute('data-clickeado', 'true');
+                }
+            });
+        }); 
     </script>
-</body>
+<!-- </body>
 
-</html>
+</html> -->
 {% endblock %}

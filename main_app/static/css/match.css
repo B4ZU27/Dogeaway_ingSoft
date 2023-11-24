@@ -1,9 +1,18 @@
+body {
+    background-color: rgb(31, 25, 37);
+}
+
 #mascota-container {
     display: flex;
     justify-content: center; /* Centra horizontalmente */
-    margin-top: 100px;
+    align-items: center; /* Centra verticalmente */
+    margin: 10px 100px; /* Margen de 100px arriba y abajo, 70px a los lados */
+    /*height: calc(100vh - 200px); /* Altura del viewport menos los márgenes superior e inferior */
+}
+
+#mascota_imagen {
+    height: 100px;
     width: auto;
-    height: 100vh; /* Establece la altura al 100% del viewport */
 }
 
 .mascota {

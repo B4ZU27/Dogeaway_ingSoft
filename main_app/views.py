@@ -67,7 +67,7 @@ def signup(request):
             login(request, user)
             # Redirige a la página de verificación después del registro exitoso
             messages.success(request, 'Registro exitoso. Ahora procede con la verificación de identificación.')
-            return redirect('preferencias')
+            return redirect('verificacion')
        
     else:
         form = UserForm()
@@ -157,11 +157,21 @@ def match_view(request):
     # Si hay un ID de mascota seleccionada en la sesión, obtén la mascota desde la base de datos
     if mascota_seleccionada_id:
         mascota_seleccionada = get_object_or_404(Mascota, id=mascota_seleccionada_id)
+        print('Nombre - '+mascota_seleccionada.nombre)
+        print('Sexo - '+mascota_seleccionada.sexo)
+        print('Raza- '+mascota_seleccionada.raza)
+        print('################################')
+        #papa = get_object_or_404(Usuario, id=request.user.id)
+        #print(papa.email)
         # Filtra las mascotas excluyendo aquellas que pertenecen al usuario actual
-        lista_mascotas = Mascota.objects.exclude(dueño__id=request.session.get('_auth_user_id'))
+        lista_mascotas = Mascota.objects.exclude(sexo=mascota_seleccionada.sexo)
+
+        for mascota in lista_mascotas:
+            print('{- '+mascota.nombre+'|'+mascota.sexo+'>'+str(mascota.id))
     else:
         mascota_seleccionada = None
-            # Redirige a la página de inicio después de seleccionar una mascota
+        redirect('/')
+        # Redirige a la página de inicio si no obtiene el objeto
 
     return render(request, 'match.html', { 
         'title': "Match",
@@ -184,11 +194,16 @@ def like_mascota(request):
                 nuevo_match = Match.objects.create(mascota1=mascota_seleccionada, mascota2=get_object_or_404(Mascota, id=mascota_id))
                 #Borramos el like
                 mascota_seleccionada.liked_by.remove(mascota_liked)
+                messages.success(request, '!! MATCH !!')
             else:
                 # Si no dio like, agregamos mascota a esa mascota
                 mascota = get_object_or_404(Mascota, id=mascota_id)
+                if(mascota.liked_by.filter(id=mascota_seleccionada_id)):
+                    response_data = {'status': 'like_added_already'}
+                    messages.info(request, 'Ya se habia dado like')
                 mascota.liked_by.add(mascota_seleccionada) # revisa que pedo con esto 
                 response_data = {'status': 'like_added'}
+                messages.success(request, 'Like agregado')
 
         return JsonResponse(response_data)
 
