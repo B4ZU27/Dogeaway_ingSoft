@@ -1,5 +1,4 @@
-/*----------------------------------------------------  DISEÑO DEL HOME  ----------------------------------------------------*/
-
+/* DISEÑO DEL HOME */
 * {
     margin: 0;
     padding: 0;
@@ -8,15 +7,18 @@
     font-family: 'Roboto', sans-serif;
 }
 
-/*------------------------------------------------------ HEADER ------------------------------------------------------*/
+body {
+    margin-top: 55px; /* Ajuste del margen superior para dejar espacio para la barra de navegación */
+}
 
+/* HEADER */
 header {
     background-color: #0B667A;
     position: fixed;
     top: 0;
     left: 0;
     width: 100%;
-    padding: 10px;
+    padding: 5px 10px;
     z-index: 100;
 }
 
@@ -25,14 +27,25 @@ header nav {
     align-items: center;
     justify-content: space-between;
     font-weight: bold;
-    padding-top: 10px;
+    padding-top: 5px; 
+    padding-bottom: 5px; 
     padding-left: 3%;
     padding-right: 1%;
 }
 
+header .navbar-logo {
+    width: 100px; 
+}
+
+header nav ul {
+    display: flex;
+    list-style: none;
+    margin: 0;
+    padding: 0;
+}
+
 header nav ul li {
-    display: inline-block;
-    padding: 0px 20px;
+    margin-left: 10px;
 }
 
 header nav ul li:hover {
@@ -43,28 +56,54 @@ header nav ul li:hover {
 
 header nav ul li a {
     color: white;
-    font-size: 20px;
+    font-size: 16px;
     text-decoration: none;
+    padding: 10px;
 }
 
-header nav .logo {
-    display: flex;
-    align-items: center;
-    position: relative;
-    z-index: 1;
+header nav ul li a.login-signup {
+    color: white; /* Color blanco para Iniciar sesión y Crear cuenta */
 }
 
-header nav .logo img {
-    width: 200px;
-}
 
-/*PARA CUANDO YA ESTÁ EL LOGIN HECHO*/
-.select:hover{
+/* PARA CUANDO YA ESTÁ EL LOGIN HECHO */
+.select:hover {
     background-color: #0B667A;
 }
+
 .select {
     color: rgb(206, 206, 206);
     padding: 0px 0px;
     text-shadow: 8px 8px 16px rgba(0, 0, 0, 0.5);
-    /* Cambia el color del nombre de la mascota al pasar el mouse */
+}
+
+header {
+    padding: 5px 10px;
+}
+
+
+.dropdown-menu {
+    background-color: #0B667A;
+}
+
+.dropdown-menu a {
+    color: white; 
+}
+
+.dropdown-menu a:hover {
+    background-color: #BD7219;
+}
+
+header nav ul {
+    display: flex;
+    list-style: none;
+    margin: 0;
+    padding: 0;
+    justify-content: flex-end; 
+}
+
+/* CONTENIDO */
+.content {
+    margin-top: 55px; /* Ajuste del margen superior para dejar espacio para la barra de navegación */
+    padding: 20px; /* Espaciado interno para el contenido */
 }
