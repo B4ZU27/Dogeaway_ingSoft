@@ -58,10 +58,12 @@ class VerificacionForm(forms.ModelForm):
 class MascotaForm(forms.ModelForm):
     class Meta:
         model = Mascota
-        fields = ['nombre', 'peso', 'sexo', 'tamaño', 'descripcion', 'raza', 'tiene_cartilla']
+        fields = ['nombre','edad', 'peso', 'sexo', 'tamaño', 'descripcion', 'raza', 'tiene_cartilla']
         labels = {
             'tiene_cartilla': '¿Tiene cartilla de vacunación?',
             'nombre': 'Nombre',
+            'edad': 'Edad',
+            'peso':'Peso en Kg'
         }
 
 

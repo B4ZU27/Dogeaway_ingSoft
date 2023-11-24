@@ -64,9 +64,11 @@ def signup(request):
             user.set_password(form.cleaned_data['password1'])
             user.save()
 
+            login(request, user)
             # Redirige a la página de verificación después del registro exitoso
             messages.success(request, 'Registro exitoso. Ahora procede con la verificación de identificación.')
-            return redirect('verificacion')
+            return redirect('preferencias')
+       
     else:
         form = UserForm()
     return render(request, 'Signup.html', {'form': form, 'title': "Sign up", 'link': "{% static 'css/registros.css' %}"})
@@ -83,7 +85,7 @@ def verificacion(request):
             request.user.save()
 
             messages.success(request, 'Verificación exitosa. Ahora puedes iniciar sesión.')
-            return redirect('login')
+            return redirect('/')
         else:
             messages.error(request, 'Hubo un problema con tu solicitud de verificación. Asegúrate de cargar una foto de identificación.')
     else:
@@ -98,7 +100,7 @@ def preferencias(request):
         if 'submit_form' in request.POST:
             if form.is_valid():
                 form.save()
-        return redirect('/')  # Redirige a la página de inicio después del registro o si se omite el formulario
+        return redirect('mascotas_usuario')  # Redirige a la página de inicio después del registro o si se omite el formulario
     else:
         form = PreferenciasForm()
     return render(request, 'Preferencias.html', {'form': form})
@@ -110,15 +112,15 @@ def registro_mascota(request):
         mascota_form = MascotaForm(request.POST)
         imagen_form = ImagenMascotaForm(request.POST, request.FILES)
 
-        if mascota_form.is_valid() and imagen_form.is_valid():
+        if mascota_form.is_valid():
             mascota = mascota_form.save(commit=False)
             mascota.dueño = request.user
             mascota.save()
 
             # Guardar las imágenes relacionadas con la mascota
-            imagenes = imagen_form.save(commit=False)
-            imagenes.mascota = mascota
-            imagenes.save()
+            #imagenes = imagen_form.save(commit=False)
+            #imagenes.mascota = mascota
+            #imagenes.save()
 
             return redirect('mascotas_usuario')  # Redirige a la página principal de mascotas del usuario
         else:

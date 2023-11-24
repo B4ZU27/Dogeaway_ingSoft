@@ -60,12 +60,14 @@
             </div>
         </form>
 
-        {% if messages %}
-        <div class="alert alert-danger">
-            {% for message in messages %}
-            {{ message }}
-            {% endfor %}
-        </div>
+        {% if form.errors %}
+            <ul class="errorlist">
+                {% for field_errors in form.errors.values %}
+                {% for error in field_errors %}
+                    <li>{{ error }}</li>
+                {% endfor %}
+                {% endfor %}
+            </ul>
         {% endif %}
     </div>
 </body>
