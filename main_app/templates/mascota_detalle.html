@@ -13,7 +13,7 @@
 </head>
 
 <body>
-    <form method="post">
+    <div class="detalleMascota">
         <h1>Detalles de Mascota</h1><br><br>
 
         <div class="input-container">
@@ -33,11 +33,18 @@
 
         <!-- Agrega más campos según sea necesario -->
 
+        <div class="imagenesMascota">
+            <h2>Imágenes de la mascota</h2>
+            {% for imagen in imagenes_mascota %}
+                <img src="{{ imagen.imagen_1.url }}" alt="Imagen de {{ mascota.nombre }}">
+            {% endfor %}
+        </div>
+
         <div class="button-container">
             <a href="{% url 'editar_mascota' mascota.id %}" class="button">Editar Mascota</a>
             <a href="{% url 'eliminar_mascota' mascota.id %}" class="button">Eliminar Mascota</a>
         </div>
-    </form>
+    </div>
 </body>
 
 </html>

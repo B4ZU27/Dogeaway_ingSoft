@@ -9,7 +9,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="{% static 'css/registroMascota.css' %}">
-    <title></title>
+    <title>{{ title }}</title>
 </head>
 
 <body>
@@ -18,87 +18,87 @@
             <h1>REGISTRO DE MASCOTA</h1>
             {% csrf_token %}
 
-    {# Formulario para datos de mascota #}
-    <div class="input-container">
-        {{ mascota_form.nombre.label_tag }}
-        {{ mascota_form.nombre }} 
-    </div>
-    <div class="select-container">
-        {{ mascota_form.raza.label_tag }}
-        {{ mascota_form.raza }}
-        <div style="color: red">
-            {{ mascota_form.raza.errors }}
-        </div>
-    </div>
-    <div class="select-container">
-        {{ mascota_form.edad.label_tag }} 
-        {{ mascota_form.edad }}
-        
-        {{ mascota_form.edad.errors }}
-        
-    </div>
-
-    <div class="select-container">
-        {{ mascota_form.peso.label_tag }} 
-        {{ mascota_form.peso }}
-        
-        {{ mascota_form.peso.errors }}
-        
-    </div>
-    
-    <div class="select-container">
-        {{ mascota_form.sexo.label_tag }}
-        {{ mascota_form.sexo }}
-        <div style="color: red">
-            {{ mascota_form.sexo.errors }}
-        </div>
-    </div>
-    
-    <div class="select-container">
-        {{ mascota_form.tamaño.label_tag }}
-        {{ mascota_form.tamaño }}
-        <div style="color: red">
-            {{ mascota_form.tamaño.errors }}
-        </div>
-    </div>
-    
-    <div class="input-container">
-        {{ mascota_form.descripcion.label_tag }}
-        {{ mascota_form.descripcion }}
-        <div style="color: red">
-            {{ mascota_form.descripcion.errors }}
-        </div>
-    </div>
-    
-    
-    
-    <div class="input-container">
-        {{ mascota_form.tiene_cartilla.label_tag }}
-        {{ mascota_form.tiene_cartilla }}
-        <div style="color: red">
-            {{ mascota_form.tiene_cartilla.errors }}
-        </div>
-    </div>
-    
-    {# Formulario para imágenes de mascota #}
-    <!-- <div class="file-upload-container">
-        <p>Sube imagenes de tu mascota!</p>
-        
-        <div class="form-group">
-            {{ imagen_form.imagen_1.label_tag }}
-            {{ imagen_form.imagen_1 }}
-            <div class="alert-error">
-                {{ imagen_form.imagen_1.errors }}
+            {# Formulario para datos de mascota #}
+            <div class="input-container">
+                {{ mascota_form.nombre.label_tag }}
+                {{ mascota_form.nombre }}
+                <div style="color: red">
+                    {{ mascota_form.nombre.errors }}
+                </div>
             </div>
-            {% if imagen_form.instance.imagen_1 %}
-                <img src="{{ imagen_form.instance.imagen_1.url }}" alt="Imagen 1">
-                <pre>{{ imagen_form.instance|pprint }}</pre>
-            {% endif %}
-        </div>  
-           
-       </div> 
-    </div>-->
-    <button class="button-submit" type="submit">Guardar</button>
-  </form>
-</div>
+            <div class="select-container">
+                {{ mascota_form.raza.label_tag }}
+                {{ mascota_form.raza }}
+                <div style="color: red">
+                    {{ mascota_form.raza.errors }}
+                </div>
+            </div>
+            <div class="select-container">
+                {{ mascota_form.edad.label_tag }}
+                {{ mascota_form.edad }}
+                <div style="color: red">
+                    {{ mascota_form.edad.errors }}
+                </div>
+            </div>
+            <div class="select-container">
+                {{ mascota_form.peso.label_tag }}
+                {{ mascota_form.peso }}
+                <div style="color: red">
+                    {{ mascota_form.peso.errors }}
+                </div>
+            </div>
+            <div class="select-container">
+                {{ mascota_form.sexo.label_tag }}
+                {{ mascota_form.sexo }}
+                <div style="color: red">
+                    {{ mascota_form.sexo.errors }}
+                </div>
+            </div>
+            <div class="select-container">
+                {{ mascota_form.tamaño.label_tag }}
+                {{ mascota_form.tamaño }}
+                <div style="color: red">
+                    {{ mascota_form.tamaño.errors }}
+                </div>
+            </div>
+            <div class="input-container">
+                {{ mascota_form.descripcion.label_tag }}
+                {{ mascota_form.descripcion }}
+                <div style="color: red">
+                    {{ mascota_form.descripcion.errors }}
+                </div>
+            </div>
+            <div class="input-container">
+                {{ mascota_form.tiene_cartilla.label_tag }}
+                {{ mascota_form.tiene_cartilla }}
+                <div style="color: red">
+                    {{ mascota_form.tiene_cartilla.errors }}
+                </div>
+            </div>
+
+            {# Formulario para imágenes de mascota #}
+            <div class="file-upload-container">
+                <p>Sube imágenes de tu mascota:</p>
+                {% for field in imagen_form %}
+                    <div class="form-group">
+                        {{ field.label_tag }}
+                        {{ field }}
+                        <div class="alert-error">
+                            {{ field.errors }}
+                        </div>
+                        {% if field.name != "csrfmiddlewaretoken" %}
+                            {% if field.value %}
+                                <img src="{{ field.value.url }}" alt="{{ field.label_tag }}">
+                            {% endif %}
+                        {% endif %}
+                    </div>
+                {% endfor %}
+            </div>
+
+            <button class="button-submit" type="submit">Guardar</button>
+        </form>
+    </div>
+</body>
+
+</html>
 {% endblock content %}

@@ -18,7 +18,6 @@ urlpatterns = [
     path('mascotas/registro/', views.registro_mascota, name='registro_mascota'),
     
         #Img Mascota y Elegir Mascota
-    path('mascotas/<int:mascota_id>/cargar-imagenes/', views.cargar_imagenes_mascota, name='cargar_imagenes_mascota'),
     path('mascotas/', views.mascotas_usuario, name='mascotas_usuario'),
     
         #CRUD Usuario

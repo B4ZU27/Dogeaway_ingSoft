@@ -6,9 +6,19 @@
 
   <form method="post" enctype="multipart/form-data">
     {% csrf_token %}
-    {{ form.as_p }}
+    <div class="mascota-form">
+      {{ mascota_form.as_p }}
+    </div>
 
-    <button type="submit">Guardar Cambios</button>
+    <h3>Actualizar Imágenes de Mascota</h3>
+    <form method="post" enctype="multipart/form-data">
+      {% csrf_token %}
+      <div class="imagen-form">
+        {{ imagen_form.as_p }}
+      </div>
+
+      <button type="submit">Guardar Cambios</button>
+    </form>
   </form>
 
   <a href="{% url 'ver_detalle_mascota' mascota.id %}">Regresar</a>
