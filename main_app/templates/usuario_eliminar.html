@@ -9,7 +9,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="{% static 'css/usuario_eliminar.css' %}">
-    <title></title>
+    <title>Confirmar Eliminación de Cuenta</title>
 </head>
 
 <body>
@@ -19,6 +19,7 @@
         {% csrf_token %}
         <div class="button-container">
             <button type="submit">Sí, eliminar cuenta</button>
+            <a href="{% url 'ver_informacion_usuario' %}">Cancelar</a>
         </div>
     </form>
 </body>

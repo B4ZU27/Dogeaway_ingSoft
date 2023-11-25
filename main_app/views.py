@@ -3,14 +3,14 @@ from django.views.decorators.csrf import csrf_exempt
 from django.shortcuts import redirect, render, get_object_or_404
 from django.views.generic import ListView
 from django.contrib.auth import authenticate, login
-from django.views.generic.edit import UpdateView
-from django.views.generic.edit import DeleteView
 from django.views.generic import DetailView
+from django.views.generic.edit import DeleteView
+from django.contrib.auth.mixins import LoginRequiredMixin
 from django.urls import reverse_lazy
 from django.contrib import messages
 from django.http import HttpResponse, JsonResponse
 from .models import Usuario, Mascota, Match, Chat
-from .forms import UserForm, LoginForm, MascotaForm, PreferenciasForm, ImagenMascotaForm, VerificacionForm, ReportesForm
+from .forms import UserForm, LoginForm, MascotaForm, ImagenMascota, PreferenciasForm, ImagenMascotaForm, VerificacionForm, ReportesForm, UserEditForm, MascotaEditForm
 
 # Create your views here.
 def hello(request):
@@ -121,28 +121,32 @@ def preferencias(request):
 def registro_mascota(request):
     if request.method == 'POST':
         mascota_form = MascotaForm(request.POST)
-        imagen_form = ImagenMascotaForm(request.POST, request.FILES)
-
         if mascota_form.is_valid():
             mascota = mascota_form.save(commit=False)
             mascota.dueño = request.user
             mascota.save()
 
-            # Guardar las imágenes relacionadas con la mascota
-            #imagenes = imagen_form.save(commit=False)
-            #imagenes.mascota = mascota
-            #imagenes.save()
+            # Crear el formulario de imágenes solo si el formulario de mascota es válido
+            imagen_form = ImagenMascotaForm(request.POST, request.FILES)
+            if imagen_form.is_valid():
+                imagenes_mascota = imagen_form.save(commit=False)
+                imagenes_mascota.mascota = mascota
+                imagenes_mascota.save()
 
-            return redirect('mascotas_usuario')  # Redirige a la página principal de mascotas del usuario
+                return redirect('mascotas_usuario')  # Redirige a la página principal de mascotas del usuario
+            else:
+                # Manejar errores en el formulario de imágenes
+                print("Errores en el formulario de imágenes:", imagen_form.errors)
+                # Puedes agregar lógica adicional según tus necesidades
         else:
-            print("Formulario no válido")
-            print(f"Errores en el formulario de mascota: {mascota_form.errors}")
-            print(f"Errores en el formulario de imágenes: {imagen_form.errors}")
+            # Manejar errores en el formulario de mascota
+            print("Errores en el formulario de mascota:", mascota_form.errors)
+            # Puedes agregar lógica adicional según tus necesidades
     else:
         mascota_form = MascotaForm()
         imagen_form = ImagenMascotaForm()
 
-    return render(request, 'registroMascota.html', {'title':"Registro Mascota",'mascota_form': mascota_form, 'imagen_form': imagen_form})
+    return render(request, 'registroMascota.html', {'title': "Registro Mascota", 'mascota_form': mascota_form, 'imagen_form': imagen_form})
 
 #----ELEGIR MASCOTA-----*
 @csrf_exempt
@@ -217,78 +221,83 @@ def like_mascota(request):
 
         return JsonResponse(response_data)
 
-
-#----IMAGENES MASCOTA-----*
-@login_required
-def cargar_imagenes_mascota(request, mascota_id):
-    mascota = get_object_or_404(Mascota, id=mascota_id, dueño=request.user)
-
-    if request.method == 'POST':
-        form = ImagenMascotaForm(request.POST, request.FILES)
-        if form.is_valid():
-            imagenes_mascota = form.save(commit=False)
-            imagenes_mascota.mascota = mascota
-            imagenes_mascota.save()
-            return redirect('mascotas_usuario')
-    else:
-        form = ImagenMascotaForm()
-
-    return render(request, 'registroImagenes_Mascota.html', {'form': form, 'mascota': mascota})
-
-#-----EDITAR USUARIO-----*
-class UsuarioUpdateView(UpdateView):
-    model = Usuario
-    template_name = 'usuario_actualizar.html'
-    form_class = UserForm
-    #fields = ['telefono', 'fecha_de_nacimiento', 'direccion'] #Agregar mas campos para editar
-
-    def get_success_url(self):
-        return reverse_lazy('home')
-
-#-----ELIMINAR USUARIO-----*
-class UsuarioDeleteView(DeleteView):
-    model = Usuario
-    template_name = 'usuario_eliminar.html'
-
-    def get_success_url(self):
-        return reverse_lazy('logout')
-
-#-----DETALLE USUARIO-----
-class UsuarioDetailView(DetailView):
+#-----DETALLE USUARIO-----*
+class VerInformacionUsuario(LoginRequiredMixin, DetailView):
     model = Usuario
     template_name = 'usuario_detalle.html'
     context_object_name = 'usuario'
 
     def get_object(self, queryset=None):
-        return self.request.user  # Devuelve el usuario autenticado
+        return self.request.user
 
-    
-#-----EDITAR MASCOTA-----*
-class MascotaUpdateView(UpdateView):
-    model = Mascota
-    template_name = 'mascota_actualizar.html'
-    fields = ['nombre', 'peso', 'sexo', 'tamaño', 'descripcion', 'raza', 'tiene_cartilla']
+#-----EDITAR USUARIO-----*
+@login_required
+def ActualizarInformacionUsuario(request):
+    if request.method == 'POST':
+        form = UserEditForm(request.POST, instance=request.user)
+        if form.is_valid():
+            form.save()
+            messages.success(request, 'Información actualizada exitosamente.')
+            return redirect('ver_informacion_usuario')
+    else:
+        form = UserEditForm(instance=request.user)
 
-    def get_success_url(self):
-        return reverse_lazy('home')
+    return render(request, 'usuario_actualizar.html', {'form': form})
 
-#-----ELIMINAR MASCOTA-----*
-class MascotaDeleteView(DeleteView):
-    model = Mascota
-    template_name = 'mascota_eliminar.html'
+#-----ELIMINAR USUARIO-----*
+class EliminarCuentaUsuario(LoginRequiredMixin, DeleteView):
+    model = Usuario
+    template_name = 'usuario_eliminar.html'
+    success_url = reverse_lazy('logout')
 
-    def get_success_url(self):
-        return reverse_lazy('mascotas_usuario')
+    def get_object(self, queryset=None):
+        return self.request.user
 
-#-----DETALLE MASCOTA-----*
-class MascotaDetailView(DetailView):
+#-----DETALLES MASCOTA-----*
+class VerDetalleMascota(LoginRequiredMixin, DetailView):
     model = Mascota
     template_name = 'mascota_detalle.html'
     context_object_name = 'mascota'
 
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        mascota = context['mascota']
+        context['imagenes_mascota'] = ImagenMascota.objects.filter(mascota=mascota)
+        return context
+
     def get_object(self, queryset=None):
-        mascota_seleccionada_id = self.request.session.get('mascota_seleccionada_id')
-        return get_object_or_404(Mascota, id=mascota_seleccionada_id, dueño=self.request.user)
+        mascota_id = self.kwargs.get('mascota_id')
+        return get_object_or_404(Mascota, id=mascota_id, dueño=self.request.user)
+
+#-----EDITAR MASCOTA-----*
+@login_required
+def ActualizarInformacionMascota(request, mascota_id):
+    mascota = get_object_or_404(Mascota, pk=mascota_id, dueño=request.user)
+
+    if request.method == 'POST':
+        mascota_form = MascotaEditForm(request.POST, instance=mascota)
+        imagen_form = ImagenMascotaForm(request.POST, request.FILES, instance=mascota.imagenmascota)
+
+        if mascota_form.is_valid() and imagen_form.is_valid():
+            mascota_form.save()
+            imagen_form.save()
+            messages.success(request, 'Mascota actualizada exitosamente.')
+            return redirect('ver_detalle_mascota', mascota_id=mascota_id)
+    else:
+        mascota_form = MascotaEditForm(instance=mascota)
+        imagen_form = ImagenMascotaForm(instance=mascota.imagenmascota)
+
+    return render(request, 'mascota_actualizar.html', {'mascota_form': mascota_form, 'imagen_form': imagen_form, 'mascota': mascota})
+
+#-----ELIMINAR MASCOTA-----*
+class EliminarMascota(LoginRequiredMixin, DeleteView):
+    model = Mascota
+    template_name = 'mascota_eliminar.html'
+    success_url = reverse_lazy('mascotas_usuario')
+
+    def get_object(self, queryset=None):
+        mascota_id = self.kwargs.get('mascota_id')
+        return get_object_or_404(Mascota, id=mascota_id, dueño=self.request.user)
 
 #-----CHAT-----*
 @login_required

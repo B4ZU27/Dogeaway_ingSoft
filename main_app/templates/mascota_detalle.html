@@ -9,31 +9,42 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="{% static 'css/mascota_detalle.css' %}">
-    <title></title>
+    <title>Detalles de Mascota</title>
 </head>
 
 <body>
-
-    <form method="post">
+    <div class="detalleMascota">
         <h1>Detalles de Mascota</h1><br><br>
 
         <div class="input-container">
-            <label for="id_nombre">Nombre:</label>
+            <label for="id_nombre">Nombre de la mascota:</label>
             <p>{{ mascota.nombre }}</p>
         </div>
 
         <div class="input-container">
-            <label for="id_peso">Peso:</label>
-            <p>{{ mascota.peso }}</p>
+            <label for="id_edad">Edad:</label>
+            <p>{{ mascota.edad }}</p>
+        </div>
+
+        <div class="input-container">
+            <label for="id_raza">Raza:</label>
+            <p>{{ mascota.raza }}</p>
         </div>
 
         <!-- Agrega más campos según sea necesario -->
 
-        <div class="button-container">
-            <a href="{% url 'mascota_actualizar' %}" class="button">Editar Mascota</a>
-            <a href="{% url 'mascota_eliminar' %}" class="button">Eliminar Mascota</a>
+        <div class="imagenesMascota">
+            <h2>Imágenes de la mascota</h2>
+            {% for imagen in imagenes_mascota %}
+                <img src="{{ imagen.imagen_1.url }}" alt="Imagen de {{ mascota.nombre }}">
+            {% endfor %}
         </div>
-    </form>
+
+        <div class="button-container">
+            <a href="{% url 'editar_mascota' mascota.id %}" class="button">Editar Mascota</a>
+            <a href="{% url 'eliminar_mascota' mascota.id %}" class="button">Eliminar Mascota</a>
+        </div>
+    </div>
 </body>
 
 </html>

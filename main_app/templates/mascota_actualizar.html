@@ -2,38 +2,24 @@
 {% load static %}
 
 {% block content %}
-<!DOCTYPE html>
-<html lang="en">
+  <h2>Actualizar Información de Mascota</h2>
 
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="{% static 'css/mascota_actualizar.css' %}">
-    <title></title>
-</head>
+  <form method="post" enctype="multipart/form-data">
+    {% csrf_token %}
+    <div class="mascota-form">
+      {{ mascota_form.as_p }}
+    </div>
 
-<body>
-    <form method="post">
-        <h1>Editar Mascota</h1><br><br>
-        {% csrf_token %}
+    <h3>Actualizar Imágenes de Mascota</h3>
+    <form method="post" enctype="multipart/form-data">
+      {% csrf_token %}
+      <div class="imagen-form">
+        {{ imagen_form.as_p }}
+      </div>
 
-        <div class="input-container">
-            <label for="id_nombre">Nombre:</label>
-            {{ form.nombre }}
-        </div>
-
-        <div class="input-container">
-            <label for="id_peso">Peso:</label>
-            {{ form.peso }}
-        </div>
-
-        <!-- Agrega más campos según sea necesario -->
-
-        <div class="button-container">
-            <button type="submit">Guardar Cambios</button>
-        </div>
+      <button type="submit">Guardar Cambios</button>
     </form>
-</body>
+  </form>
 
-</html>
-{% endblock content %}
+  <a href="{% url 'ver_detalle_mascota' mascota.id %}">Regresar</a>
+{% endblock %}

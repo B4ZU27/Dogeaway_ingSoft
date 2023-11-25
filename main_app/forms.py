@@ -66,25 +66,48 @@ class MascotaForm(forms.ModelForm):
             'peso':'Peso en Kg'
         }
 
-
-#-----IMAGENES DE MASCOTA-----*
+# -----IMAGENES DE MASCOTA-----
 class ImagenMascotaForm(forms.ModelForm):
     class Meta:
         model = ImagenMascota
-        fields = ['imagen_1', 'imagen_2']
-    #def clean(self):
-    #    cleaned_data = super().clean()
-    #    num_imagenes_llenas = sum(1 for field_name in self.fields if cleaned_data.get(field_name) is not None)
-    #    
-    #    if num_imagenes_llenas >= 2:
-            # Marcamos el formulario como válido
-    #        self.cleaned_data['is_valid'] = True
-    #    else:
-            # Marcamos el formulario como no válido
-    #        self.add_error(None, "Se requieren al menos dos imágenes.")
-     #       self.cleaned_data['is_valid'] = False
+        fields = ['imagen_1', 'imagen_2', 'imagen_3', 'imagen_4', 'imagen_5', 'imagen_6']
 
-      #  return self.cleaned_data
+    def clean(self):
+        cleaned_data = super().clean()
+
+        # Verificar que todas las imágenes estén presentes
+        for i in range(1, 7):
+            campo_imagen = f'imagen_{i}'
+            if not cleaned_data.get(campo_imagen):
+                self.add_error(campo_imagen, 'Este campo es obligatorio.')
+
+        return cleaned_data
+      
+#-----EDITAR USUARIO FORM-----*
+class UserEditForm(forms.ModelForm):
+    class Meta:
+        model = Usuario
+        fields = ['username', 'email', 'telefono', 'fecha_de_nacimiento', 'direccion']
+        widgets = {
+            'username': forms.TextInput(attrs={'class': 'input-field', 'placeholder': 'Nombre completo:'}),
+            'email': forms.EmailInput(attrs={'class': 'input-field', 'placeholder': 'Correo electrónico:'}),
+            'telefono': forms.TextInput(attrs={'class': 'input-field', 'placeholder': 'Ejemplo: (123) 456-7890'}),
+            'direccion': forms.TextInput(attrs={'class': 'input-field', 'placeholder': 'Direccion:'}),
+            'fecha_de_nacimiento': forms.DateInput(attrs={'class': 'input-field', 'placeholder': 'YYYY-MM-DD'}),
+        }
+        labels = {
+            'username': 'Nombre completo',
+            'email': 'Correo electrónico',
+            'telefono': 'Telefono',
+            'direccion': 'Direccion',
+            'fecha_de_nacimiento': 'Fecha de nacimiento',
+        }
+
+#-----EDITAR MASCOTA FORM-----*
+class MascotaEditForm(forms.ModelForm):
+    class Meta:
+        model = Mascota
+        fields = ['nombre', 'peso', 'edad', 'sexo', 'tamaño', 'descripcion', 'raza', 'tiene_cartilla']
 
 
 #-----TEST DE PREFERENCIAS-----*
