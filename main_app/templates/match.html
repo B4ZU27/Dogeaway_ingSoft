@@ -5,12 +5,7 @@
 {% endblock  %}
 {% block content %}
     <div style="margin-top: 100px"></div>
-    {% for message in messages %}
-    <div class="alert alert-{{ message.tags }}">
-        {{ message }}
-    </div>
-    {% endfor %}
-
+   
     <div id="mascota-container">
         {% for mascota in mascotas %}
         <div class="mascota" style="display: none;">
@@ -37,14 +32,18 @@
                     </div>
                 </div>
                 <div class="d-grid gap-2">
-                    <button type="button" id="btn-detalles" class="btn btn-outline-secondary" data-nombre="{{ mascota.nombre }}" data-edad="{{ mascota.edad }}" data-peso="{{ mascota.peso }}" data-sexo="{{ mascota.sexo }}" data-tamaño="{{ mascota.tamaño }}" data-descripcion="{{ mascota.descripcion }}" data-raza="{{ mascota.raza }}" data-tiene-cartilla="{{ mascota.tiene_cartilla }}">
+                    <button type="button" id="btn-detalles" class="btn btn-outline-secondary"  data-edad="{{ mascota.edad }}" data-peso="{{ mascota.peso }}"   data-tiene-cartilla="{{ mascota.tiene_cartilla }}">
                         <i class="bi bi-arrow-down"></i> Detalles
                     </button>
                 </div>
             </div>
         </div>
         {% endfor %}
-    </div>
+    </div> 
+    
+    <div class="alert alert-success" role="alert"></div>
+    <div class="alert alert-info" role="alert"></div>
+    <div class="alert alert-danger" role="alert"></div>
     {% endblock content %}
 
     {# ----------------------------------------------------------------------------------- #}
@@ -75,21 +74,54 @@
                 });
             }
         };
+
+        $(document).ready(function () {
+            $(".alert").hide();
+        });
         
-        $(document).on('click', '#btn-like', function () {
+        $(document).on('click', '.btn-outline-danger', function () {
             var mascota_id = $(this).data('mascota-id');
-        
+            var csrfToken = '{{ csrf_token }}';
             $.ajax({
                 method: 'POST',
                 url: '/MATCH/like_mascota/',
-                data: { 'mascota_id': mascota_id },
+                data: { 'mascota_id': mascota_id,
+                'csrfmiddlewaretoken': csrfToken },
                 success: function (data) {
-                    // Manejar la respuesta, por ejemplo, actualizar la interfaz de usuario
                     console.log(data.status);
+                    if (data.status === 'MATCH') {   
+                        var alertDiv = $(".alert-success");
+                        alertDiv.text("!! Match !!");
+                        alertDiv.show();
+                        setTimeout(function () {
+                            alertDiv.hide();
+                        }, 10000); // 10000 milisegundos = 10 segundos
+
+                    } else if (data.status === 'like_added_already') {
+                        var alertDiv = $(".alert-info");
+                        alertDiv.text("Ya le habias dado like a este");
+                        alertDiv.show();
+                        setTimeout(function () {
+                            alertDiv.hide();
+                        }, 5000); // 10000 milisegundos = 10 segundos
+
+                    } else if (data.status === 'like_added') {
+                        var alertDiv = $(".alert-success");
+                        alertDiv.text("Like agregado");
+                        alertDiv.show();
+                        setTimeout(function () {
+                            alertDiv.hide();
+                        }, 4000); // 10000 milisegundos = 10 segundos
+                    }
                 },
                 error: function () {
                     // Manejar errores
-                    console.log('Error en la solicitud AJAX');
+                    var alertDiv = $(".alert-danger");
+                        alertDiv.text("Error FATAL");
+                        alertDiv.show();
+                        setTimeout(function () {
+                            alertDiv.hide();
+                        }, 4000); // 10000 milisegundos = 10 segundos
                 }
             });
         });

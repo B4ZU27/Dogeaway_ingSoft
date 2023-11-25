@@ -63,8 +63,8 @@ def signup(request):
             user = form.save(commit=False)
             user.set_password(form.cleaned_data['password1'])
             user.save()
-
-            login(request, user)
+            request.session['usuario_no_verificado'] = user.id
+            #login(request, user)
             # Redirige a la página de verificación después del registro exitoso
             messages.success(request, 'Registro exitoso. Ahora procede con la verificación de identificación.')
             return redirect('verificacion')
@@ -75,21 +75,32 @@ def signup(request):
 
 #-----VERIFICACION-----*
 def verificacion(request):
-    if request.method == 'POST':
-        form = VerificacionForm(request.POST, request.FILES, instance=request.user)
-
-        if form.is_valid():
-            form.save()
-            # Marcar al usuario como verificado después de enviar la foto de identificación
-            request.user.verificado = True
-            request.user.save()
-
-            messages.success(request, 'Verificación exitosa. Ahora puedes iniciar sesión.')
-            return redirect('/')
-        else:
-            messages.error(request, 'Hubo un problema con tu solicitud de verificación. Asegúrate de cargar una foto de identificación.')
+    usuario_vr_id = request.session.get('usuario_no_verificado')
+    if usuario_vr_id is not None:
+        usuario_vr = get_object_or_404(Usuario, id=usuario_vr_id)
+        form = VerificacionForm(request.POST, request.FILES, instance=usuario_vr)
+        if request.method == 'POST':
+            if form.is_valid():
+                form.save()
+                # Marcar al usuario como verificado después de enviar la foto de identificación
+                #si viene del signup 
+                usuario_vr.verificado = True
+                usuario_vr.save()
+                messages.success(request, 'Verificación exitosa. Ahora puedes iniciar sesión.')
+                return redirect('/')
+            else:
+                messages.error(request, 'Hubo un problema con tu solicitud de verificación. Asegúrate de cargar una foto de identificación.')
     else:
+        #viene del login
         form = VerificacionForm(instance=request.user)
+        if request.method == 'POST':
+            if form.is_valid():
+                request.user.verificado = True
+                request.user.save()
+                messages.success(request, 'Verificación exitosa.')
+                return redirect('/')
+            else:
+                messages.error(request, 'Hubo un problema con tu solicitud de verificación. Asegúrate de cargar una foto de identificación.') 
     return render(request, 'verificacion.html', {'form': form})
 
 #-----PREFERENCIAS VIEW-----*
@@ -158,11 +169,6 @@ def match_view(request):
     if mascota_seleccionada_id:
         mascota_seleccionada = get_object_or_404(Mascota, id=mascota_seleccionada_id)
         print('Nombre - '+mascota_seleccionada.nombre)
-        print('Sexo - '+mascota_seleccionada.sexo)
-        print('Raza- '+mascota_seleccionada.raza)
-        print('################################')
-        #papa = get_object_or_404(Usuario, id=request.user.id)
-        #print(papa.email)
         # Filtra las mascotas excluyendo aquellas que pertenecen al usuario actual
         lista_mascotas = Mascota.objects.exclude(sexo=mascota_seleccionada.sexo)
 
@@ -179,7 +185,7 @@ def match_view(request):
         'mascotas': lista_mascotas})
  # - - - LIKE_MASCOTA - - - #
 def like_mascota(request):
-    if request.method == 'POST' and request.is_ajax():
+    if request.method == 'POST' and request.headers.get('X-Requested-With') == 'XMLHttpRequest':
         mascota_id = request.POST.get('mascota_id')
         mascota_seleccionada_id = request.session.get('mascota_seleccionada_id')
 
@@ -189,21 +195,25 @@ def like_mascota(request):
 
             if mascota_liked:
                 # Si ya le dio like a nuestra mascota, MATCH
-                response_data = {'status': 'already_liked', 'message': '¡MATCH!'}
+                response_data = {'status': 'MATCH', 'message': '¡MATCH!'}
+                #print('match')
                 # Crear el Match
                 nuevo_match = Match.objects.create(mascota1=mascota_seleccionada, mascota2=get_object_or_404(Mascota, id=mascota_id))
                 #Borramos el like
                 mascota_seleccionada.liked_by.remove(mascota_liked)
-                messages.success(request, '!! MATCH !!')
+                #messages.success(request, '!! MATCH !!')
             else:
                 # Si no dio like, agregamos mascota a esa mascota
                 mascota = get_object_or_404(Mascota, id=mascota_id)
                 if(mascota.liked_by.filter(id=mascota_seleccionada_id)):
-                    response_data = {'status': 'like_added_already'}
+                    response_data = {'status': 'like_added_already', 'message': 'Ya hay un like otorgado'}
                     messages.info(request, 'Ya se habia dado like')
-                mascota.liked_by.add(mascota_seleccionada) # revisa que pedo con esto 
-                response_data = {'status': 'like_added'}
-                messages.success(request, 'Like agregado')
+                    #print('ya se habia dado')
+                else:
+                    mascota.liked_by.add(mascota_seleccionada) # revisa que pedo con esto 
+                    response_data = {'status': 'like_added','message': 'Se agrego un like'}
+                    #print('like agregado')
+                    #messages.success(request, 'Like agregado')
 
         return JsonResponse(response_data)
 
