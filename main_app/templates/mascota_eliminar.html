@@ -6,19 +6,23 @@
 <html lang="en">
 
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <link rel="stylesheet" href="{% static 'css/mascota_eliminar.css' %}">
-  <title></title>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="{% static 'css/mascota_eliminar.css' %}">
+    <title>Confirmar Eliminación de Mascota</title>
 </head>
 
 <body>
-  <form method="post">
-    <h1>Confirmar Eliminación de Mascota</h1><br><br>
-    <p>¿Estás seguro de que deseas eliminar a {{ mascota.nombre }}?</p>
-    {% csrf_token %}
-    <div class="button"></div>
-  </form>
+    <form method="post">
+        <h1>Confirmar Eliminación de Mascota</h1><br><br>
+        <p>¿Estás seguro de que deseas eliminar esta mascota?</p>
+        {% csrf_token %}
+        <div class="button-container">
+            <button type="submit">Sí, eliminar mascota</button>
+            <a href="{% url 'ver_informacion_usuario' %}">Cancelar</a>
+        </div>
+    </form>
 </body>
 
 </html>
+{% endblock content %}

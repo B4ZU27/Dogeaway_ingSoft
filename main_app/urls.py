@@ -6,36 +6,44 @@ from . import views
 urlpatterns = [
     path('', views.index, name = 'home'),
 
+        #Login/Signup
     path('login/', views.user_login, name='login'),
     path('verificacion/', views.verificacion, name='verificacion'),
     path('signup/', views.signup, name='signup'),
 
     path('lista/', views.ListaUsuariosView.as_view(), name='lista de usuarios'),
 
+        #Signup Mascota y Preferencias
     path('preferencias/', views.preferencias, name='preferencias'),
     path('mascotas/registro/', views.registro_mascota, name='registro_mascota'),
     
+        #Img Mascota y Elegir Mascota
     path('mascotas/<int:mascota_id>/cargar-imagenes/', views.cargar_imagenes_mascota, name='cargar_imagenes_mascota'),
     path('mascotas/', views.mascotas_usuario, name='mascotas_usuario'),
     
-    path('usuario/<int:pk>/actualizar/', views.UsuarioUpdateView.as_view(), name='usuario_actualizar'),
-    path('usuario/<int:pk>/eliminar/', views.UsuarioDeleteView.as_view(), name='usuario_eliminar'),
-    path('usuario/<int:pk>/detalles/', views.UsuarioDetailView.as_view(), name='usuario_detalles'),
-
+        #CRUD Usuario
+    path('ver_informacion/', views.VerInformacionUsuario.as_view(), name='ver_informacion_usuario'),
+    path('actualizar_informacion/', views.ActualizarInformacionUsuario, name='actualizar_informacion_usuario'),
+    path('eliminar_cuenta/', views.EliminarCuentaUsuario.as_view(), name='eliminar_cuenta_usuario'),
     
-    path('mascota/<int:pk>/actualizar/', views.MascotaUpdateView.as_view(), name='mascota_actualizar'),
-    path('mascota/<int:pk>/eliminar/', views.MascotaDeleteView.as_view(), name='mascota_eliminar'),
-    path('mascota/detalles/', views.MascotaDetailView.as_view(), name='mascota_detalles'),
+        #CRUD Mascota
+    path('ver_detalle_mascota/<int:mascota_id>/', views.VerDetalleMascota.as_view(), name='ver_detalle_mascota'),
+    path('editar_mascota/<int:mascota_id>/', views.ActualizarInformacionMascota, name='editar_mascota'),
+    path('eliminar_mascota/<int:mascota_id>/', views.EliminarMascota.as_view(), name='eliminar_mascota'),
     
+        #Chat
     path('chat/<int:match_id>/', views.chat_view, name='chat'),
     
+        #Reportes y Bloqueos
     path('reportar/<int:usuario_id>/', views.reportar_usuario, name='reportar_usuario'),
     path('bloquear/<int:usuario_id>/', views.bloquear_usuario, name='bloquear_usuario'),
     path('desbloquear/<int:usuario_id>/', views.desbloquear_usuario, name='desbloquear_usuario'),
     path('usuarios_bloqueados/', views.lista_usuarios_bloqueados, name='lista_usuarios_bloqueados'),
 
+        #Match
     path('MATCH/', views.match_view, name='Match'),
     path('MATCH/like_mascota/', views.like_mascota, name='like_mascota'),
 
+        #Logout
     path('logout/', LogoutView.as_view(), name='logout'),
 ]

@@ -85,6 +85,32 @@ class ImagenMascotaForm(forms.ModelForm):
      #       self.cleaned_data['is_valid'] = False
 
       #  return self.cleaned_data
+      
+#-----EDITAR USUARIO FORM-----*
+class UserEditForm(forms.ModelForm):
+    class Meta:
+        model = Usuario
+        fields = ['username', 'email', 'telefono', 'fecha_de_nacimiento', 'direccion']
+        widgets = {
+            'username': forms.TextInput(attrs={'class': 'input-field', 'placeholder': 'Nombre completo:'}),
+            'email': forms.EmailInput(attrs={'class': 'input-field', 'placeholder': 'Correo electrónico:'}),
+            'telefono': forms.TextInput(attrs={'class': 'input-field', 'placeholder': 'Ejemplo: (123) 456-7890'}),
+            'direccion': forms.TextInput(attrs={'class': 'input-field', 'placeholder': 'Direccion:'}),
+            'fecha_de_nacimiento': forms.DateInput(attrs={'class': 'input-field', 'placeholder': 'YYYY-MM-DD'}),
+        }
+        labels = {
+            'username': 'Nombre completo',
+            'email': 'Correo electrónico',
+            'telefono': 'Telefono',
+            'direccion': 'Direccion',
+            'fecha_de_nacimiento': 'Fecha de nacimiento',
+        }
+
+#-----EDITAR MASCOTA FORM-----*
+class MascotaEditForm(forms.ModelForm):
+    class Meta:
+        model = Mascota
+        fields = ['nombre', 'peso', 'edad', 'sexo', 'tamaño', 'descripcion', 'raza', 'tiene_cartilla']
 
 
 #-----TEST DE PREFERENCIAS-----*

@@ -9,7 +9,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="{% static 'css/usuario_detalle.css' %}">
-    <title></title>
+    <title>Detalles de Usuario</title>
 </head>
 
 <body>
@@ -29,8 +29,8 @@
         <!-- Agrega más campos según sea necesario -->
 
         <div class="button-container">
-            <a href="{% url 'usuario_actualizar' pk=usuario.id %}" class="button">Editar Usuario</a>
-            <a href="{% url 'usuario_eliminar' pk=usuario.id %}" class="button">Eliminar Cuenta</a>
+            <a href="{% url 'actualizar_informacion_usuario' %}" class="button">Editar Usuario</a>
+            <a href="{% url 'eliminar_cuenta_usuario' %}" class="button">Eliminar Cuenta</a>
         </div>
     </form>
 </body>
