@@ -1,74 +1,206 @@
-body {
-    margin: 0;
-    padding: 0;
-    font-family: 'Roboto', sans-serif;
-    overflow: hidden; /* Evitar desbordamiento */
-}
+/*---------------------------------------- INICIO ----------------------------------------*/
 
-.container {
-    display: flex;
-    flex-direction: column;
-    min-height: 100vh;
-}
-
-.content {
-    background-image: url("../../static/imagenes/home/presentacion.jpeg");
-    background-repeat: no-repeat;
+.title {
+    position: relative;
+    background-image: url('../../static/imagenes/home/presentacion.jpeg');
     background-size: cover;
-    background-position: center center;
-    margin: 0;
-    padding: 0;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    height: 70vh; /* Ajustar según sea necesario */
-}
-
-.footer {
-    background-color: #0B667A;
+    background-position: center;
     color: white;
-    padding: 10px;
 }
 
-.cuadro {
-    display: flex;
-    flex-direction: column;
-    align-items:center;
-    justify-content:center;
-    width: 90%;
-    max-width: 1000px;
-    height: 50vh;
-    margin-top: 10vh;
-    margin-left: 5vw; /* Ajustar el margen izquierdo */
-    margin-right: auto;
+.text-container {
+    padding: 20px;
+    width: 100%;
+    margin: 30% auto;
+    text-align: center;
     background-color: rgba(189, 114, 25, 0.40);
     backdrop-filter: blur(20px);
-    border-radius: 100px;
+    border-radius: 10%;
     position: relative;
 }
 
-.cuadro > h1 {
+.text-container h1 {
+    font-size: 2.75em;
+    line-height: 1.5;
     position: relative;
     text-shadow: 2px 2px 4px #000000;
     color: rgb(255, 255, 255);
-    font-size: 3vw;
-    font-weight: 700;
-    text-align: center;
-    margin-top: -4vh;
-    margin-bottom: 4vh;
 }
 
-.cuadro > p {
-    position: relative;
-    color: #ffffff;
-    font-size: 2vw;
-    font-weight: 100;
-    text-align: center;
+.text-container p {
+    font-size: 2rem;
+    text-shadow: 2px 2px 4px #000000;
+    color: white;
 }
 
-.objetivo {
-    width: 100%;
-    height: 901px;
-    margin-top: 0;
+#title-container-fluid {
+    padding: 3% 15%;
+}
+
+/* Ajusta el tamaño de las imágenes dentro del carrusel */
+.testimonial-img {
+    width: 5vw;
+    /* Ancho deseado */
+    height: 5vh;
+    /* Alto deseado */
+    object-fit: cover;
+    /* Ajusta la imagen para que cubra el tamaño definido */
+}
+
+
+
+/*---------------------------------------- CARRUSEL DE FOTOS ----------------------------------------*/
+
+.carrusel {
+    padding: 3% 10% 3%;
+    text-align: center;
+    /* background-color: #ff4c68; */
     background-color: #005264;
+    color: white;
+
+
 }
+
+.carrusel h2 {
+    font-size: 3rem;
+    line-height: 1.5;
+
+}
+
+.carrusel img {
+    padding: 1% 10% 7%;
+    width: 80%;
+    height: 50%;
+}
+
+#carruselIMG{
+    border-radius: 10%;
+}
+
+
+/*---------------------------------------- FUNCIONES ----------------------------------------*/
+
+/* Estilos para los cuadros */
+
+#funciones{
+    position: relative;
+    background-image: url('../imagenes/home/funciones.jpg');
+    background-size: cover;
+    background-position: center;
+    height: 50rem; 
+    width: 100%; 
+    display: flex;
+    align-items: center; 
+}
+#funciones::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.3); 
+  }
+
+
+  #funciones .container {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-between;
+}
+
+#funciones .box {
+    position: relative;
+    z-index: 2; 
+    width: calc(23% - 20px); 
+    padding: auto;
+    margin-bottom: 20px;
+    box-sizing: border-box;
+    border-radius: 10%;
+    background-color: rgba(190, 115, 50, 0.1);
+    backdrop-filter: blur(10px);
+    color: white;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+    border: 1px solid #fea74a69;
+    
+}
+
+/* Estilos para el contenido dentro de los cuadros */
+#funciones .box h1 {
+    font-weight: bold;
+    font-size: 2.5rem;
+    margin-bottom: 10%;
+}
+
+#funciones .box p {
+    font-size: 1.5rem;
+    line-height: 1.4;
+}
+
+@media screen and (max-width: 1024px) {
+    #funciones .box {
+        width: calc(45% - 20px); 
+    }
+}
+
+
+@media screen and (max-width: 768px) {
+    #funciones .box {
+        width: calc(50% - 20px);
+    }
+}
+
+@media screen and (max-width: 480px) {
+    #funciones .box {
+        width: 100%;
+        padding: 20px; 
+    }
+}
+
+
+
+/* CTA section */
+#cta {
+    background-color: #005264;
+    color: white;
+    text-align: center;
+    padding: 3% 15% 3%;
+
+
+}
+
+.ctaheading {
+    font-size: 24px;
+}
+
+/*---------------------------------------- footer ----------------------------------------*/
+
+/* footer */
+#footer {
+    text-align: center;
+    background-color: #000000;
+}
+
+.social-icon {
+    color: white;
+    margin: 20px 10px 20px;
+}
+
+.social-icon:hover {
+    color: rgb(136, 38, 38);
+}
+
+
+
+@media (min-width: 1028px) {
+    .title-image {
+        position: static;
+        text-align: center;
+    }
+}
+
+
