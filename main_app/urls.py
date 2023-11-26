@@ -15,6 +15,7 @@ urlpatterns = [
 
         #Signup Mascota y Preferencias
     path('preferencias/', views.preferencias, name='preferencias'),
+    path('editar_preferencias/', views.editar_preferencias, name='editar_preferencias'),
     path('mascotas/registro/', views.registro_mascota, name='registro_mascota'),
     
         #Img Mascota y Elegir Mascota

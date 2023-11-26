@@ -87,7 +87,7 @@ def verificacion(request):
                 usuario_vr.verificado = True
                 usuario_vr.save()
                 messages.success(request, 'Verificación exitosa. Ahora puedes iniciar sesión.')
-                return redirect('/')
+                return redirect('preferencias')
             else:
                 messages.error(request, 'Hubo un problema con tu solicitud de verificación. Asegúrate de cargar una foto de identificación.')
     else:
@@ -104,17 +104,46 @@ def verificacion(request):
     return render(request, 'verificacion.html', {'form': form})
 
 #-----PREFERENCIAS VIEW-----*
-@login_required
 def preferencias(request):
+    # Verificar si el usuario ya tiene preferencias
+    preferencias_usuario = request.user.preferencias if hasattr(request.user, 'preferencias') else None
+
     if request.method == 'POST':
-        form = PreferenciasForm(request.POST)
-        if 'submit_form' in request.POST:
-            if form.is_valid():
-                form.save()
-        return redirect('mascotas_usuario')  # Redirige a la página de inicio después del registro o si se omite el formulario
+        form = PreferenciasForm(request.POST, instance=preferencias_usuario)
+
+        if form.is_valid():
+            preferencias = form.save(commit=False)
+            preferencias.usuario = request.user
+            preferencias.save()
+
+            messages.success(request, 'Preferencias guardadas exitosamente.')
+            return redirect('mascotas_usuario')
+
     else:
-        form = PreferenciasForm()
-    return render(request, 'Preferencias.html', {'form': form})
+        form = PreferenciasForm(instance=preferencias_usuario)
+
+    return render(request, 'preferencias.html', {'form': form})
+
+#-----EDITAR PREFERENCIAS-----*
+def editar_preferencias(request):
+    if not hasattr(request.user, 'preferencias'):
+        messages.warning(request, 'Aún no has configurado tus preferencias.')
+        return redirect('preferencias')
+
+    preferencias_usuario = request.user.preferencias
+
+    if request.method == 'POST':
+        form = PreferenciasForm(request.POST, instance=preferencias_usuario)
+
+        if form.is_valid():
+            form.save()
+            messages.success(request, 'Preferencias actualizadas exitosamente.')
+            return redirect('ver_informacion_usuario')
+
+    else:
+        form = PreferenciasForm(instance=preferencias_usuario)
+
+    return render(request, 'editar_preferencias.html', {'form': form})
 
 #-----SIGNUP_MASCOTA VIEW-----*
 @login_required

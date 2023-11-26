@@ -115,6 +115,22 @@ class PreferenciasForm(forms.ModelForm):
     class Meta:
         model = Preferencias
         fields = ['preferencia_tamaño', 'preferencia_raza', 'preferencia_edad_min', 'preferencia_edad_max']
+        labels = {
+            'preferencia_tamaño': 'Tamaño de la mascota',
+            'preferencia_raza': 'Raza de preferencia',
+            'preferencia_edad_min': 'Edad mínima preferida',
+            'preferencia_edad_max': 'Edad máxima preferida',
+        }
+        help_texts = {
+            'preferencia_tamaño': 'Selecciona el tamaño deseado para tu mascota.',
+            'preferencia_raza': 'Indica la raza de preferencia para tu mascota.',
+            'preferencia_edad_min': 'Ingresa la edad mínima preferida para tu mascota.',
+            'preferencia_edad_max': 'Ingresa la edad máxima preferida para tu mascota.',
+        }
+        widgets = {
+            'preferencia_tamaño': forms.Select(choices=Mascota.TAMAÑO_CHOICES),
+            'preferencia_raza': forms.Select(choices=Mascota.RAZA_CHOICES),
+        }
 
 #-----REPORTES FORM-----*
 class ReportesForm(forms.ModelForm):
