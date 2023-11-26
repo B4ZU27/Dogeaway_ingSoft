@@ -1,4 +1,4 @@
-{% extends 'layouts/base.html' %}
+{% include "layouts/base.html" %}
 {% load static %}
 
 {% block content %}
@@ -6,31 +6,40 @@
 <html lang="en">
 
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <link rel="stylesheet" href="{% static 'css/registroImagenes_Mascota.css' %}">
-  <title></title>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="{% static 'css/registroMascota.css' %}">
+    <title>{{ title }}</title>
 </head>
 
-<body>
-  <h2>Subir Imágenes para {{ mascota.nombre }}</h2>
-
-  <form method="post" enctype="multipart/form-data" style="background-color: #f0f0f0; padding: 20px;">
-    {% csrf_token %}
-
-    {% for field in form %}
-    <div class="form-group">
-      {{ field.label_tag }}
-      {{ field }}
-      <div class="alert alert-danger">
-        {{ field.errors }}
-      </div>
+    <div class="file-upload-container">
+        <form method="post" enctype="multipart/form-data">
+            <p>Sube imágenes de tu mascota:</p>
+            {% csrf_token %}
+            {% for field in imagen_form %}
+                <div class="form-group">
+                    {{ field.label_tag }}
+                    {{ field }}
+                    <div class="alert-error">
+                        {{ field.errors }}
+                    </div>
+                    {% if field.name != "csrfmiddlewaretoken" %}
+                        {% if field.value %}
+                            <img src="{{ field.value.url }}" alt="{{ field.label_tag }}">
+                        {% endif %}
+                    {% endif %}
+                </div>
+            {% endfor %}
+            <button class="button-submit" type="submit">Guardar</button>
+            {% if imagen_form.errors %}
+                <ul class="errorlist">
+                    {% for field_errors in imagen_form.errors.values %}
+                        {% for error in field_errors %}
+                            <li>{{ error }}</li>
+                        {% endfor %}
+                    {% endfor %}
+                </ul>
+            {% endif %}
+        </form>
     </div>
-    {% endfor %}
-
-    <button type="submit" class="btn btn-primary">Guardar Imágenes</button>
-  </form>
-</body>
-
-</html>
-{% endblock %}
+{% endblock content %}

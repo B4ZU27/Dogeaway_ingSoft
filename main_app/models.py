@@ -89,7 +89,14 @@ class Mascota(models.Model):
     raza = models.CharField(max_length=100, choices=RAZA_CHOICES)
     
     tiene_cartilla = models.BooleanField()
+    adopcion = models.BooleanField(default=False)
     likes = models.ManyToManyField("self", symmetrical=False, related_name="liked_by", blank=True)
+    
+    # Redes sociales
+    facebook_mascota = models.URLField(blank=True, null=True)
+    twitter_mascota = models.URLField(blank=True, null=True)
+    instagram_mascota = models.URLField(blank=True, null=True)
+    tiktok_mascota = models.URLField(blank=True, null=True)
     
     def __str__(self):
         return self.nombre        
