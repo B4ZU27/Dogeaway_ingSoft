@@ -132,6 +132,24 @@ class PreferenciasForm(forms.ModelForm):
             'preferencia_raza': forms.Select(choices=Mascota.RAZA_CHOICES),
         }
 
+#-----REDES SOCIALES FORM-----*
+class MascotaRedesSocialesForm(forms.ModelForm):
+    class Meta:
+        model = Mascota
+        fields = ['facebook_mascota', 'twitter_mascota', 'instagram_mascota', 'tiktok_mascota']
+        labels = {
+            'facebook_mascota': 'Facebook URL',
+            'twitter_mascota': 'Twitter URL',
+            'instagram_mascota': 'Instagram URL',
+            'tiktok_mascota': 'TikTok URL',
+        }
+        widgets = {
+            'facebook_mascota': forms.URLInput(attrs={'placeholder': 'https://www.facebook.com/'}),
+            'twitter_mascota': forms.URLInput(attrs={'placeholder': 'https://twitter.com/'}),
+            'instagram_mascota': forms.URLInput(attrs={'placeholder': 'https://www.instagram.com/'}),
+            'tiktok_mascota': forms.URLInput(attrs={'placeholder': 'https://www.tiktok.com/@username'}),
+        }
+
 #-----REPORTES FORM-----*
 class ReportesForm(forms.ModelForm):
     class Meta:

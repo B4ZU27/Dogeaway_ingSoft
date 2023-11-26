@@ -1,0 +1,13 @@
+{% extends "layouts/base.html" %}
+{% load static %}
+
+{% block content %}
+  <h2>Redes Sociales de la Mascota</h2>
+
+  <form method="post" enctype="multipart/form-data">
+    {% csrf_token %}
+    {{ form.as_p }}
+    <button type="submit">Guardar cambios</button>
+    <a href="{% url 'ver_detalle_mascota' mascota.id %}">Regresar</a>
+  </form>
+{% endblock %}
