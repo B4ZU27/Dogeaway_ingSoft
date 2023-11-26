@@ -96,9 +96,14 @@
             </div>
 
             <button class="button-submit" type="submit">Guardar</button>
-            {% if form.errors %}
-                <ul class="errorlist">
-                    {% for field_errors in form.errors.values %}
+            {% if mascota_form.errors or imagen_form.errors%}
+                <ul class="errorlist" style="color: red;">
+                    {% for field_errors in mascota_form.errors.values %}
+                        {% for error in field_errors %}
+                            <li>{{ error }}</li>
+                        {% endfor %}
+                    {% endfor %}
+                    {% for field_errors in imagen_form.errors.values %}
                         {% for error in field_errors %}
                             <li>{{ error }}</li>
                         {% endfor %}

@@ -86,7 +86,8 @@ def verificacion(request):
                 #si viene del signup 
                 usuario_vr.verificado = True
                 usuario_vr.save()
-                messages.success(request, 'Verificación exitosa. Ahora puedes iniciar sesión.')
+                login(request, usuario_vr)
+                messages.success(request, 'Verificación exitosa. puedes continuar')
                 return redirect('preferencias')
             else:
                 messages.error(request, 'Hubo un problema con tu solicitud de verificación. Asegúrate de cargar una foto de identificación.')
@@ -157,20 +158,27 @@ def registro_mascota(request):
 
             # Crear el formulario de imágenes solo si el formulario de mascota es válido
             imagen_form = ImagenMascotaForm(request.POST, request.FILES)
+            imagenes_mascota = imagen_form.save(commit=False)
+            imagenes_mascota.mascota = mascota
+            imagenes_mascota.save()
+
+            return redirect('mascotas_usuario') 
+
             if imagen_form.is_valid():
+                imagen_form = ImagenMascotaForm(request.POST, request.FILES)
                 imagenes_mascota = imagen_form.save(commit=False)
                 imagenes_mascota.mascota = mascota
                 imagenes_mascota.save()
+                return redirect('mascotas_usuario') 
 
-                return redirect('mascotas_usuario')  # Redirige a la página principal de mascotas del usuario
             else:
                 # Manejar errores en el formulario de imágenes
                 print("Errores en el formulario de imágenes:", imagen_form.errors)
-                # Puedes agregar lógica adicional según tus necesidades
+            return redirect('mascotas_usuario') 
+                
         else:
             # Manejar errores en el formulario de mascota
             print("Errores en el formulario de mascota:", mascota_form.errors)
-            # Puedes agregar lógica adicional según tus necesidades
     else:
         mascota_form = MascotaForm()
         imagen_form = ImagenMascotaForm()
@@ -244,7 +252,7 @@ def like_mascota(request):
                 mascota = get_object_or_404(Mascota, id=mascota_id)
                 if(mascota.liked_by.filter(id=mascota_seleccionada_id)):
                     response_data = {'status': 'like_added_already', 'message': 'Ya hay un like otorgado'}
-                    messages.info(request, 'Ya se habia dado like')
+                    #messages.info(request, 'Ya se habia dado like')
                     #print('ya se habia dado')
                 else:
                     mascota.liked_by.add(mascota_seleccionada) # revisa que pedo con esto 

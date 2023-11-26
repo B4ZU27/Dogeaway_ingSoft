@@ -72,15 +72,17 @@ class ImagenMascotaForm(forms.ModelForm):
         model = ImagenMascota
         fields = ['imagen_1', 'imagen_2', 'imagen_3', 'imagen_4', 'imagen_5', 'imagen_6']
 
+    def __init__(self, *args, **kwargs):
+        super(ImagenMascotaForm, self).__init__(*args, **kwargs)
+        self.fields['imagen_1'].required = False
+        self.fields['imagen_2'].required = False
+        self.fields['imagen_3'].required = False
+        self.fields['imagen_4'].required = False
+        self.fields['imagen_5'].required = False
+        self.fields['imagen_6'].required = False
+
     def clean(self):
         cleaned_data = super().clean()
-
-        # Verificar que todas las imágenes estén presentes
-        for i in range(1, 7):
-            campo_imagen = f'imagen_{i}'
-            if not cleaned_data.get(campo_imagen):
-                self.add_error(campo_imagen, 'Este campo es obligatorio.')
-
         return cleaned_data
       
 #-----EDITAR USUARIO FORM-----*
