@@ -7,10 +7,12 @@ from django.views.generic import DetailView
 from django.views.generic.edit import DeleteView
 from django.contrib.auth.mixins import LoginRequiredMixin
 from django.urls import reverse_lazy
+from django.urls import reverse
+from django.core.exceptions import ObjectDoesNotExist
 from django.contrib import messages
 from django.http import HttpResponse, JsonResponse
 from .models import Usuario, Mascota, Match, Chat
-from .forms import UserForm, LoginForm, MascotaForm, ImagenMascota, PreferenciasForm, ImagenMascotaForm, VerificacionForm, ReportesForm, UserEditForm, MascotaEditForm
+from .forms import UserForm, LoginForm, MascotaForm, ImagenMascota, PreferenciasForm, ImagenMascotaForm, VerificacionForm, ReportesForm, UserEditForm, MascotaEditForm, MascotaRedesSocialesForm
 
 # Create your views here.
 def hello(request):
@@ -174,8 +176,7 @@ def registro_mascota(request):
             else:
                 # Manejar errores en el formulario de imágenes
                 print("Errores en el formulario de imágenes:", imagen_form.errors)
-            return redirect('mascotas_usuario') 
-                
+                # Puedes agregar lógica adicional según tus necesidades
         else:
             # Manejar errores en el formulario de mascota
             print("Errores en el formulario de mascota:", mascota_form.errors)
@@ -184,6 +185,28 @@ def registro_mascota(request):
         imagen_form = ImagenMascotaForm()
 
     return render(request, 'registroMascota.html', {'title': "Registro Mascota", 'mascota_form': mascota_form, 'imagen_form': imagen_form})
+
+#-----SUBIR IMAGENES-----*
+@login_required
+def subir_imagenes_mascota(request, mascota_id):
+    mascota = get_object_or_404(Mascota, pk=mascota_id, dueño=request.user)
+
+    imagen_mascota, created = ImagenMascota.objects.get_or_create(mascota=mascota)
+
+    if request.method == 'POST':
+        imagen_form = ImagenMascotaForm(request.POST, request.FILES, instance=imagen_mascota)
+
+        if imagen_form.is_valid():
+            imagenes_mascota = imagen_form.save()
+            messages.success(request, 'Imágenes de mascota agregadas exitosamente.')
+            return redirect('ver_detalle_mascota', mascota_id=mascota_id)
+        else:
+            messages.error(request, 'Error al procesar el formulario de imágenes. Verifica los campos.')
+            print("Errores en el formulario de imágenes:", imagen_form.errors)
+    else:
+        imagen_form = ImagenMascotaForm(instance=imagen_mascota)
+
+    return render(request, 'registroImagenes_Mascota.html', {'title': "Subir Imágenes de Mascota", 'imagen_form': imagen_form, 'mascota': mascota})
 
 #----ELEGIR MASCOTA-----*
 @csrf_exempt
@@ -317,18 +340,46 @@ def ActualizarInformacionMascota(request, mascota_id):
 
     if request.method == 'POST':
         mascota_form = MascotaEditForm(request.POST, instance=mascota)
-        imagen_form = ImagenMascotaForm(request.POST, request.FILES, instance=mascota.imagenmascota)
+        imagen_form = ImagenMascotaForm(request.POST, request.FILES, instance=getattr(mascota, 'imagenmascota', None))
 
         if mascota_form.is_valid() and imagen_form.is_valid():
             mascota_form.save()
-            imagen_form.save()
+            imagen = imagen_form.save(commit=False)
+
+            # Asociar la imagen a la mascota solo si la mascota tiene imagenmascota
+            if hasattr(mascota, 'imagenmascota') and mascota.imagenmascota:
+                imagen.mascota = mascota
+
+            imagen.save()
+
             messages.success(request, 'Mascota actualizada exitosamente.')
             return redirect('ver_detalle_mascota', mascota_id=mascota_id)
     else:
         mascota_form = MascotaEditForm(instance=mascota)
-        imagen_form = ImagenMascotaForm(instance=mascota.imagenmascota)
+
+        # Verificar si la mascota tiene imágenes
+        try:
+            imagen_form = ImagenMascotaForm(instance=mascota.imagenmascota)
+        except ObjectDoesNotExist:
+            # La imagen no existe, redirigir a la vista para subir imágenes
+            return redirect(reverse('subir_imagenes_mascota', kwargs={'mascota_id': mascota_id}))
 
     return render(request, 'mascota_actualizar.html', {'mascota_form': mascota_form, 'imagen_form': imagen_form, 'mascota': mascota})
+
+#-----REDES SOCIALES-----*
+@login_required
+def editar_redes_sociales(request, mascota_id):
+    mascota = Mascota.objects.get(id=mascota_id)
+
+    if request.method == 'POST':
+        form = MascotaRedesSocialesForm(request.POST, instance=mascota)
+        if form.is_valid():
+            form.save()
+            return redirect('ver_detalle_mascota', mascota_id=mascota.id)
+    else:
+        form = MascotaRedesSocialesForm(instance=mascota)
+
+    return render(request, 'redes_sociales.html', {'form': form, 'mascota': mascota})
 
 #-----ELIMINAR MASCOTA-----*
 class EliminarMascota(LoginRequiredMixin, DeleteView):
