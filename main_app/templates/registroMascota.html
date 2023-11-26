@@ -96,6 +96,15 @@
             </div>
 
             <button class="button-submit" type="submit">Guardar</button>
+            {% if form.errors %}
+                <ul class="errorlist">
+                    {% for field_errors in form.errors.values %}
+                        {% for error in field_errors %}
+                            <li>{{ error }}</li>
+                        {% endfor %}
+                    {% endfor %}
+                </ul>
+            {% endif %}
         </form>
     </div>
 </body>

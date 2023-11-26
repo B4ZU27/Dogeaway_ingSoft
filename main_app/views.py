@@ -175,6 +175,8 @@ def match_view(request):
         print('Nombre - '+mascota_seleccionada.nombre)
         # Filtra las mascotas excluyendo aquellas que pertenecen al usuario actual
         lista_mascotas = Mascota.objects.exclude(sexo=mascota_seleccionada.sexo)
+        longitud_lista = len(lista_mascotas)
+        imagenes_mascotas = ImagenMascota.objects.filter(mascota__in=lista_mascotas)
 
         for mascota in lista_mascotas:
             print('{- '+mascota.nombre+'|'+mascota.sexo+'>'+str(mascota.id))
@@ -186,7 +188,9 @@ def match_view(request):
     return render(request, 'match.html', { 
         'title': "Match",
         'mascota_selec': mascota_seleccionada,
-        'mascotas': lista_mascotas})
+        'mascotas': lista_mascotas,
+        'longitud_lista': longitud_lista,
+        'imagenes_mascotas': imagenes_mascotas})
  # - - - LIKE_MASCOTA - - - #
 def like_mascota(request):
     if request.method == 'POST' and request.headers.get('X-Requested-With') == 'XMLHttpRequest':

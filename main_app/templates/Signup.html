@@ -58,17 +58,18 @@
             <div class="button-container">
                 <button type="submit">Registrarse</button>
             </div>
+            {% if form.errors %}
+                <ul class="errorlist" style="color: red;">
+                    {% for field_errors in form.errors.values %}
+                    {% for error in field_errors %}
+                        <li>{{ error }}</li>
+                    {% endfor %}
+                    {% endfor %}
+                </ul>
+            {% endif %}
         </form>
 
-        {% if form.errors %}
-            <ul class="errorlist">
-                {% for field_errors in form.errors.values %}
-                {% for error in field_errors %}
-                    <li>{{ error }}</li>
-                {% endfor %}
-                {% endfor %}
-            </ul>
-        {% endif %}
+        
     </div>
 </body>
 

@@ -5,12 +5,34 @@
 {% endblock  %}
 {% block content %}
     <div style="margin-top: 100px"></div>
-   
     <div id="mascota-container">
         {% for mascota in mascotas %}
         <div class="mascota" style="display: none;">
             <div class="card mb-4">
-                <img src="{% static 'imagenes/mascotas/husky1.jpg' %}" id="mascota_img" class="card-img-top" alt="imagen" style="max-height: 450px; overflow-y: scroll;">
+                <div id="carouselExample{{ mascota.id }}" class="carousel slide" data-ride="carousel">
+                    <div class="carousel-inner">
+                        {% for imagen_mascota in imagenes_mascotas %}
+                            {% if imagen_mascota.mascota.id == mascota.id %}
+                                <div class="carousel-item {% if forloop.first %}active{% endif %}">
+                                    <img src="{{ imagen_mascota.imagen_1.url }}" class="d-block w-100" alt="...">
+                                </div>
+                                <div class="carousel-item {% if forloop.first %}active{% endif %}">
+                                    <img src="{{ imagen_mascota.imagen_2.url }}" class="d-block w-100" alt="...">
+                                </div>
+                                <!-- Repite esto para las demás imágenes -->
+                            {% endif %}
+                        {% endfor %}
+                    </div>
+                    <a class="carousel-control-prev" href="#carouselExample{{ mascota.id }}" role="button" data-slide="prev">
+                        <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+                        <span class="sr-only">Previous</span>
+                    </a>
+                    <a class="carousel-control-next" href="#carouselExample{{ mascota.id }}" role="button" data-slide="next">
+                        <span class="carousel-control-next-icon" aria-hidden="true"></span>
+                        <span class="sr-only">Next</span>
+                    </a>
+                </div>
+                
                 <div class="card text-center">
                     <div class="card-header">
                         <h1>{{ mascota.nombre }}</h1>
@@ -22,13 +44,16 @@
                         <p class="card-text">{{ mascota.descripcion }}</p>
                         <div class="ditails"></div>
 
-                        <button type="button" class="btn btn-outline-secondary btn-siguiente-mascota">
-                            <h2><i class="bi bi-hand-thumbs-down-fill"></i></h2> 
+                        
+                    </div>
+                    <div class="d-grid gap-2 d-md-flex justify-content-md-between">
+                        <button type="button" class="btn btn-outline-secondary btn-siguiente-mascota flex-fill mb-2">
+                            <h2><i class="bi bi-hand-thumbs-down-fill"></i></h2>
                         </button>
-
-                        <button type="button" id="btn-like" class="btn btn-outline-danger btn-siguiente-mascota" data-mascota-id="{{ mascota.id }}">
-                            <h2><i class="bi bi-arrow-through-heart"></i></h2> 
-                        </button> 
+                
+                        <button type="button" id="btn-like" class="btn btn-outline-danger btn-siguiente-mascota flex-fill mb-2" data-mascota-id="{{ mascota.id }}">
+                            <h2><i class="bi bi-arrow-through-heart"></i></h2>
+                        </button>
                     </div>
                 </div>
                 <div class="d-grid gap-2">
@@ -44,7 +69,7 @@
     <div class="alert alert-success" role="alert"></div>
     <div class="alert alert-info" role="alert"></div>
     <div class="alert alert-danger" role="alert"></div>
-    {% endblock content %}
+    {% endblock %}
 
     {# ----------------------------------------------------------------------------------- #}
 
@@ -53,12 +78,12 @@
         window.onload = function() {
             var mascotas = document.getElementsByClassName('mascota');
             var indexActual = 0;
-        
+
             // Mostrar la primera mascota
             if (mascotas.length > 0) {
                 mascotas[0].style.display = 'block';
             }
-        
+
             // Agregar evento click a todos los botones
             var botones = document.getElementsByClassName('btn-siguiente-mascota');
             for (var i = 0; i < botones.length; i++) {
@@ -66,9 +91,13 @@
                     // Ocultar mascota actual
                     mascotas[indexActual].style.display = 'none';
                     indexActual++;
-        
+
                     // Mostrar la siguiente mascota
                     if (indexActual < mascotas.length) {
+                        mascotas[indexActual].style.display = 'block';
+                    } else {
+                        // Si llegamos al final, volver al inicio del índice
+                        indexActual = 0;
                         mascotas[indexActual].style.display = 'block';
                     }
                 });

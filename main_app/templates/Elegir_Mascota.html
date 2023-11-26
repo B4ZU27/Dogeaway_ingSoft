@@ -21,10 +21,14 @@
       {% csrf_token %}
       <ul>
         {% for mascota in mascotas %}
-        <li>
-          <label>
+        <li style="margin: 2px; padding: 2px;">
+          <label style="padding: 8px;">
             <input type="radio" name="mascota_id" value="{{ mascota.id }}"> {{ mascota.nombre }}
+                
           </label>
+           <a href="{% url 'ver_detalle_mascota' mascota.id %}" class="btn btn-dark">
+              Ver detalle <i class="bi bi-arrow-right-short"></i>
+          </a>     
         </li>
         {% endfor %}
       </ul>
