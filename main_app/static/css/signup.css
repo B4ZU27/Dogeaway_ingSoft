@@ -1,6 +1,6 @@
 body {
-    background-color: #D9D9D9; 
-    margin: 0; 
+    background-color: #D9D9D9;
+    margin: 0;
     padding: 0;
 }
 
@@ -16,7 +16,7 @@ form {
     background-color: #005264;
     padding: 40px;
     border-radius: 40px;
-    width: 900px;  
+    width: 900px;
     box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.1);
     text-align: center;
     margin-top: 20px;
@@ -30,7 +30,7 @@ form {
     flex-direction: column;
     align-items: center;
     margin-bottom: 15px;
-    position: relative; 
+    position: relative;
 }
 
 .input-container label {
@@ -39,8 +39,8 @@ form {
 }
 
 .input-container input {
-    width: 100%; 
-    padding: 8px 30px 8px 8px; 
+    width: 100%;
+    padding: 8px 30px 8px 8px;
     box-sizing: border-box;
     border: none;
     border-bottom: 1px solid white;
@@ -57,9 +57,9 @@ label {
 }
 
 .button-container {
-    margin-top: 20px;  
+    margin-top: 20px;
     display: flex;
-    justify-content: center;  
+    justify-content: center;
 }
 
 button {
@@ -79,17 +79,79 @@ button:hover {
     border-radius: 50px;
 }
 
-h1, p {
+h1,
+p {
     color: white;
 }
 
 p a {
-    color: #BD7219; 
+    color: #BD7219;
 }
 
-.signup > img {
-    width: 20%; 
+.signup>img {
+    width: 20%;
     height: auto;
-    margin: 0 auto; /* Agregado para centrar la imagen horizontalmente */
+    margin: 0 auto;
+    /* Agregado para centrar la imagen horizontalmente */
     margin-bottom: 20px;
 }
+
+
+/*----------------------------------------------------------------DISEÑO DEL CALENDARIO----------------------------------------------------------------------------*/
+
+/* Cambio del fondo a color morado */
+#ui-datepicker-div.ui-datepicker {
+    background-color: white;
+    color: #333;    
+    border: none;
+    font-family: Arial, sans-serif;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+    margin: 0; 
+    padding: 0; 
+}
+
+/* Estilo del encabezado del calendario */
+#ui-datepicker-div.ui-datepicker .ui-datepicker-header {
+    background-color: white;
+    color: #fff;
+    border: none;
+    margin: 0; 
+    padding: 0;
+}
+
+/* Estilo de los días de la semana */
+#ui-datepicker-div.ui-datepicker .ui-datepicker-calendar thead {
+    color: black;
+    font-weight: bold;
+}
+
+
+/* Estilo de los días */
+#ui-datepicker-div.ui-datepicker .ui-datepicker-calendar tbody .ui-state-default {
+    background-color: transparent;
+    border: none;
+    color: black;
+    text-align: center;
+    display: flex;
+    align-items: center;
+    justify-content: center; 
+}
+
+#ui-datepicker-div.ui-datepicker .ui-datepicker-calendar tbody .ui-state-default:hover{
+    background-color: #007bff;
+    border-radius: 30%;
+    color: white;
+}
+/* Estilo del día seleccionado */
+#ui-datepicker-div.ui-datepicker .ui-datepicker-calendar tbody .ui-state-active {
+    background-color: #007bff;
+    border-radius: 30%;
+    color: #fff;
+}
+
+/* Ocultar las flechas de navegación del DatePicker */
+#ui-datepicker-div.ui-datepicker .ui-datepicker-prev,
+#ui-datepicker-div.ui-datepicker .ui-datepicker-next {
+    display: none;
+}
+

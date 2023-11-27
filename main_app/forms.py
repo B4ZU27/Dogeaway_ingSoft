@@ -32,7 +32,7 @@ class UserForm(UserCreationForm):
             'email': forms.EmailInput(attrs={'class': 'input-field', 'placeholder': 'Correo electrónico:'}),
             'telefono': forms.TextInput(attrs={'class': 'input-field', 'placeholder': 'Ejemplo: (123) 456-7890'}),
             'direccion': forms.TextInput(attrs={'class': 'input-field', 'placeholder': 'Direccion:'}),
-            'fecha_de_nacimiento': forms.DateInput(attrs={'class': 'input-field', 'placeholder': 'YYYY-MM-DD'}),
+            'fecha_de_nacimiento': forms.DateInput(attrs={'class': 'input-field', 'placeholder': 'Fecha de nacimiento: '}),
         }
         labels = {
             'username': 'Nombre completo',
