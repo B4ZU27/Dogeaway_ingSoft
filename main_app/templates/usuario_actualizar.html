@@ -1,14 +1,26 @@
 {% extends "layouts/base.html" %}
 {% load static %}
-
 {% block content %}
-  <h2>Actualizar Información de Usuario</h2>
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="{% static 'css/usuario_actualizar.css' %}">
+    <title>Actualizar Usuario</title>
+  </head>
 
-  <form method="post" enctype="multipart/form-data">
-    {% csrf_token %}
-    {{ form.as_p }}
-    <button type="submit">Guardar cambios</button>
-    <a href="{% url 'ver_informacion_usuario' %}">Regresar</a>
-  </form>
+    <body>
+      <div class="container">
+        <form method="post" enctype="multipart/form-data">
+          <h1>Actualiza tu información</h1><br>
+          {% csrf_token %}
+          {{ form.as_p }}
+          <button type="submit">Guardar cambios</button>
+          <a href="{% url 'ver_informacion_usuario' %}">Regresar</a>
+        </form>
+      </div>
+    </body>
+  </html>
 {% endblock %}
 

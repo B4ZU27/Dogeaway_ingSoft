@@ -8,11 +8,9 @@
 }
 
 body {
-    margin-top: 55px; /* Ajuste del margen superior para dejar espacio para la barra de navegación */
-    /*background: black;*/
+    margin-top: 55px; 
 }
 
-/* HEADER */
 header {
     background-color: #0B667A;
     position: fixed;
@@ -63,11 +61,9 @@ header nav ul li a {
 }
 
 header nav ul li a.login-signup {
-    color: white; /* Color blanco para Iniciar sesión y Crear cuenta */
+    color: white; 
 }
 
-
-/* PARA CUANDO YA ESTÁ EL LOGIN HECHO */
 .select:hover {
     background-color: #0B667A;
 }

@@ -9,6 +9,7 @@ from django.contrib.auth.mixins import LoginRequiredMixin
 from django.urls import reverse_lazy
 from django.urls import reverse
 from django.core.exceptions import ObjectDoesNotExist
+from django.utils.crypto import get_random_string
 from django.contrib import messages
 from django.http import HttpResponse, JsonResponse
 from .models import Usuario, Mascota, Match, Chat
@@ -69,13 +70,36 @@ def signup(request):
             #login(request, user)
             # Redirige a la página de verificación después del registro exitoso
             messages.success(request, 'Registro exitoso. Ahora procede con la verificación de identificación.')
-            return redirect('verificacion')
+            return redirect('codigo_verificacion')
        
     else:
         form = UserForm()
     return render(request, 'Signup.html', {'form': form, 'title': "Sign up", 'link': "{% static 'css/registros.css' %}"})
 
-#-----VERIFICACION-----*
+#-----CODIGO VERIFICACION-----*
+def codigo_verificacion(request):
+    if request.method == 'POST':
+        codigo_ingresado = request.POST.get('codigo_verificacion')
+
+        # Obtener el código almacenado en la sesión
+        codigo_generado = request.session.get('codigo_verificacion')
+
+        if codigo_ingresado == codigo_generado:
+            # Eliminar el código almacenado en la sesión
+            del request.session['codigo_verificacion']
+
+            # Redirigir a la vista de carga de foto de identificación
+            return redirect('verificacion')
+        else:
+            messages.error(request, 'Código incorrecto. Inténtalo de nuevo.')
+
+    # Generar un nuevo código y almacenarlo en la sesión
+    nuevo_codigo = get_random_string(length=5, allowed_chars='0123456789')
+    request.session['codigo_verificacion'] = nuevo_codigo
+
+    return render(request, 'codigo_verificacion.html', {'nuevo_codigo': nuevo_codigo})
+
+#-----IDENTIFICACION-----*
 def verificacion(request):
     usuario_vr_id = request.session.get('usuario_no_verificado')
     if usuario_vr_id is not None:
@@ -85,7 +109,7 @@ def verificacion(request):
             if form.is_valid():
                 form.save()
                 # Marcar al usuario como verificado después de enviar la foto de identificación
-                #si viene del signup 
+                # Si viene del signup 
                 usuario_vr.verificado = True
                 usuario_vr.save()
                 login(request, usuario_vr)
@@ -94,7 +118,7 @@ def verificacion(request):
             else:
                 messages.error(request, 'Hubo un problema con tu solicitud de verificación. Asegúrate de cargar una foto de identificación.')
     else:
-        #viene del login
+        # Viene del login
         form = VerificacionForm(instance=request.user)
         if request.method == 'POST':
             if form.is_valid():
