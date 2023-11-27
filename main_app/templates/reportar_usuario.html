@@ -1,18 +1,11 @@
 {% extends "layouts/base.html" %}
 {% load static %}
+{% block estilos_adicionales %}
+<link rel="stylesheet" href="{% static 'css/reportar_usuario.css' %}">
+{% endblock %}
 
 {% block content %}
-<!DOCTYPE html>
-<html lang="en">
 
-<head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <link rel="stylesheet" href="{% static 'css/reportar_usuario.css' %}">
-  <title></title>
-</head>
-
-<body>
   <h1>Reportar a {{ usuario_reportado.username }}</h1>
 
   <form method="post" action="{% url 'reportar_usuario' usuario_reportado.id %}">
@@ -20,7 +13,4 @@
     {{ form.as_p }}
     <button type="submit">Enviar Reporte</button>
   </form>
-</body>
-
-</html>
 {% endblock %}

@@ -36,6 +36,11 @@ header .navbar-logo {
     width: 100px; 
 }
 
+#imagen{
+    background-color: transparent;
+    border: 2px double #0e738a; /* Cambia "red" por el color que desees */
+}
+
 header nav ul {
     display: flex;
     list-style: none;

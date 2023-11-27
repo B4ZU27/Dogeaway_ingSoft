@@ -1,77 +1,71 @@
 {% extends "layouts/base.html" %}
 {% load static %}
+{% block estilos_adicionales %}
+<link rel="stylesheet" href="{% static 'css/signup.css' %}">
+{% endblock %}
+
+
+
 {% block content %}
-<!DOCTYPE html>
-<html lang="en">
 
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="{% static 'css/signup.css' %}">
-    <title></title>
-</head>
+<div class="signup">
+    <form method="post">
+        <img src="{% static 'imagenes/login/login.png' %}" alt="" width="20%">
+        <h1>REGISTRO DE USUARIO</h1><br><br>
+        {% csrf_token %}
 
-<body>
-    <div class="signup">
-        <form method="post">
-            <img src="{% static 'imagenes/login/login.png' %}" alt="" width="20%">
-            <h1>REGISTRO DE USUARIO</h1><br><br>
-            {% csrf_token %}
+        <div class="input-container">
+            <label for="id_username"></label>
+            {{ form.username }}
+        </div>
 
-            <div class="input-container">
-                <label for="id_username"></label>
-                {{ form.username }}
-            </div>
+        <div class="input-container">
+            <label for="id_email"></label>
+            {{ form.email }}
+        </div>
 
-            <div class="input-container">
-                <label for="id_email"></label>
-                {{ form.email }}
-            </div>
+        <div class="input-container">
+            <label for="id_password1"></label>
+            {{ form.password1 }}
+        </div>
 
-            <div class="input-container">
-                <label for="id_password1"></label>
-                {{ form.password1 }}
-            </div>
+        <div class="input-container">
+            <label for="id_password2"></label>
+            {{ form.password2 }}
+        </div>
 
-            <div class="input-container">
-                <label for="id_password2"></label>
-                {{ form.password2 }}
-            </div>
+        <div class="input-container">
+            <label for="id_telefono"></label>
+            {{ form.telefono }}
+        </div>
 
-            <div class="input-container">
-                <label for="id_telefono"></label>
-                {{ form.telefono }}
-            </div>
+        <div class="input-container">
+            <label for="id_direccion"></label>
+            {{ form.direccion }}
+        </div>
 
-            <div class="input-container">
-                <label for="id_direccion"></label>
-                {{ form.direccion }}
-            </div>
+        <div class="input-container">
+            <label for="id_fecha_de_nacimiento"></label>
+            {{ form.fecha_de_nacimiento }}
+        </div>
 
-            <div class="input-container">
-                <label for="id_fecha_de_nacimiento"></label>
-                {{ form.fecha_de_nacimiento }}
-            </div>
+        <p>Ya estás registrado? <a href="/login">Iniciar Sesión</a></p>
 
-            <p>Ya estás registrado? <a href="/login">Iniciar Sesión</a></p>
+        <div class="button-container">
+            <button type="submit">Registrarse</button>
+        </div>
+        {% if form.errors %}
+        <ul class="errorlist" style="color: red;">
+            {% for field_errors in form.errors.values %}
+            {% for error in field_errors %}
+            <li>{{ error }}</li>
+            {% endfor %}
+            {% endfor %}
+        </ul>
+        {% endif %}
+    </form>
 
-            <div class="button-container">
-                <button type="submit">Registrarse</button>
-            </div>
-            {% if form.errors %}
-                <ul class="errorlist" style="color: red;">
-                    {% for field_errors in form.errors.values %}
-                    {% for error in field_errors %}
-                        <li>{{ error }}</li>
-                    {% endfor %}
-                    {% endfor %}
-                </ul>
-            {% endif %}
-        </form>
 
-        
-    </div>
-</body>
+</div>
 
-</html>
 {% endblock content %}

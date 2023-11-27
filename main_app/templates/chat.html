@@ -1,58 +1,48 @@
 {% extends "layouts/base.html" %}
 {% load static %}
 
+{% block estilos_adicionales %}
+<link rel="stylesheet" href="{% static 'css/chat.css' %}">
+{% endblock %}
+
 {% block content %}
-<!DOCTYPE html>
-<html lang="en">
+<h1>Chat para el match {{ match.id }}</h1>
 
-<head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <link rel="stylesheet" href="{% static 'css/chat.css' %}">
-  <title></title>
-</head>
+<div id="chat-messages">
+  {% for mensaje in mensajes %}
+  <p>{{ mensaje.remitente }}: {{ mensaje.mensaje }}</p>
+  {% endfor %}
+</div>
 
-<body>
-  <h1>Chat para el match {{ match.id }}</h1>
+<form id="chat-form">
+  <input type="text" id="mensaje-input" placeholder="Escribe tu mensaje...">
+  <button type="button" onclick="enviarMensaje()">Enviar</button>
+</form>
 
-  <div id="chat-messages">
-    {% for mensaje in mensajes %}
-    <p>{{ mensaje.remitente }}: {{ mensaje.mensaje }}</p>
-    {% endfor %}
-  </div>
+<script>
+  var chatSocket = new WebSocket(
+    'ws://' + window.location.host +
+    '/ws/chat/{{ match.id }}/');
 
-  <form id="chat-form">
-    <input type="text" id="mensaje-input" placeholder="Escribe tu mensaje...">
-    <button type="button" onclick="enviarMensaje()">Enviar</button>
-  </form>
+  chatSocket.onmessage = function (e) {
+    var data = JSON.parse(e.data);
+    var chatLog = document.getElementById('chat-messages');
+    var message = document.createElement('p');
+    message.innerHTML = '<strong>' + data.username + ': </strong>' + data.message;
+    chatLog.appendChild(message);
+  };
 
-  <script>
-    var chatSocket = new WebSocket(
-      'ws://' + window.location.host +
-      '/ws/chat/{{ match.id }}/');
+  chatSocket.onclose = function (e) {
+    console.error('Chat socket closed unexpectedly');
+  };
 
-    chatSocket.onmessage = function (e) {
-      var data = JSON.parse(e.data);
-      var chatLog = document.getElementById('chat-messages');
-      var message = document.createElement('p');
-      message.innerHTML = '<strong>' + data.username + ': </strong>' + data.message;
-      chatLog.appendChild(message);
-    };
-
-    chatSocket.onclose = function (e) {
-      console.error('Chat socket closed unexpectedly');
-    };
-
-    function enviarMensaje() {
-      var messageInput = document.getElementById('mensaje-input');
-      var message = messageInput.value;
-      chatSocket.send(JSON.stringify({
-        'message': message
-      }));
-      messageInput.value = '';
-    }
-  </script>
-</body>
-
-</html>
+  function enviarMensaje() {
+    var messageInput = document.getElementById('mensaje-input');
+    var message = messageInput.value;
+    chatSocket.send(JSON.stringify({
+      'message': message
+    }));
+    messageInput.value = '';
+  }
+</script>
 {% endblock %}

@@ -1,48 +1,40 @@
 {% extends "layouts/base.html" %}
 {% load static %}
+{% block estilos_adicionales %}
+<link rel="stylesheet" href="{% static 'css/login.css' %}">
+{% endblock %}
+
 
 {% block content %}
-<!DOCTYPE html>
-<html lang="en">
 
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="{% static 'css/login.css' %}">
-    <title></title>
-</head>
+<div style="margin-top: 100px"></div>
+<div class="login">
+    <form method="post">
+        <img src="{% static 'imagenes/login/login.png' %}" alt="" width="20%">
+        <h1>INICIAR SESIÓN</h1><br>
+        {% csrf_token %}
 
-<body>
-    <div style="margin-top: 100px"></div>
-    <div class="login">
-        <form method="post">
-            <img src="{% static 'imagenes/login/login.png' %}" alt="" width="20%">
-            <h1>INICIAR SESIÓN</h1><br>
-            {% csrf_token %}
+        <div class="input-container">
+            {{ form.username.label_tag }}
+            {{ form.username }}
+        </div>
 
-            <div class="input-container">
-                {{ form.username.label_tag }}
-                {{ form.username }}
-            </div>
+        <div class="input-container">
+            {{ form.password.label_tag }}
+            {{ form.password }}
+        </div>
 
-            <div class="input-container">
-                {{ form.password.label_tag }}
-                {{ form.password }}
-            </div>
+        <button type="submit">Iniciar sesión</button>
+    </form>
+    <p>¿No tienes una cuenta? <a class="register-link" href="{% url 'signup' %}">Regístrate</a></p>
+</div>
 
-            <button type="submit">Iniciar sesión</button>
-        </form>
-        <p>¿No tienes una cuenta? <a class="register-link" href="{% url 'signup' %}">Regístrate</a></p>
-    </div>
+{% if messages %}
+<div class="alert alert-danger">
+    {% for message in messages %}
+    {{ message }}
+    {% endfor %}
+</div>
+{% endif %}
 
-    {% if messages %}
-    <div class="alert alert-danger">
-        {% for message in messages %}
-        {{ message }}
-        {% endfor %}
-    </div>
-    {% endif %}
-</body>
-
-</html>
 {% endblock content %}
