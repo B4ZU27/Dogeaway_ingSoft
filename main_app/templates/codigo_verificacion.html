@@ -1,0 +1,44 @@
+{% extends 'layouts/base.html' %}
+{% load static %}
+
+{% block content %}
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="{% static 'css/verificacion.css' %}">
+    <title>Código de Verificación</title>
+</head>
+
+<body>
+    <div class="usuario-logueado">
+        <img src="{% static 'imagenes/verificacion/verificacion.png' %}" alt="Icono de verificación">
+        <h1>¡Hola {{ user.username }}!</h1><br>
+    </div>
+
+    <h2>Código de Verificación</h2>
+
+    <p>Ingresa el código de 5 dígitos que has recibido para continuar:</p>
+
+    {% if messages %}
+        <ul class="messages">
+            {% for message in messages %}
+                <li{% if message.tags %} class="{{ message.tags }}"{% endif %}>{{ message }}</li>
+            {% endfor %}
+        </ul>
+    {% endif %}
+
+    <form method="post" action="{% url 'codigo_verificacion' %}">
+        {% csrf_token %}
+        <div class="file-upload">
+            <p class="archivo">Código Actual: {{ nuevo_codigo }}</p>
+            <input type="text" id="codigo_verificacion" name="codigo_verificacion" required>
+        </div>
+        <button type="submit">Verificar</button>
+    </form>
+</body>
+
+</html>
+{% endblock %}
