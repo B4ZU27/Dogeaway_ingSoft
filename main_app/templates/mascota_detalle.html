@@ -31,12 +31,49 @@
             <p>{{ mascota.raza }}</p>
         </div>
 
-        <!-- Agrega más campos según sea necesario -->
+        <div class="input-container">
+            <label for="id_peso">Peso:</label>
+            <p>{{ mascota.peso }}</p>
+        </div>
+
+        <div class="input-container">
+            <label for="id_sexo">Sexo:</label>
+            <p>{{ mascota.sexo }}</p>
+        </div>
+
+        <div class="input-container">
+            <label for="id_tamaño">Tamaño:</label>
+            <p>{{ mascota.tamaño }}</p>
+        </div>
+
+        <div class="input-container">
+            <label for="id_descripcion">Descripción:</label>
+            <p>{{ mascota.descripcion }}</p>
+        </div>
+
+        <!-- Agregar más campos según sea necesario -->
 
         <div class="imagenesMascota">
             <h2>Imágenes de la mascota</h2>
             {% for imagen in imagenes_mascota %}
-                <img src="{{ imagen.imagen_1.url }}" alt="Imagen de {{ mascota.nombre }}">
+                {% if imagen.imagen_1 %}
+                    <img src="{{ imagen.imagen_1.url }}" alt="Imagen de {{ mascota.nombre }}">
+                {% endif %}
+                {% if imagen.imagen_2 %}
+                    <img src="{{ imagen.imagen_2.url }}" alt="Imagen de {{ mascota.nombre }}">
+                {% endif %}
+                {% if imagen.imagen_3 %}
+                    <img src="{{ imagen.imagen_3.url }}" alt="Imagen de {{ mascota.nombre }}">
+                {% endif %}
+                {% if imagen.imagen_4 %}
+                    <img src="{{ imagen.imagen_4.url }}" alt="Imagen de {{ mascota.nombre }}">
+                {% endif %}
+                {% if imagen.imagen_5 %}
+                    <img src="{{ imagen.imagen_5.url }}" alt="Imagen de {{ mascota.nombre }}">
+                {% endif %}
+                {% if imagen.imagen_6 %}
+                    <img src="{{ imagen.imagen_6.url }}" alt="Imagen de {{ mascota.nombre }}">
+                {% endif %}
             {% endfor %}
         </div>
 
