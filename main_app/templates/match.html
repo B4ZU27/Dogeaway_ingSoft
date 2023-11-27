@@ -23,31 +23,31 @@
                             {% endif %}
                         {% endfor %}
                     </div>
-                    <a class="carousel-control-prev" href="#carouselExample{{ mascota.id }}" role="button" data-slide="prev">
+                    <a class="carousel-control-prev" id="prev" href="#carouselExample{{ mascota.id }}" role="button" data-slide="prev">
                         <span class="carousel-control-prev-icon" aria-hidden="true"></span>
-                        <span class="sr-only">Previous</span>
+                        <span class="sr-only"></span>
                     </a>
-                    <a class="carousel-control-next" href="#carouselExample{{ mascota.id }}" role="button" data-slide="next">
+                    <a class="carousel-control-next" id="next" href="#carouselExample{{ mascota.id }}" role="button" data-slide="next">
                         <span class="carousel-control-next-icon" aria-hidden="true"></span>
-                        <span class="sr-only">Next</span>
+                        <span class="sr-only"></span>
                     </a>
                 </div>
                 
                 <div class="card text-center">
                     <div class="card-header">
-                        <h1>{{ mascota.nombre }}</h1>
+                        <h1 class="custom-h1" style="text-decoration: underline;">{{ mascota.nombre }}</h1>
                     </div>
 
                     <div class="card-body">
                         
-                        <h5 class="card-title">{{ mascota.raza }}</h5>
-                        <p class="card-text">{{ mascota.descripcion }}</p>
+                        <h5 class="card-title" style="font-size: 32px;"><i class="bi bi-arrow-right"></i> {{ mascota.raza }} <i class="bi bi-arrow-left"></i></h5>
+                        <p class="card-text" id="descripcion">{{ mascota.descripcion }}</p>
                         <div class="ditails"></div>
 
                         
                     </div>
                     <div class="d-grid gap-2 d-md-flex justify-content-md-between">
-                        <button type="button" class="btn btn-outline-secondary btn-siguiente-mascota flex-fill mb-2">
+                        <button type="button" id="dislike" class="btn btn-outline-secondary btn-siguiente-mascota flex-fill mb-2">
                             <h2><i class="bi bi-hand-thumbs-down-fill"></i></h2>
                         </button>
                 
@@ -58,7 +58,7 @@
                 </div>
                 <div class="d-grid gap-2">
                     <button type="button" id="btn-detalles" class="btn btn-outline-secondary"  data-edad="{{ mascota.edad }}" data-peso="{{ mascota.peso }}"   data-tiene-cartilla="{{ mascota.tiene_cartilla }}">
-                        <i class="bi bi-arrow-down"></i> Detalles
+                        <i class="bi bi-arrow-down"></i> Más Detalles
                     </button>
                 </div>
             </div>
@@ -165,14 +165,11 @@
                     btn.setAttribute('data-clickeado', 'false');
                 } else {
                     // Si el botón no fue clickeado, mostrar todos los detalles
-                    cardBody.innerHTML =  '<p class="card-text">Edad: ' + Math.round(btn.getAttribute('data-edad')) + ' años</p><p class="card-text">Peso: ' + Math.round(btn.getAttribute('data-peso')) + ' kg</p><p>Tiene cartilla: ' + btn.getAttribute('data-tiene-cartilla') + '</p>';
+                    cardBody.innerHTML =  '<span class="card-text" id="clave">Edad: </span><span id="valor">' + Math.round(btn.getAttribute('data-edad')) + ' años</span><p></p><span class="card-text" id="clave">Peso: </span><span id="valor">' + Math.round(btn.getAttribute('data-peso')) + ' kg</span><p></p><span id="clave">Tiene cartilla: </span><span id="valor">' + btn.getAttribute('data-tiene-cartilla') + '</p>';
                     btn.innerHTML = '<i class="bi bi-arrow-up"></i> Menos detalles';
                     btn.setAttribute('data-clickeado', 'true');
                 }
             });
         }); 
     </script>
-<!-- </body>
-
-</html> -->
 {% endblock %}

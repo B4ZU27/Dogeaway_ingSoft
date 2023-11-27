@@ -102,3 +102,16 @@ header nav ul {
     padding: 0;
     justify-content: flex-end; 
 }
+
+.nav-link{
+    color: white;
+}
+
+.nav-link:hover{
+    color: white;
+}
+
+#NombreMascota:hover,
+#NombreUsuario:hover{
+    background-color: transparent;
+}
