@@ -59,7 +59,6 @@
                                 </div>
                             </li>
                             <li class="nav-item">
-                                <!-- Enlace para cerrar sesión -->
                                 <a class="nav-link" href="{% url 'logout' %}?next={% url 'home' %}">
                                     <i class="bi bi-door-closed"></i> Cerrar sesión
                                 </a>
@@ -68,9 +67,6 @@
                             <li class="nav-item">
                                 <a class="nav-link login-signup" href="{% url 'login' %}">Iniciar sesión</a>
                             </li>
-                            <!--<li class="nav-item">
-                                <a class="nav-link login-signup" href="{% url 'signup' %}">Crear cuenta</a>
-                            </li>-->
                         {% endif %}
                     </ul>
                 </div>
