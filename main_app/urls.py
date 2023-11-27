@@ -9,6 +9,7 @@ urlpatterns = [
         #Login/Signup
     path('login/', views.user_login, name='login'),
     path('verificacion/', views.verificacion, name='verificacion'),
+    path('codigo-verificacion/', views.codigo_verificacion, name='codigo_verificacion'),
     path('signup/', views.signup, name='signup'),
 
     path('lista/', views.ListaUsuariosView.as_view(), name='lista de usuarios'),
