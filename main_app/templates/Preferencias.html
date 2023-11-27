@@ -1,5 +1,6 @@
 {% extends "layouts/base.html" %}
 {% load static %}
+<<<<<<< Updated upstream
 {% block estilos_adicionales %}
 <link rel="stylesheet" href="{% static 'css/preferencias.css' %}">
 {% endblock  %}
@@ -7,6 +8,18 @@
 
 {% block content %}
 
+=======
+{% block content %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="stylesheet" href="{% static 'css/preferencias.css' %}">
+  <title>Preferencias</title>
+</head>
+<body>
+>>>>>>> Stashed changes
   <div class="container">
     <form method="post" enctype="multipart/form-data">
       <h2>Preferencias</h2>
@@ -16,5 +29,10 @@
       <p><a href="{% url 'mascotas_usuario' %}">Omitir</a></p>
     </form>
   </div>
+<<<<<<< Updated upstream
 
+=======
+</body>
+</html>
+>>>>>>> Stashed changes
 {% endblock %}
