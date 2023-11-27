@@ -1,13 +1,24 @@
 {% extends "layouts/base.html" %}
 {% load static %}
-
 {% block content %}
-  <h2>Preferencias</h2>
-  <form method="post" enctype="multipart/form-data">
-    {% csrf_token %}
-    {{ form.as_p }}
-    <button type="submit">Guardar Preferencias</button>
-  </form>
-  
-  <p><a href="{% url 'mascotas_usuario' %}">Omitir</a></p>
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="stylesheet" href="{% static 'css/preferencias.css' %}">
+  <title>Preferencias</title>
+</head>
+<body>
+  <div class="container">
+    <form method="post" enctype="multipart/form-data">
+      <h2>Preferencias</h2>
+      {% csrf_token %}
+      {{ form.as_p }}
+      <button type="submit">Guardar Preferencias</button>
+      <p><a href="{% url 'mascotas_usuario' %}">Omitir</a></p>
+    </form>
+  </div>
+</body>
+</html>
 {% endblock %}
