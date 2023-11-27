@@ -85,7 +85,7 @@ def verificacion(request):
             if form.is_valid():
                 form.save()
                 # Marcar al usuario como verificado después de enviar la foto de identificación
-                #si viene del signup 
+                # Si viene del signup 
                 usuario_vr.verificado = True
                 usuario_vr.save()
                 login(request, usuario_vr)
@@ -94,7 +94,7 @@ def verificacion(request):
             else:
                 messages.error(request, 'Hubo un problema con tu solicitud de verificación. Asegúrate de cargar una foto de identificación.')
     else:
-        #viene del login
+        # Viene del login
         form = VerificacionForm(instance=request.user)
         if request.method == 'POST':
             if form.is_valid():

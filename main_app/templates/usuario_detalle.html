@@ -26,7 +26,22 @@
             <p>{{ usuario.email }}</p>
         </div>
 
-        <!-- Agrega más campos según sea necesario -->
+        <div class="input-container">
+            <label for="id_telefono">Teléfono:</label>
+            <p>{{ usuario.telefono }}</p>
+        </div>
+
+        <div class="input-container">
+            <label for="id_fecha_de_nacimiento">Fecha de nacimiento:</label>
+            <p>{{ usuario.fecha_de_nacimiento }}</p>
+        </div>
+
+        <div class="input-container">
+            <label for="id_direccion">Dirección:</label>
+            <p>{{ usuario.direccion }}</p>
+        </div>
+
+        <!-- Agregar más campos según sea necesario -->
 
         <div class="button-container">
             <a href="{% url 'actualizar_informacion_usuario' %}" class="button">Editar Usuario</a>
