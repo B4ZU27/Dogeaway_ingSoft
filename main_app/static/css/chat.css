@@ -1,0 +1,51 @@
+body {
+    margin: 0;
+    font-family: Arial, sans-serif;
+  }
+  
+  .container {
+    display: flex;
+    height: 100vh;
+  }
+  
+  .conversations {
+    width: 30%;
+    background-color: #f0f0f0;
+    padding: 20px;
+    box-sizing: border-box;
+  }
+  
+  .conversations ul {
+    list-style: none;
+    padding: 0;
+  }
+  
+  .conversations li {
+    margin-bottom: 10px;
+    cursor: pointer;
+  }
+  
+  .chat {
+    flex: 1;
+    padding: 20px;
+    box-sizing: border-box;
+    overflow-y: auto;
+  }
+  
+  .message {
+    background-color: #dcd6f7;  /* Color de fondo morado claro */
+    border-radius: 12px;  /* Bordes redondeados */
+    padding: 10px;  /* Espacio alrededor del texto */
+    margin-bottom: 10px;  /* Espacio entre mensajes */
+    width: fit-content;
+}
+
+.message p {
+    margin: 0;  /* Eliminar el margen alrededor del texto */
+}
+
+.message small {
+    display: block;  /* Hacer que el nombre del usuario y la hora estén en líneas separadas */
+    font-size: 0.8em;  /* Hacer que el texto sea más pequeño */
+}
+  

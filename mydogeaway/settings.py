@@ -31,16 +31,26 @@ ALLOWED_HOSTS = []
 # Application definition
 
 INSTALLED_APPS = [
+    'channels', #Es para el Chat
+    
     'django.contrib.admin',
     'django.contrib.auth',
     'django.contrib.contenttypes',
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
-    'channels', #Es para el Chat
-    'main_app' #Aqui agregue la aplicacion, la conecte
-    
+
+    'main_app', #Aqui agregue la aplicacion, la conecte
 ]
+
+
+ASGI_APPLICATION = 'mydogeaway.asgi.application'
+
+CHANNEL_LAYERS = {
+    'default':{
+        'BACKEND':'channels.layers.InMemoryChannelLayer'
+    }
+    }
 
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
@@ -53,6 +63,8 @@ MIDDLEWARE = [
 ]
 
 ROOT_URLCONF = 'mydogeaway.urls'
+
+
 
 TEMPLATES = [
     {
@@ -69,9 +81,9 @@ TEMPLATES = [
         },
     },
 ]
-
 WSGI_APPLICATION = 'mydogeaway.wsgi.application'
-ASGI_APPLICATION = 'mydogeaway.asgi.application'
+
+
 
 
 # Database

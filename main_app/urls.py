@@ -36,6 +36,9 @@ urlpatterns = [
     
         #Chat
     path('chat/<int:match_id>/', views.chat_view, name='chat'),
+    path('lobby/', views.lobby, name='Lobby'),
+    path('get-messages/<int:chat_id>/', views.get_messages),
+    path('save-message/', views.save_message),
     
         #Reportes y Bloqueos
     path('reportar/<int:usuario_id>/', views.reportar_usuario, name='reportar_usuario'),

@@ -1,0 +1,155 @@
+{% extends "layouts/base.html" %}
+{% load static %}
+{% block estilos_ad %}
+<link rel="stylesheet" href="{% static 'css/chat.css' %}">
+{% endblock %}
+
+{% block content %}
+<div style="margin-top: 100px"></div>
+<div style="text-align: center;">
+    <h1>Mis chats</h1>
+    <p>{{ usuario.username }}</p>
+</div>
+<div class="container">
+    <div class="conversations">
+      <!-- Aquí va la lista de conversaciones -->
+      <ul>
+        {%if matches%}
+            {%for m in matches%}
+                <li> 
+                    <a data-chat-id="{{m.id}}"><h5>{{m.mascota1.nombre}} - {{m.mascota2.nombre}}</h5></a>
+                </li>
+            {% endfor %}
+        {% else %}
+            <li><h3 style="color:red;">No hay conversaciones</h3></li>
+        {% endif %}
+      </ul>
+    </div>
+    <div class="chat">
+        <div id="messages"></div>
+        <form id="form">
+            <input type="text" name="message"/>
+        </form>
+    </div>
+
+    
+
+    
+
+{% endblock content %}
+
+{% block SCRIPTS %}
+<script type="text/javascript">
+    let chatSocket;
+
+    function startChat(chatId) {
+        // Close the previous chat socket if it exists
+        if (chatSocket) {
+            chatSocket.close();
+        }
+
+        let url = `ws://${window.location.host}/ws/socket-server/${chatId}/`
+        chatSocket = new WebSocket(url)
+
+        chatSocket.onmessage = function(e){
+            let data = JSON.parse(e.data)
+            console.log('Data:', data)
+
+            if(data.type === 'chat'){
+                let messages = document.getElementById('messages')
+
+                messages.insertAdjacentHTML('beforeend', `<div>
+                                        <p>${data.message}</p>
+                                    </div>`)
+            }
+        }
+
+        let form = document.getElementById('form')
+    form.addEventListener('submit', (e)=> {
+        e.preventDefault()
+        let message = e.target.message.value 
+
+        // Send the message to the server to be saved
+        fetch('/save-message/', {
+            method: 'POST',
+            body: JSON.stringify({
+                'message': message,
+                'chat_id': chatId  // You'll need to keep track of the current chatId
+            }),
+            headers: {
+                'Content-Type': 'application/json'
+            }
+        });
+
+        chatSocket.send(JSON.stringify({
+            'message':message
+        }))
+        form.reset()
+    })
+
+    }
+
+    function loadMessages(chatId) {
+        // Make a request to your server to get the messages for this chat
+        fetch(`/get-messages/${chatId}/`)
+            .then(response => response.json())
+            .then(messages => {
+                // Clear the existing messages
+                let messagesDiv = document.getElementById('messages');
+                messagesDiv.innerHTML = '';
+
+                // Add each message to the messages div
+                messages.forEach(message => {
+                    messagesDiv.insertAdjacentHTML('beforeend', `<div><p>${message}</p></div>`);
+                });
+            });
+    }
+
+    let matchElements = document.querySelectorAll('a[data-chat-id]');
+
+    matchElements.forEach(matchElement => {
+        matchElement.addEventListener('click', function() {
+            var chatId = this.dataset.chatId;
+            startChat(chatId);
+            loadMessages(chatId);
+        });
+    });
+
+
+    
+    /*
+        let url = `ws://${window.location.host}/ws/socket-server/`
+
+        const chatSocket = new WebSocket(url)
+
+        chatSocket.onmessage = function(e){
+            let data = JSON.parse(e.data)
+            console.log('Data:', data)
+
+            if(data.type === 'chat'){
+                let messages = document.getElementById('messages')
+
+                messages.insertAdjacentHTML('beforeend', `<div>
+                                        <p>${data.message}</p>
+                                    </div>`)
+            }
+        }
+
+        let form = document.getElementById('form')
+        form.addEventListener('submit', (e)=> {
+            e.preventDefault()
+            let message = e.target.message.value 
+            chatSocket.send(JSON.stringify({
+                'message':message
+            }))
+            form.reset()
+        })
+        */
+
+    </script>
+
+{% endblock  %}
+
+
+
+    

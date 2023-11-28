@@ -11,15 +11,16 @@ import os
 from django.core.asgi import get_asgi_application
 from channels.routing import ProtocolTypeRouter, URLRouter
 from channels.auth import AuthMiddlewareStack
-import mydogeaway.routing
+import main_app.routing 
+import mydogeaway.settings
 
-os.environ.setdefault('DJANGO_SETTINGS_MODULE', 'tu_proyecto.settings')
+os.environ.setdefault('DJANGO_SETTINGS_MODULE', 'mydogeaway.settings')
 
-application = ProtocolTypeRouter({
-    "http": get_asgi_application(),
-    "websocket": AuthMiddlewareStack(
+application = ProtocolTypeRouter({ 
+    'http': get_asgi_application(),
+    'websocket':AuthMiddlewareStack(
         URLRouter(
-            mydogeaway.routing.application
+            main_app.routing.websocket_urlpatterns
         )
-    ),
+    )
 })
