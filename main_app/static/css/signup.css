@@ -1,7 +1,36 @@
 body {
-    background-color: #D9D9D9; 
-    margin: 0; 
+    background-color: #D9D9D9;
+    margin: 0;
     padding: 0;
+}
+
+.bk-singup {
+    background-image: url('../../static/imagenes/form2-gif.gif');
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
+
+@media screen and (min-width: 768px) {
+    .bk-singup {
+        background-size: cover;
+    }
+}
+
+.capa{
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: #1c1c1d;
+    opacity: 0.5;
+    mix-blend-mode: overlay;
+    position: relative;
+    z-index: 2;
 }
 
 .signup {
@@ -13,24 +42,52 @@ body {
 }
 
 form {
-    background-color: #005264;
-    padding: 40px;
-    border-radius: 40px;
-    width: 900px;  
-    box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.1);
-    text-align: center;
-    margin-top: 20px;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
+    background: linear-gradient(45deg, rgba(0, 82, 100, 0.8), rgba(14, 99, 118, 0.8), rgba(73, 115, 125, 0.8), rgba(88, 141, 153, 0.8));
+    background-size: 300% 300%;
+    animation: color 12s ease-in-out infinite;
+    padding: 20px;
+    border-radius: 20px;
+    width: 100%;
+    max-width: 900px;
+    height: auto;
+    margin: -10px auto; 
+    box-shadow: 0px 0px 10px rgba(0, 0, 0, 10);
 }
 
 .input-container {
     display: flex;
     flex-direction: column;
     align-items: center;
-    margin-bottom: 15px;
-    position: relative; 
+    margin-bottom: 50px;
+    position: relative;
+}
+
+.input-container.left {
+    align-items: flex-start; 
+}
+
+.input-container.right {
+    align-items: flex-end; 
+}
+
+.input-grid {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr); 
+    gap: 50px; 
+}
+
+.input-container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    margin-bottom: 20px; 
+    position: relative;
+}
+
+.input-grid {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 50px; 
 }
 
 .input-container label {
@@ -39,8 +96,8 @@ form {
 }
 
 .input-container input {
-    width: 100%; 
-    padding: 8px 30px 8px 8px; 
+    width: 100%;
+    padding: 8px 30px 8px 8px;
     box-sizing: border-box;
     border: none;
     border-bottom: 1px solid white;
@@ -50,20 +107,34 @@ form {
     border-radius: 5px;
 }
 
-label {
-    display: block;
-    margin-bottom: 10px;
+.input-container input::placeholder {
     color: white;
 }
 
-.button-container {
-    margin-top: 20px;  
-    display: flex;
-    justify-content: center;  
+.input-container input:-ms-input-placeholder {
+    color: white;
 }
 
-button {
-    background-color: #005264;
+.input-container input::-ms-input-placeholder {
+    color: white;
+}
+
+.label-container {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 10px; /* Ajusta el valor según sea necesario */
+}
+
+.button-container {
+    margin-top: 20px;
+    display: flex;
+    justify-content: center;
+}
+
+.button {
+    background-color: transparent;
     color: white;
     padding: 10px 15px;
     border: none;
@@ -79,17 +150,111 @@ button:hover {
     border-radius: 50px;
 }
 
-h1, p {
+.signup>img {
+    width: 20%;
+    height: auto;
+    margin: 0 auto;
+    margin-bottom: 20px;
+}
+
+
+label {
+    display: block;
+    margin-bottom: 10px;
+    color: white;
+}
+
+.button-container {
+    margin-top: 20px;
+    display: flex;
+    justify-content: center;
+}
+
+button {
+    background-color: transparent;
+    color: white;
+    padding: 10px 15px;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    display: block;
+    margin: 0 auto;
+}
+
+button:hover {
+    transition: 0.5s;
+    background-color: #BD7219;
+    border-radius: 50px;
+}
+
+h1,
+p {
     color: white;
 }
 
 p a {
-    color: #BD7219; 
+    color: #BD7219;
 }
 
-.signup > img {
-    width: 20%; 
+.signup>img {
+    width: 20%;
     height: auto;
-    margin: 0 auto; /* Agregado para centrar la imagen horizontalmente */
+    margin: 0 auto;
+
     margin-bottom: 20px;
+}
+
+
+/*----------------------------------------------------------------DISEÑO DEL CALENDARIO----------------------------------------------------------------------------*/
+
+#ui-datepicker-div.ui-datepicker {
+    background-color: white;
+    color: #333;    
+    border: none;
+    font-family: Arial, sans-serif;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+    margin: 0; 
+    padding: 0; 
+}
+
+#ui-datepicker-div.ui-datepicker .ui-datepicker-header {
+    background-color: white;
+    color: #fff;
+    border: none;
+    margin: 0; 
+    padding: 0;
+}
+
+#ui-datepicker-div.ui-datepicker .ui-datepicker-calendar thead {
+    color: black;
+    font-weight: bold;
+}
+
+
+
+#ui-datepicker-div.ui-datepicker .ui-datepicker-calendar tbody .ui-state-default {
+    background-color: transparent;
+    border: none;
+    color: black;
+    text-align: center;
+    display: flex;
+    align-items: center;
+    justify-content: center; 
+}
+
+#ui-datepicker-div.ui-datepicker .ui-datepicker-calendar tbody .ui-state-default:hover{
+    background-color: #007bff;
+    border-radius: 30%;
+    color: white;
+}
+
+#ui-datepicker-div.ui-datepicker .ui-datepicker-calendar tbody .ui-state-active {
+    background-color: #007bff;
+    border-radius: 30%;
+    color: #fff;
+}
+
+#ui-datepicker-div.ui-datepicker .ui-datepicker-prev,
+#ui-datepicker-div.ui-datepicker .ui-datepicker-next {
+    display: none;
 }

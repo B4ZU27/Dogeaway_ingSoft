@@ -1,21 +1,17 @@
 {% extends "layouts/base.html" %}
 {% load static %}
+{% block estilos_adicionales %}
+<link rel="stylesheet" href="{% static 'css/usuario_detalle.css' %}">
+{% endblock %}
+
 
 {% block content %}
-<!DOCTYPE html>
-<html lang="en">
-
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="{% static 'css/usuario_detalle.css' %}">
-    <title>Detalles de Usuario</title>
-</head>
 
 <body>
     <div class="container">
         <form method="post">
-            <h1>Detalles de Usuario</h1><br><br>
+            <h1>Datos personales</h1><br><br>
+            <p class="frase">Dogeway usa esta información para verificar tu identidad y proteger<br>a nuestra comunidad. Tú decides que datos personales quieres mostrar.</p><br><br>
     
             <div class="input-container">
                 <label for="id_username">NOMBRE:</label>
@@ -42,8 +38,6 @@
                 <p>{{ usuario.direccion }}</p>
             </div>
     
-            <!-- Agregar más campos según sea necesario -->
-    
             <div class="button-container">
                 <a href="{% url 'actualizar_informacion_usuario' %}" class="button">Editar Usuario</a>
                 <a href="{% url 'eliminar_cuenta_usuario' %}" class="button">Eliminar Cuenta</a>
@@ -54,5 +48,6 @@
     </div>
 </body>
 
-</html>
+</div>
+
 {% endblock content %}

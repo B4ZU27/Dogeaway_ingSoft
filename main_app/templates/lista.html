@@ -1,31 +1,22 @@
 {% include "layouts/base.html" %}
 {% load static %}
+{% block estilos_adicionales %}
+<link rel="stylesheet" href="{% static 'css/lista.css' %}">
+{% endblock %}
+
 
 {% block content %}
-<!DOCTYPE html>
-<html lang="en">
 
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="{% static 'css/lista.css' %}">
-    <title></title>
-</head>
+<h1>Lista de Usuarios</h1>
+<ul>
+    {% for usuario in usuarios %}
+    <li>
+        Nombre de usuario: {{ usuario.username }}<br>
+        Email: {{ usuario.email }}<br>
+        Contra: {{ usuario.password}}<br>
+        <!-- Agrega más campos personalizados si los tienes -->
+    </li>
+    {% endfor %}
+</ul>
 
-<body>
-
-    <h1>Lista de Usuarios</h1>
-    <ul>
-        {% for usuario in usuarios %}
-        <li>
-            Nombre de usuario: {{ usuario.username }}<br>
-            Email: {{ usuario.email }}<br>
-            Contra: {{ usuario.password}}<br>
-            <!-- Agrega más campos personalizados si los tienes -->
-        </li>
-        {% endfor %}
-    </ul>
-</body>
-
-</html>
 {% endblock content %}

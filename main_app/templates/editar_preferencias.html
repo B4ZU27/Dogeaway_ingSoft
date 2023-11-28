@@ -1,5 +1,9 @@
 {% extends "layouts/base.html" %}
 {% load static %}
+{% block estilos_adicionales %}
+<link rel="stylesheet" href="{% static 'css/editar_preferencias.css' %}">
+{% endblock %}
+
 
 {% block content %}
   <h2>Editar Preferencias</h2>

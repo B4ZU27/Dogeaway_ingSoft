@@ -14,12 +14,16 @@
 
 <body>
     <form method="post">
-        <h1>Confirmar Eliminación de Mascota</h1><br><br>
-        <p>¿Estás seguro de que deseas eliminar esta mascota?</p>
+        <h1><i class="bi bi-trash" id="icon"></i> Confirmar Eliminación de Mascota</h1>
+        <h2>Estimado usuario, recuerde que al presionar el boton de "ELIMINAR", perderá acceso a todos los datos y contenido asociados al perfil de la mascota. <br>
+            Esto incluye mensajes, archivos, fotos y cualquier otra información almacenada en su perfil. </h2>
+        <h2>Además, no podrá recuperar dicho perfil una vez que se haya eliminado. 
+            Recuerde que eliminar un perfil es una acción irreversible y no podremos recuperarlo una vez que se haya eliminado. </h2>
         {% csrf_token %}
         <div class="button-container">
-            <button type="submit">Sí, eliminar mascota</button>
+            <p>¿Estás seguro de que deseas eliminar esta mascota?</p>
             <a href="{% url 'ver_informacion_usuario' %}">Cancelar</a>
+            <button type="submit">ELIMINAR</button>
         </div>
     </form>
 </body>

@@ -1,10 +1,9 @@
-/* DISEÑO DEL HOME */
 * {
     margin: 0;
     padding: 0;
     box-sizing: border-box;
     text-decoration: none;
-    font-family: 'Roboto', sans-serif;
+    font-family: 'Times New Roman', Times, serif;
 }
 
 body {
@@ -12,7 +11,7 @@ body {
 }
 
 header {
-    background-color: #0B667A;
+    background: linear-gradient(40deg,#0B667A,#02586c,#59aabc,#377d8d);
     position: fixed;
     top: 0;
     left: 0;
@@ -34,6 +33,32 @@ header nav {
 
 header .navbar-logo {
     width: 100px; 
+}
+
+navbar navbar-expand-lg{
+    background: linear-gradient(40deg,#0B667A,#02586c,#59aabc,#377d8d);
+}
+
+#imagen {
+    background-color: transparent;
+}
+
+#imagen:hover {
+    transform: scale(1.2); 
+    transition: transform 0.3s ease-in-out;
+}
+
+.nav-link {
+    margin: 0 10px;
+}
+
+.nav-link:hover {
+    transform: scale(1.2);
+}
+
+.nav-link:hover {
+    transform: scale(1.2);
+    transition: transform 0.3s ease-in-out;
 }
 
 header nav ul {
