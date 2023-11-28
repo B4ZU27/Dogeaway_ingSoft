@@ -10,75 +10,80 @@
 
 
 {% block content %}
-<div class="signup">
-    <form method="post">
-        <img src="{% static 'imagenes/login/login.png' %}" alt="" width="20%">
-        <h1>REGISTRO DE USUARIO</h1><br><br>
-        {% csrf_token %}
 
-        <div class="input-container">
-            <label for="id_username"></label>
-            {{ form.username }}
-        </div>
-
-        <div class="input-container">
-            <label for="id_email"></label>
-            {{ form.email }}
-        </div>
-
-        <div class="input-container">
-            <label for="id_password1"></label>
-            {{ form.password1 }}
-        </div>
-
-        <div class="input-container">
-            <label for="id_password2"></label>
-            {{ form.password2 }}
-        </div>
-
-        <div class="input-container">
-            <label for="id_telefono"></label>
-            {{ form.telefono }}
-        </div>
-
-        <div class="input-container">
-            <label for="id_direccion"></label>
-            {{ form.direccion }}
-        </div>
-
-        <div class="input-container">
-            <label for="id_fecha_de_nacimiento"></label>
-            {{ form.fecha_de_nacimiento }}
-        </div>
-
-        <p>Ya estás registrado? <a href="/login">Iniciar Sesión</a></p>
-
-        <div class="button-container">
-            <button type="submit">Registrarse</button>
-        </div>
-        {% if form.errors %}
-        <ul class="errorlist" style="color: red;">
-            {% for field_errors in form.errors.values %}
-            {% for error in field_errors %}
-            <li>{{ error }}</li>
-            {% endfor %}
-            {% endfor %}
-        </ul>
-        {% endif %}
-    </form>
-
-
-</div>
-
-<script>
-    $(function() {
-        $('#id_fecha_de_nacimiento').datepicker({
-            dateFormat: 'yy-mm-dd', 
-            changeMonth: true, 
-            changeYear: true, 
-            yearRange: "-100:+0", 
+<section class="bk-singup">
+    <div class="signup">
+        <form method="post">
+            <img src="{% static 'imagenes/login/login.png' %}" alt="" width="20%">
+            <h1>REGISTRO DE USUARIO</h1><br><br>
+            {% csrf_token %}
+    
+            <div class="input-container">
+                <label for="id_username"></label>
+                {{ form.username }}
+            </div>
+    
+            <div class="input-container">
+                <label for="id_email"></label>
+                {{ form.email }}
+            </div>
+    
+            <div class="input-container">
+                <label for="id_password1"></label>
+                {{ form.password1 }}
+            </div>
+    
+            <div class="input-container">
+                <label for="id_password2"></label>
+                {{ form.password2 }}
+            </div>
+    
+            <div class="input-container">
+                <label for="id_telefono"></label>
+                {{ form.telefono }}
+            </div>
+    
+            <div class="input-container">
+                <label for="id_direccion"></label>
+                {{ form.direccion }}
+            </div>
+    
+            <div class="input-container">
+                <label for="id_fecha_de_nacimiento"></label>
+                {{ form.fecha_de_nacimiento }}
+            </div>
+    
+            <p>Ya estás registrado? <a href="/login">Iniciar Sesión</a></p>
+    
+            <div class="button-container">
+                <button type="submit">Registrarse</button>
+            </div>
+            <div class="capa"></div>
+            {% if form.errors %}
+            <ul class="errorlist" style="color: red;">
+                {% for field_errors in form.errors.values %}
+                {% for error in field_errors %}
+                <li>{{ error }}</li>
+                {% endfor %}
+                {% endfor %}
+            </ul>
+            {% endif %}
+        </form>
+    
+    
+    </div>
+    
+    <script>
+        $(function() {
+            $('#id_fecha_de_nacimiento').datepicker({
+                dateFormat: 'yy-mm-dd', 
+                changeMonth: true, 
+                changeYear: true, 
+                yearRange: "-100:+0", 
+            });
         });
-    });
-</script>
+    </script>
+
+</section>
 
 {% endblock content %}

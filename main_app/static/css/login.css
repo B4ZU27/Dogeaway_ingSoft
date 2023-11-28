@@ -1,12 +1,54 @@
 form {
-    background-color: #005264;
-    padding: 40px;
-    border-radius: 40px;
-    width: 900px;
+    background: linear-gradient(45deg, rgba(0, 82, 100, 0.8), rgba(14, 99, 118, 0.8), rgba(73, 115, 125, 0.8), rgba(88, 141, 153, 0.8));
+    background-size: 300% 300%;
+    animation: color 12s ease-in-out infinite;
+    padding: 20px; 
+    border-radius: 20px; 
+    width: 700px; 
     height: auto;
     margin: 20px auto;
-    box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.1);
+    box-shadow: 0px 0px 10px rgba(0, 0, 0, 10);
     margin-top: 50px;
+}
+.bk-login {
+    background-image: url('../../static/imagenes/form-gif.gif');
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
+
+@media screen and (min-width: 768px) {
+    .bk-login {
+        background-size: cover;
+    }
+}
+
+.capa{
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: #1c1c1d;
+    opacity: 0.5;
+    mix-blend-mode: overlay;
+    position: relative;
+    z-index: 2;
+}
+
+@keyframes color {
+    0% {
+        background-position: 0 50%;
+    }
+    50% {
+        background-position: 100% 50%;
+    }
+    100% {
+        background-position: 0 50%;
+    }
 }
 
 .form, h1 {
@@ -60,7 +102,8 @@ body {
 }
 
 button {
-    background-color: #005264;
+    background-color: transparent;
+    transition: transform 0.3s ease-in-out; 
     color: white;
     padding: 10px 15px;
     border: none;
@@ -71,6 +114,7 @@ button {
 }
 
 button:hover {
+    transform: scale(1.2); 
     transition: 0.5s;
     background-color: #BD7219;
     border-radius: 50px;

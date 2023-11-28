@@ -14,7 +14,7 @@ body {
     margin: 15vh auto; 
     padding: 20px;
     background-color: #fff;
-    box-shadow: 0 0 15px rgba(0, 0, 0, 0.1);
+    box-shadow: 0 0 15px rgba(0, 0, 0, 10);
     border-radius: 8px;
     text-align: center;
     box-sizing: border-box;
@@ -42,18 +42,18 @@ label {
 
 @media screen and (max-width: 600px) {
     form {
-        width: 95%; /* Ajusta el ancho del formulario en pantallas pequeñas */
+        width: 95%;
     }
 
     h1 {
-        font-size: 20px; /* Ajusta el tamaño del texto para pantallas más pequeñas */
+        font-size: 20px;
     }
 }
 
 h1 {
     color: #333;
     text-align: center;
-    margin-bottom: 20px; /* Ajusta el espacio entre el h1 y el formulario */
+    margin-bottom: 20px; 
 }
 
 button {

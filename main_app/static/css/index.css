@@ -52,14 +52,27 @@
 /*---------------------------------------- CARRUSEL DE FOTOS ----------------------------------------*/
 
 .carrusel {
+    height: 100vh;
+    width: 100%;
     padding: 3% 10% 3%;
     text-align: center;
-    /* background-color: #ff4c68; */
-    background-color: #005264;
-    color: white;
-
-
+    background: linear-gradient(45deg,#005264,#02586c,#59aabc,#92ceda);
+    background-size: 300% 300%;
+    animation: color 12s ease-in-out infinite;
 }
+
+@keyframes color {
+    0% {
+        background-position: 0 50%;
+    }
+    50% {
+        background-position: 100% 50%;
+    }
+    100% {
+        background-position: 0 50%;
+    }
+}
+
 
 .carrusel h2 {
     font-size: 3rem;
@@ -76,6 +89,7 @@
 #carruselIMG{
     border-radius: 10%;
 }
+
 
 
 /*---------------------------------------- FUNCIONES ----------------------------------------*/
@@ -165,7 +179,7 @@
 
 /* CTA section */
 #cta {
-    background-color: #005264;
+    background: linear-gradient(40deg,#0B667A,#02586c,#59aabc,#377d8d);
     color: white;
     text-align: center;
     padding: 3% 15% 3%;

@@ -11,10 +11,10 @@ body {
 .container {
     width: 90%;
     max-width: 600px;
-    margin: 15vh auto; /* Ajustar el margen superior para una posición más baja en pantallas pequeñas */
+    margin: 15vh auto; 
     padding: 20px;
     background-color: #fff;
-    box-shadow: 0 0 15px rgba(0, 0, 0, 0.1);
+    box-shadow: 0 0 15px rgba(0, 0, 0, 10);
     border-radius: 8px;
     text-align: center;
     box-sizing: border-box;

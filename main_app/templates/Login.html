@@ -7,7 +7,8 @@
 
 {% block content %}
 
-<div style="margin-top: 100px"></div>
+<section class="bk-login">
+    <div style="margin-top: 100px"></div>
 <div class="login">
     <form method="post">
         <img src="{% static 'imagenes/login/login.png' %}" alt="" width="20%">
@@ -24,6 +25,8 @@
             {{ form.password }}
         </div>
 
+        <div class="capa"></div>
+
         <button type="submit">Iniciar sesión</button>
     </form>
     <p>¿No tienes una cuenta? <a class="register-link" href="{% url 'signup' %}">Regístrate</a></p>
@@ -36,5 +39,7 @@
     {% endfor %}
 </div>
 {% endif %}
+
+</section>
 
 {% endblock content %}
