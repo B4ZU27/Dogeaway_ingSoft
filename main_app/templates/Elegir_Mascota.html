@@ -4,9 +4,12 @@
 <link rel="stylesheet" href="{% static 'css/Elegir_Mascota.css' %}">
 {% endblock %}
 
-
 {% block content %}
 
+<section class="bk">
+
+  <div class="capa"></div>
+</section>
 <div class="content-container">
   <h1>Mis Mascotas</h1>
 
@@ -30,7 +33,7 @@
   </form>
   {% endif %}
 
-  {% if mascotas.count < 6 %} <p>¿Quieres registrar una nueva mascota?<a href="{% url 'registro_mascota' %}">
+  {% if mascotas.count < 6 %} <p>¿Quieres registrar una nueva mascota?<br><a href="{% url 'registro_mascota' %}">
       Registrar
       mascota</a></p>
     {% else %}

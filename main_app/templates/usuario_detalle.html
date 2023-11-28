@@ -10,7 +10,8 @@
 <body>
     <div class="container">
         <form method="post">
-            <h1>Detalles de Usuario</h1><br><br>
+            <h1>Datos personales</h1><br><br>
+            <p class="frase">Dogeway usa esta información para verificar tu identidad y proteger<br>a nuestra comunidad. Tú decides que datos personales quieres mostrar.</p><br><br>
     
             <div class="input-container">
                 <label for="id_username">NOMBRE:</label>
@@ -36,8 +37,6 @@
                 <label for="id_direccion">DIRECCIÓN:</label>
                 <p>{{ usuario.direccion }}</p>
             </div>
-    
-            <!-- Agregar más campos según sea necesario -->
     
             <div class="button-container">
                 <a href="{% url 'actualizar_informacion_usuario' %}" class="button">Editar Usuario</a>

@@ -18,39 +18,41 @@
             <h1>REGISTRO DE USUARIO</h1><br><br>
             {% csrf_token %}
     
-            <div class="input-container">
-                <label for="id_username"></label>
-                {{ form.username }}
-            </div>
+            <div class="input-grid">
+                <div class="input-container">
+                    <label for="id_username"></label>
+                    {{ form.username }}
+                </div>
     
-            <div class="input-container">
-                <label for="id_email"></label>
-                {{ form.email }}
-            </div>
+                <div class="input-container">
+                    <label for="id_email"></label>
+                    {{ form.email }}
+                </div>
     
-            <div class="input-container">
-                <label for="id_password1"></label>
-                {{ form.password1 }}
-            </div>
+                <div class="input-container">
+                    <label for="id_password1"></label>
+                    {{ form.password1 }}
+                </div>
     
-            <div class="input-container">
-                <label for="id_password2"></label>
-                {{ form.password2 }}
-            </div>
+                <div class="input-container">
+                    <label for="id_password2"></label>
+                    {{ form.password2 }}
+                </div>
     
-            <div class="input-container">
-                <label for="id_telefono"></label>
-                {{ form.telefono }}
-            </div>
+                <div class="input-container">
+                    <label for="id_telefono"></label>
+                    {{ form.telefono }}
+                </div>
     
-            <div class="input-container">
-                <label for="id_direccion"></label>
-                {{ form.direccion }}
-            </div>
+                <div class="input-container">
+                    <label for="id_direccion"></label>
+                    {{ form.direccion }}
+                </div>
     
-            <div class="input-container">
-                <label for="id_fecha_de_nacimiento"></label>
-                {{ form.fecha_de_nacimiento }}
+                <div class="input-container">
+                    <label for="id_fecha_de_nacimiento"></label>
+                    {{ form.fecha_de_nacimiento }}
+                </div>
             </div>
     
             <p>Ya estás registrado? <a href="/login">Iniciar Sesión</a></p>

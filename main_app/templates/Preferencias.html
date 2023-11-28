@@ -12,7 +12,7 @@
 <body>
   <div class="container">
     <form method="post" enctype="multipart/form-data">
-      <h2>Preferencias</h2>
+      <h1>Preferencias</h1>
       {% csrf_token %}
       {{ form.as_p }}
       <button type="submit">Guardar Preferencias</button>

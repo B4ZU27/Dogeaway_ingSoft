@@ -45,21 +45,49 @@ form {
     background: linear-gradient(45deg, rgba(0, 82, 100, 0.8), rgba(14, 99, 118, 0.8), rgba(73, 115, 125, 0.8), rgba(88, 141, 153, 0.8));
     background-size: 300% 300%;
     animation: color 12s ease-in-out infinite;
-    padding: 20px; 
-    border-radius: 20px; 
-    width: 600px; 
+    padding: 20px;
+    border-radius: 20px;
+    width: 100%;
+    max-width: 900px;
     height: auto;
-    margin: 20px auto;
+    margin: -10px auto; 
     box-shadow: 0px 0px 10px rgba(0, 0, 0, 10);
-    margin-top: 50px;
 }
 
 .input-container {
     display: flex;
     flex-direction: column;
     align-items: center;
-    margin-bottom: 15px;
+    margin-bottom: 50px;
     position: relative;
+}
+
+.input-container.left {
+    align-items: flex-start; 
+}
+
+.input-container.right {
+    align-items: flex-end; 
+}
+
+.input-grid {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr); 
+    gap: 50px; 
+}
+
+.input-container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    margin-bottom: 20px; 
+    position: relative;
+}
+
+.input-grid {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 50px; 
 }
 
 .input-container label {
@@ -90,6 +118,45 @@ form {
 .input-container input::-ms-input-placeholder {
     color: white;
 }
+
+.label-container {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 10px; /* Ajusta el valor según sea necesario */
+}
+
+.button-container {
+    margin-top: 20px;
+    display: flex;
+    justify-content: center;
+}
+
+.button {
+    background-color: transparent;
+    color: white;
+    padding: 10px 15px;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    display: block;
+    margin: 0 auto;
+}
+
+button:hover {
+    transition: 0.5s;
+    background-color: #BD7219;
+    border-radius: 50px;
+}
+
+.signup>img {
+    width: 20%;
+    height: auto;
+    margin: 0 auto;
+    margin-bottom: 20px;
+}
+
 
 label {
     display: block;
@@ -133,14 +200,13 @@ p a {
     width: 20%;
     height: auto;
     margin: 0 auto;
-    /* Agregado para centrar la imagen horizontalmente */
+
     margin-bottom: 20px;
 }
 
 
 /*----------------------------------------------------------------DISEÑO DEL CALENDARIO----------------------------------------------------------------------------*/
 
-/* Cambio del fondo a color morado */
 #ui-datepicker-div.ui-datepicker {
     background-color: white;
     color: #333;    
@@ -151,7 +217,6 @@ p a {
     padding: 0; 
 }
 
-/* Estilo del encabezado del calendario */
 #ui-datepicker-div.ui-datepicker .ui-datepicker-header {
     background-color: white;
     color: #fff;
@@ -160,14 +225,13 @@ p a {
     padding: 0;
 }
 
-/* Estilo de los días de la semana */
 #ui-datepicker-div.ui-datepicker .ui-datepicker-calendar thead {
     color: black;
     font-weight: bold;
 }
 
 
-/* Estilo de los días */
+
 #ui-datepicker-div.ui-datepicker .ui-datepicker-calendar tbody .ui-state-default {
     background-color: transparent;
     border: none;
@@ -183,14 +247,13 @@ p a {
     border-radius: 30%;
     color: white;
 }
-/* Estilo del día seleccionado */
+
 #ui-datepicker-div.ui-datepicker .ui-datepicker-calendar tbody .ui-state-active {
     background-color: #007bff;
     border-radius: 30%;
     color: #fff;
 }
 
-/* Ocultar las flechas de navegación del DatePicker */
 #ui-datepicker-div.ui-datepicker .ui-datepicker-prev,
 #ui-datepicker-div.ui-datepicker .ui-datepicker-next {
     display: none;

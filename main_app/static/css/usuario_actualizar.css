@@ -1,6 +1,11 @@
+* {
+    font-family: 'Times New Roman', Times, serif;
+}
+
 body {
-    font-family: 'Roboto', sans-serif;
-    background-color: #D9D9D9;
+    background: linear-gradient(45deg,#02586c,#005264,#072931,#005264,#02586c);
+    background-size: 300% 300%;
+    animation: color 15s ease-in-out infinite;
     margin: 0;
     display: flex;
     justify-content: center; 
@@ -8,13 +13,28 @@ body {
     min-height: 100vh; 
 }
 
+@keyframes color {
+    0% {
+        background-position: 0 50%;
+    }
+    50% {
+        background-position: 100% 50%;
+    }
+    100% {
+        background-position: 0 50%;
+    }
+}
+
 .container {
+    color: #cd9034;
+    font-size: 20px;
     width: 600px;
     max-width: 100%; 
     margin: 15vh auto; 
     padding: 20px;
-    background-color: #fff;
-    box-shadow: 0 0 15px rgba(0, 0, 0, 10);
+    background-color: rgba(255, 255, 255, 0.2);
+    box-shadow: 0 0 15px rgba(0, 0, 0, 0.1); 
+    backdrop-filter: blur(8px); 
     border-radius: 8px;
     text-align: center;
     box-sizing: border-box;
@@ -25,10 +45,11 @@ body {
 #id_telefono,
 #id_direccion,
 #id_fecha_de_nacimiento {
+    font-size: 20px;
     width: 100%;
     padding: 10px;
     margin-bottom: 15px;
-    border: 1px solid #ddd;
+    border: 1px solid #aeaeae;
     border-radius: 5px;
     box-sizing: border-box;
 }
@@ -51,7 +72,8 @@ label {
 }
 
 h1 {
-    color: #333;
+    font-family: 'Times New Roman', Times, serif;
+    color: white;
     text-align: center;
     margin-bottom: 20px; 
 }
@@ -71,13 +93,14 @@ a {
     margin-top: 10px; 
     padding: 10px 20px;
     text-decoration: none;
-    color: #333;
-    background-color: #ddd;
+    font-family: 'Times New Roman', Times, serif;
+    color: white;
+    background-color: #0389a7;
     border-radius: 5px;
     transition: background-color 0.5s;
 }
 
 button:hover,
 a:hover {
-    background-color: #27859a;
+    background-color: #5ac5dd;
 }

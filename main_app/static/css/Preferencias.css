@@ -1,6 +1,10 @@
+* {
+    font-family: 'Times New Roman', Times, serif;
+}
 body {
-    font-family: 'Roboto', sans-serif;
-    background-color: #D9D9D9;
+    background: linear-gradient(45deg, #02586c, #005264, #072931, #005264, #02586c);
+    background-size: 300% 300%;
+    animation: color 15s ease-in-out infinite;
     margin: 0;
     display: flex;
     justify-content: center;
@@ -8,16 +12,38 @@ body {
     min-height: 100vh;
 }
 
+@keyframes color {
+    0% {
+        background-position: 0 50%;
+    }
+    50% {
+        background-position: 100% 50%;
+    }
+    100% {
+        background-position: 0 50%;
+    }
+}
+
 .container {
-    width: 90%;
-    max-width: 600px;
+    color: #cd9034;
+    font-size: 20px;
+    width: 600px;
+    max-width: 100%; 
     margin: 15vh auto; 
     padding: 20px;
-    background-color: #fff;
-    box-shadow: 0 0 15px rgba(0, 0, 0, 10);
+    background-color: rgba(255, 255, 255, 0.2);
+    box-shadow: 0 0 15px rgba(0, 0, 0, 0.1); 
+    backdrop-filter: blur(8px); 
     border-radius: 8px;
     text-align: center;
     box-sizing: border-box;
+}
+
+h1 {
+    text-align: center;
+    font-family: 'Times New Roman', Times, serif;
+    color: white;
+    margin-bottom: 20px; 
 }
 
 button, a {
@@ -32,7 +58,7 @@ button, a {
 }
 
 button:hover, a:hover {
-    background-color: #27859a;
+    background-color: #328699;
 }
 
 select, input {

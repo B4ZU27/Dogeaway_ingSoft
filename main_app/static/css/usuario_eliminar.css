@@ -1,16 +1,32 @@
+* {
+    font-family: 'Times New Roman', Times, serif;
+}
 body {
-    font-family: Arial, sans-serif;
-    background: linear-gradient(180deg, #b0b0b0 0%, #f7f7f7 100%);
+    background: linear-gradient(45deg,#6c0202, #ba0808, #8d1919, #005264, #02586c);
+    background-size: 400% 400%;
+    animation: color 15s ease-in-out infinite;
     margin: 0;
-    padding: 0;
     display: flex;
     justify-content: center;
     align-items: center;
-    height: 100vh;
+    min-height: 100vh;
+}
+
+@keyframes color {
+    0% {
+        background-position: 0 50%;
+    }
+    50% {
+        background-position: 100% 50%;
+    }
+    100% {
+        background-position: 0 50%;
+    }
 }
 
 form {
-    background-color: #fff;
+    background-color: rgba(255, 255, 255, 0.4);
+    box-shadow: 0 0 15px rgba(0, 0, 0, 0.1);
     padding: 30px;
     border-radius: 8px;
     box-shadow: 0 0 10px rgba(0, 0, 0, 0.5);
