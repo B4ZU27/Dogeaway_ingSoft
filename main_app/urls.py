@@ -49,6 +49,11 @@ urlpatterns = [
         #Match
     path('MATCH/', views.match_view, name='Match'),
     path('MATCH/like_mascota/', views.like_mascota, name='like_mascota'),
+    
+        #Adoptar
+    path('ADOPTAR/', views.adopcion_view, name='adopcion_view'),
+    path('ADOPTAR/adoptar_mascota/', views.adoptar_mascota, name='adoptar_mascota'),
+
 
         #Logout
     path('logout/', LogoutView.as_view(), name='logout'),

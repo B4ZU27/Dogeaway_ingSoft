@@ -310,6 +310,55 @@ def like_mascota(request):
 
         return JsonResponse(response_data)
 
+#-----ADOPCION-----*
+@login_required
+def adopcion_view(request):
+    mascota_seleccionada_id = request.session.get('mascota_seleccionada_id')
+
+    if mascota_seleccionada_id:
+        mascota_seleccionada = get_object_or_404(Mascota, id=mascota_seleccionada_id)
+        
+        # Filtra las mascotas para adopción excluyendo las del mismo dueño
+        mascotas_adopcion = Mascota.objects.filter(adopcion=True).exclude(dueño=request.user)
+        longitud_lista = len(mascotas_adopcion)
+        imagenes_mascotas_adopcion = ImagenMascota.objects.filter(mascota__in=mascotas_adopcion)
+
+        for mascota in mascotas_adopcion:
+            print('{- '+mascota.nombre+'|'+mascota.sexo+'>'+str(mascota.id))
+    else:
+        mascota_seleccionada = None
+        return redirect('/')  # Redirige a la página de inicio si no obtiene el objeto
+
+    return render(request, 'adopcion.html', { 
+        'title': "Adopción",
+        'mascota_selec': mascota_seleccionada,
+        'mascotas_adopcion': mascotas_adopcion,
+        'longitud_lista': longitud_lista,
+        'imagenes_mascotas_adopcion': imagenes_mascotas_adopcion})
+#---LIKES ADOPCION---*
+def adoptar_mascota(request):
+    if request.method == 'POST' and request.headers.get('X-Requested-With') == 'XMLHttpRequest':
+        mascota_id = request.POST.get('mascota_id')
+        mascota_seleccionada_id = request.session.get('mascota_seleccionada_id')
+
+        if mascota_seleccionada_id:
+            mascota_seleccionada = get_object_or_404(Mascota, id=mascota_seleccionada_id)
+            mascota_adopcion = get_object_or_404(Mascota, id=mascota_id)
+
+            # Verificar si ya se dio like a la mascota de adopción
+            if mascota_seleccionada.liked_by.filter(id=mascota_id).exists():
+                response_data = {'status': 'like_added_already', 'message': 'Ya has dado like a esta mascota de adopción'}
+            else:
+                # Agregar like y crear el match de adopción
+                mascota_seleccionada.liked_by.add(mascota_adopcion)
+                nuevo_match = Match.objects.create(mascota1=mascota_seleccionada, mascota2=mascota_adopcion)
+                # Asignar el valor adopcion=True después de crear la instancia
+                nuevo_match.adopcion = True
+                nuevo_match.save()
+                response_data = {'status': 'like_added', 'message': 'Has dado like a esta mascota de adopción'}
+
+        return JsonResponse(response_data)
+
 #-----DETALLE USUARIO-----*
 class VerInformacionUsuario(LoginRequiredMixin, DetailView):
     model = Usuario
