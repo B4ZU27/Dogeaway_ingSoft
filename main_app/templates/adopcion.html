@@ -11,8 +11,14 @@
         {% for mascota in mascotas_adopcion %}
             <div class="mascota" style="display: none;">
                 <div class="card mb-4">
-                    <div id="carouselExample{{ mascota.id }}" class="carousel slide" data-ride="carousel">
-                        <!-- Lógica del carrusel de imágenes, similar a la de match.html -->
+                    <div class="imagenesMascota">
+                        {% for imagen_mascota in imagenes_mascotas_adopcion %}
+                            {% if imagen_mascota.mascota.id == mascota.id %}
+                                {% if imagen_mascota.imagen_1 %}
+                                    <div class="elemento"><img src="{{ imagen_mascota.imagen_1.url }}" alt="Imagen de {{ mascota.nombre }}"></div>
+                                {% endif %}
+                            {% endif %}
+                        {% endfor %}
                     </div>
 
                     <div class="card text-center">
