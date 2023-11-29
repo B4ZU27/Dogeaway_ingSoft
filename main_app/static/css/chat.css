@@ -5,13 +5,14 @@ body {
   
   .container {
     display: flex;
-    height: 100vh;
+    height: 75vh;
   }
   
   .conversations {
-    width: 30%;
+    width: 20%;
     background-color: #f0f0f0;
-    padding: 20px;
+    border-radius: 5px;
+    padding: 10px;
     box-sizing: border-box;
   }
   
@@ -24,13 +25,56 @@ body {
     margin-bottom: 10px;
     cursor: pointer;
   }
-  
-  .chat {
+/*
+  .container {
+    display: flex;
+    flex-direction: column;
+    height: 80vh;
+    justify-content: space-between;
+}
+*/
+.chat {
     flex: 1;
     padding: 20px;
+    margin-left: 40px;
+    width: 60%;
     box-sizing: border-box;
     overflow-y: auto;
-  }
+    display: flex;
+    flex-direction: column;
+}
+
+#messages {
+    flex: 1;
+    overflow-y: auto;
+    margin-bottom: 20px;
+    border: 1px solid #ccc;
+    padding: 10px;
+    border-radius: 5px;
+}
+
+#form {
+    display: flex;
+    justify-content: space-between;
+}
+
+#form input[type="text"] {
+    flex: 1;
+    padding: 5px;
+    border-radius: 5px;
+    border: 1px solid #ccc;
+}
+
+#form button {
+    margin-left: 10px;
+    padding: 5px 10px;
+    border: none;
+    border-radius: 5px;
+    background-color: #007BFF;
+    color: white;
+}
+
+
   
   .message {
     background-color: #dcd6f7;  /* Color de fondo morado claro */
@@ -40,12 +84,62 @@ body {
     width: fit-content;
 }
 
-.message p {
-    margin: 0;  /* Eliminar el margen alrededor del texto */
+.mensaje {
+    background-color: #e6e6e6;
+    width: 70%;
+    margin-right: auto; /* Esto empujará el elemento hacia la izquierda */
+    padding: 10px;
+    margin: 10px;
+    border-radius: 5px;
 }
 
-.message small {
-    display: block;  /* Hacer que el nombre del usuario y la hora estén en líneas separadas */
-    font-size: 0.8em;  /* Hacer que el texto sea más pequeño */
+.mensaje p {
+    margin: 0;
+    font-size: 16px;
+    color: #333;
 }
-  
+.mensaje small {
+    font-size: 10px; /* Tamaño de fuente más pequeño */
+    font-style: italic; /* Estilo de fuente en cursiva (italiana) */
+    color: #666; /* Color más tenue que el negro, por ejemplo, gris oscuro */
+}
+
+/* Estilo base */
+/* Estilo base */
+li a {
+    display: block;
+    padding: 10px;
+    text-decoration: none;
+    color: #333; /* Color de texto base */
+    border-radius: 5px;
+    border: 1px solid black;
+}
+
+/* Estilo para el hover */
+li a:hover {
+    background-color: #e6e6ff; /* Color morado claro de fondo en hover */
+    border-radius: 5px;
+}
+
+/* Estilo cuando está activo */
+li a.active {
+    background-color: #cc99ff; /* Color morado más claro de fondo cuando está activo */
+    color: #fff; /* Color de texto blanco */
+    border-radius: 5px;
+}
+
+div.title-container {
+    text-align: center;
+    border: 1px solid #ccc;
+    background-color: #ccc;
+    border-radius: 10px; /* Esto hará que el recuadro sea redondeado */
+    padding: 10px;
+    margin-top: 30px;
+    margin-right: 40px;
+    margin-left: 40px;
+    margin-bottom: 20px; /* Esto añade un poco de espacio entre el título y el contenido siguiente */
+}
+
+div.title-container h1 {
+    color: purple; /* Esto hará que el texto del h1 sea morado */
+}
