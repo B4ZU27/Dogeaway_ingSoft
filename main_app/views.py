@@ -583,3 +583,17 @@ class ListaUsuariosView(ListView):
     model = Usuario
     template_name = 'lista.html'  
     context_object_name = 'usuarios'
+
+@login_required
+def redes_sociales(request, mascota_id):
+    mascota = Mascota.objects.get(id=mascota_id)
+
+    if request.method == 'POST':
+        form = MascotaRedesSocialesForm(request.POST, instance=mascota)
+        if form.is_valid():
+            form.save()
+            return redirect('ver_detalle_mascota', mascota_id=mascota.id)
+    else:
+        form = MascotaRedesSocialesForm(instance=mascota)
+
+    return render(request, 'redes_sociales.html', {'form': form, 'mascota': mascota})

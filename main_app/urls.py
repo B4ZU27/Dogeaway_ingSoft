@@ -1,6 +1,7 @@
 from django.contrib.auth.views import LogoutView
 from django.urls import path
 from . import views 
+from .views import redes_sociales
 #------------------
 
 urlpatterns = [
@@ -33,6 +34,7 @@ urlpatterns = [
     path('editar_mascota/<int:mascota_id>/', views.ActualizarInformacionMascota, name='editar_mascota'),
     path('editar_redes_sociales/<int:mascota_id>/', views.editar_redes_sociales, name='editar_redes_sociales'),
     path('eliminar_mascota/<int:mascota_id>/', views.EliminarMascota.as_view(), name='eliminar_mascota'),
+    path('redes_sociales/<int:mascota_id>/', redes_sociales, name='redes_sociales'),
     
         #Chat
     path('chat/<int:match_id>/', views.chat_view, name='chat'),
