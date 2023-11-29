@@ -6,11 +6,13 @@
 
 {% block content %}
 
-  <h1>Reportar a {{ usuario_reportado.username }}</h1>
+  <div class="report-container">
+    <h1 style="margin-top: 100px">Reportar a {{ usuario_reportado.username }}</h1>
 
-  <form method="post" action="{% url 'reportar_usuario' usuario_reportado.id %}">
-    {% csrf_token %}
-    {{ form.as_p }}
-    <button type="submit">Enviar Reporte</button>
-  </form>
+    <form method="post" action="{% url 'reportar_usuario' usuario_reportado.id %}" class="report-form">
+      {% csrf_token %}
+      {{ form.as_p }}
+      <button type="submit" class="report-submit">Enviar Reporte</button>
+    </form>
+  </div>
 {% endblock %}

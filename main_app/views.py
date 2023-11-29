@@ -503,7 +503,10 @@ def get_messages(request, chat_id):
     messages = Chat.objects.filter(match_id=chat_id).order_by('fecha_mensaje')
 
     # Convert the messages to a list of strings
-    messages_list = [str(message) for message in messages]
+    #messages_list = [str(message) for message in messages]
+    # Convert the messages to a list of dictionaries
+    messages_list = [{'remitente': message.remitente.username, 'mensaje': message.mensaje, 'fecha_mensaje': message.fecha_mensaje} for message in messages]
+
 
     # Return the messages as JSON
     return JsonResponse(messages_list, safe=False)
