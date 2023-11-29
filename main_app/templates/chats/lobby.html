@@ -22,6 +22,16 @@
                         <h5 >{{m.mascota2.nombre}}</h5>
                         <small>{{m.mascota2.dueño.username}}</small>
                     </a>
+                    <div class="btn-group" style="margin-top=2px;">
+                        <button class="btn btn-secondary btn-sm dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false">
+                            <!--<i class="bi bi-three-dots-vertical"></i> -->
+                        </button>
+                        <ul class="dropdown-menu">
+                            <li><a class="dropdown-item" href="{% url 'reportar_usuario' usuario_id=m.mascota2.dueño.id %}">Reportar</a></li>
+                            <li><a class="dropdown-item" href="{% url 'bloquear_usuario' usuario_id=m.mascota2.dueño.id %}" style="color:red;">Bloquear</a></li>
+                        </ul>
+                      </div>
+                    <div class="btn-group">
                 </li>
                 {% else %}
                 <li> 
@@ -29,6 +39,16 @@
                         <h5 >{{m.mascota1.nombre}}</h5>
                         <small>{{m.mascota1.dueño.username}}</small>
                     </a>
+                    <div class="btn-group" style="margin-top=2px;">
+                        <button class="btn btn-secondary btn-sm dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false">
+                            <!--<i class="bi bi-three-dots-vertical"></i> -->
+                        </button>
+                        <ul class="dropdown-menu">
+                            <li><a class="dropdown-item" href="{% url 'reportar_usuario' usuario_id=m.mascota1.dueño.id %}">Reportar</a></li>
+                            <li><a class="dropdown-item" href="{% url 'bloquear_usuario' usuario_id=m.mascota1.dueño.id %}" style="color:red;">Bloquear</a></li>
+                        </ul>
+                      </div>
+                    <div class="btn-group">
                 </li>
                 {% endif %}
             {% endfor %}
@@ -115,11 +135,17 @@
                 let messagesDiv = document.getElementById('messages');
                 messagesDiv.innerHTML = '';
 
-                // Add each message to the messages div
-                messages.forEach(message => {
+                // Aqui
+               /* messages.forEach(message => {
                     messagesDiv.insertAdjacentHTML('beforeend', `<div class="mensaje">
                         <p>${message}</p>
                         <small></small>
+                    </div>`);
+                });*/ 
+                messages.forEach(message => {
+                    messagesDiv.insertAdjacentHTML('beforeend', `<div class="mensaje">
+                        <p>${message.mensaje}</p>
+                        <small>${message.remitente}</small>
                     </div>`);
                 });
             });
