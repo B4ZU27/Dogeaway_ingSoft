@@ -6,7 +6,7 @@
 
 {% block content %}
 <div style="margin-top: 100px"></div>
-<div style="text-align: center;">
+<div class="title-container">
     <h1>Mis chats</h1>
     <p>{{ usuario.username }}</p>
 </div>
@@ -16,9 +16,21 @@
       <ul>
         {%if matches%}
             {%for m in matches%}
+                {% if m.mascota1.dueño == usuario %}
                 <li> 
-                    <a data-chat-id="{{m.id}}"><h5>{{m.mascota1.nombre}} - {{m.mascota2.nombre}}</h5></a>
+                    <a  class="chat-link" data-chat-id="{{m.id}}">
+                        <h5 >{{m.mascota2.nombre}}</h5>
+                        <small>{{m.mascota2.dueño.username}}</small>
+                    </a>
                 </li>
+                {% else %}
+                <li> 
+                    <a class="chat-link" data-chat-id="{{m.id}}">
+                        <h5 >{{m.mascota1.nombre}}</h5>
+                        <small>{{m.mascota1.dueño.username}}</small>
+                    </a>
+                </li>
+                {% endif %}
             {% endfor %}
         {% else %}
             <li><h3 style="color:red;">No hay conversaciones</h3></li>
@@ -26,9 +38,11 @@
       </ul>
     </div>
     <div class="chat">
+        
         <div id="messages"></div>
         <form id="form">
-            <input type="text" name="message"/>
+            <input type="text" name="message" data-rem="{{usuario.username}}"/>
+            <button type="submit"><i class="bi bi-arrow-right-square"></i></button>
         </form>
     </div>
 
@@ -53,13 +67,16 @@
 
         chatSocket.onmessage = function(e){
             let data = JSON.parse(e.data)
+            var inputElement = document.querySelector('input[name="message"]');
+            // Obtener el valor del atributo data-rem
+            let remValue = inputElement.dataset.rem;
             console.log('Data:', data)
-
             if(data.type === 'chat'){
                 let messages = document.getElementById('messages')
 
-                messages.insertAdjacentHTML('beforeend', `<div>
+                messages.insertAdjacentHTML('beforeend', `<div class="mensaje">
                                         <p>${data.message}</p>
+                                        <small>${remValue}</small>
                                     </div>`)
             }
         }
@@ -100,7 +117,10 @@
 
                 // Add each message to the messages div
                 messages.forEach(message => {
-                    messagesDiv.insertAdjacentHTML('beforeend', `<div><p>${message}</p></div>`);
+                    messagesDiv.insertAdjacentHTML('beforeend', `<div class="mensaje">
+                        <p>${message}</p>
+                        <small></small>
+                    </div>`);
                 });
             });
     }
@@ -115,36 +135,26 @@
         });
     });
 
+// Obtener todos los enlaces de chat
+var chatLinks = document.querySelectorAll('.chat-link');
 
-    
-    /*
-        let url = `ws://${window.location.host}/ws/socket-server/`
+// Función para manejar el clic en el enlace
+function handleClick(event) {
+    // Remover la clase 'active' de todos los enlaces
+    chatLinks.forEach(function(link) {
+        link.classList.remove('active');
+    });
 
-        const chatSocket = new WebSocket(url)
+    // Agregar la clase 'active' al enlace clicado
+    event.target.classList.add('active');
+}
 
-        chatSocket.onmessage = function(e){
-            let data = JSON.parse(e.data)
-            console.log('Data:', data)
+// Agregar un event listener a cada enlace para manejar el clic
+chatLinks.forEach(function(link) {
+    link.addEventListener('click', handleClick);
+});
 
-            if(data.type === 'chat'){
-                let messages = document.getElementById('messages')
 
-                messages.insertAdjacentHTML('beforeend', `<div>
-                                        <p>${data.message}</p>
-                                    </div>`)
-            }
-        }
-
-        let form = document.getElementById('form')
-        form.addEventListener('submit', (e)=> {
-            e.preventDefault()
-            let message = e.target.message.value 
-            chatSocket.send(JSON.stringify({
-                'message':message
-            }))
-            form.reset()
-        })
-        */
 
     </script>
 
