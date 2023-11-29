@@ -72,6 +72,6 @@ select, input {
 
 @media screen and (max-width: 600px) {
     .container {
-        margin: 10vh auto; /* Ajustar el margen superior para una posición más baja en pantallas más pequeñas */
+        margin: 10vh auto; 
     }
 }

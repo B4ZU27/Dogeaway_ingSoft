@@ -109,7 +109,7 @@ class UserEditForm(forms.ModelForm):
 class MascotaEditForm(forms.ModelForm):
     class Meta:
         model = Mascota
-        fields = ['nombre', 'peso', 'edad', 'sexo', 'tamaño', 'descripcion', 'raza', 'tiene_cartilla']
+        fields = ['nombre', 'peso', 'edad', 'sexo', 'tamaño', 'raza', 'tiene_cartilla', 'descripcion']
 
 
 #-----TEST DE PREFERENCIAS-----*
