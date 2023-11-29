@@ -1,51 +1,162 @@
-/* Estilos para la página de actualización de información de mascotas */
-
-/* Estilos generales */
-h2 {
-    font-size: 28px;
-    margin-bottom: 20px;
+* {
+    font-family: 'Times New Roman', Times, serif;
 }
 
-form {
-    max-width: 800px;
-    margin: 0 auto;
+body {
+    background: linear-gradient(45deg, #ffffff, #fcfcfc, #fcfcfc);
+    background-size: 300% 300%;
+    animation: color 15s ease-in-out infinite;
+    margin: 0;
+    display: flex;
+    justify-content: center; 
+    align-items: center; 
+    min-height: 100vh; 
+}
+
+@keyframes color {
+    0% {
+        background-position: 0 50%;
+    }
+    50% {
+        background-position: 100% 50%;
+    }
+    100% {
+        background-position: 0 50%;
+    }
+}
+.bk-container {
+    position: relative;
+    width: 100%;
+    height: 100%;
+  }
+  
+  .bk {
+    background-image: url('../../static/imagenes/mascota-update4.jpeg');
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    filter: blur(1.5px); 
+  }
+  @media screen and (min-width: 768px) {
+    .bk {
+      background-size: cover;
+    }
+  }
+.container {
+    color: #000000;
+    font-size: 20px;
+    max-width: 100%; 
+    margin: 15vh auto; 
     padding: 20px;
-    background-color: #f9f9f9;
+    background-color: rgba(255, 255, 255, 0.2);
+    box-shadow: 0 0 15px rgba(0, 0, 0, 0.1); 
+    backdrop-filter: blur(8px); 
     border-radius: 8px;
-    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    text-align: center;
+    box-sizing: border-box;
+}
+
+#id_name,
+#id_peso,
+#id_edad,
+#id_sexo,
+#id_tamaño,
+#id_descripcion,
+#id_raza,
+#id_tiene_cartilla {
+    font-size: 20px;
+    width: 100%;
+    padding: 10px;
+    margin-bottom: 15px;
+    border: 1px solid #aeaeae;
+    border-radius: 5px;
+    box-sizing: border-box;
 }
 
 .mascota-form,
 .imagen-form {
-    margin-bottom: 20px;
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-around;
 }
 
-/* Estilos para el botón de guardar cambios */
-button[type="submit"] {
-    padding: 10px 20px;
-    background-color: #007bff;
-    color: #fff;
-    border: none;
-    border-radius: 4px;
+.image-form {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-around;
+}
+
+
+.image-form input[type="file"] {
+    display: none; 
+}
+
+
+.image-form label {
+    border: 2px solid gray;
+    color: #000000;
+    background-color: rgb(255, 255, 255);
+    padding: 8px 20px;
+    border-radius: 8px;
+    font-size: 20px;
+    font-weight: bold;
     cursor: pointer;
-    transition: background-color 0.3s;
+    margin-bottom: 10px;
+    text-align: center;
+    width: 100%;
+    box-sizing: border-box;
 }
 
-button[type="submit"]:hover {
-    background-color: #0056b3;
+.image-form label:hover {
+    background-color: gray;
+    color: rgb(149, 60, 60);
+    transition: all 0.3s ease-in-out;
+    transform: scale(1.1);
 }
 
-/* Estilos para el enlace de regresar */
-a {
+
+.form-group {
+    width: 48%;
+    margin-bottom: 15px;
+}
+
+label {
     display: block;
-    margin-top: 20px;
-    text-decoration: none;
-    color: #007bff;
-    transition: color 0.3s;
+    margin-bottom: 5px;
 }
 
-a:hover {
-    color: #0056b3;
+
+.image-form button[type="submit"] {
+    border: 2px solid #ca912f;
+    background-color: #ca912f; 
+    color: #fff; 
+    padding: 10px 20px; 
+    border-radius: 8px; 
+    font-size: 18px; 
+    cursor: pointer;
+    transition: background-color 0.3s ease-in-out; 
+    margin-bottom: 10px;
 }
 
-/* Estilos adicionales si es necesario */
+.image-form button[type="submit"]:hover {
+    background-color: #ce8405; 
+    transition: all 0.3s ease-in-out;
+    transform: scale(1.1);
+}
+
+
+.container a {
+    text-decoration: none; 
+    color: #0B667A; 
+    font-size: 16px; 
+}
+
+
+.container a:hover {
+    color: #05284e; 
+    transition: all 0.3s ease-in-out;
+    transform: scale(1.5);
+}
