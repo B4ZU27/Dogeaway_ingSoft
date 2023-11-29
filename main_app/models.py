@@ -145,7 +145,7 @@ class Chat(models.Model):
     bloqueado = models.BooleanField(default=False)  # Nuevo campo
 
     def __str__(self):
-        return f'Mensaje de {self.remitente.nombre} para {self.destinatario.nombre} en el chat de {self.match}'
+        return f'{self.mensaje}'
 
 #-----REPORTES-----*
 class Reportes(models.Model):

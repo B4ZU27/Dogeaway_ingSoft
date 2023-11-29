@@ -6,6 +6,7 @@
 
 
 {% block content %}
+<<<<<<< HEAD
 <section class="bk">
     <section class="bk1">
         <div class="registroMascota">
@@ -20,6 +21,87 @@
                     <div style="color: red">
                         {{ mascota_form.nombre.errors }}
                     </div>
+=======
+<div class="registroMascota">
+    <form method="post" enctype="multipart/form-data">
+        <h1>REGISTRO DE MASCOTA</h1>
+        {% csrf_token %}
+
+        {# Formulario para datos de mascota #}
+        <div class="input-container">
+            {{ mascota_form.nombre.label_tag }}
+            {{ mascota_form.nombre }}
+            <div style="color: red">
+                {{ mascota_form.nombre.errors }}
+            </div>
+        </div>
+        <div class="select-container">
+            {{ mascota_form.raza.label_tag }}
+            {{ mascota_form.raza }}
+            <div style="color: red">
+                {{ mascota_form.raza.errors }}
+            </div>
+        </div>
+        <div class="select-container">
+            {{ mascota_form.edad.label_tag }}
+            {{ mascota_form.edad }}
+            <div style="color: red">
+                {{ mascota_form.edad.errors }}
+            </div>
+        </div>
+        <div class="select-container">
+            {{ mascota_form.peso.label_tag }}
+            {{ mascota_form.peso }}
+            <div style="color: red">
+                {{ mascota_form.peso.errors }}
+            </div>
+        </div>
+        <div class="select-container">
+            {{ mascota_form.sexo.label_tag }}
+            {{ mascota_form.sexo }}
+            <div style="color: red">
+                {{ mascota_form.sexo.errors }}
+            </div>
+        </div>
+        <div class="select-container">
+            {{ mascota_form.tamaño.label_tag }}
+            {{ mascota_form.tamaño }}
+            <div style="color: red">
+                {{ mascota_form.tamaño.errors }}
+            </div>
+        </div>
+        <div class="input-container">
+            {{ mascota_form.descripcion.label_tag }}
+            {{ mascota_form.descripcion }}
+            <div style="color: red">
+                {{ mascota_form.descripcion.errors }}
+            </div>
+        </div>
+        <div class="input-container">
+            {{ mascota_form.tiene_cartilla.label_tag }}
+            {{ mascota_form.tiene_cartilla }}
+            <div style="color: red">
+                {{ mascota_form.tiene_cartilla.errors }}
+            </div>
+        </div>
+        <div class="input-container">
+            {{ mascota_form.adopcion.label_tag }}
+            {{ mascota_form.adopcion }}
+            <div style="color: red">
+                {{ mascota_form.adopcion.errors }}
+            </div>
+        </div>
+
+        {# Formulario para imágenes de mascota #}
+        <div class="file-upload-container">
+            <p>Sube imágenes de tu mascota:</p>
+            {% for field in imagen_form %}
+            <div class="form-group">
+                {{ field.label_tag }}
+                {{ field }}
+                <div class="alert-error">
+                    {{ field.errors }}
+>>>>>>> cedc3dc3e31ac4c4d816ee2553a918642bcf2cab
                 </div>
                 <div class="select-container">
                     {{ mascota_form.raza.label_tag }}

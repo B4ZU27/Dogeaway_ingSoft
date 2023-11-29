@@ -36,6 +36,9 @@ urlpatterns = [
     
         #Chat
     path('chat/<int:match_id>/', views.chat_view, name='chat'),
+    path('lobby/', views.lobby, name='Lobby'),
+    path('get-messages/<int:chat_id>/', views.get_messages),
+    path('save-message/', views.save_message),
     
         #Reportes y Bloqueos
     path('reportar/<int:usuario_id>/', views.reportar_usuario, name='reportar_usuario'),
@@ -46,6 +49,11 @@ urlpatterns = [
         #Match
     path('MATCH/', views.match_view, name='Match'),
     path('MATCH/like_mascota/', views.like_mascota, name='like_mascota'),
+    
+        #Adoptar
+    path('ADOPTAR/', views.adopcion_view, name='adopcion_view'),
+    path('ADOPTAR/adoptar_mascota/', views.adoptar_mascota, name='adoptar_mascota'),
+
 
         #Logout
     path('logout/', LogoutView.as_view(), name='logout'),

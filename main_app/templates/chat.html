@@ -19,30 +19,40 @@
   <button type="button" onclick="enviarMensaje()">Enviar</button>
 </form>
 
-<script>
-  var chatSocket = new WebSocket(
-    'ws://' + window.location.host +
-    '/ws/chat/{{ match.id }}/');
+<script type>
+    var chatSocket = new WebSocket(
+      'ws://' + window.location.host +
+      '/ws/chat/{{ match.id }}/');
 
-  chatSocket.onmessage = function (e) {
-    var data = JSON.parse(e.data);
-    var chatLog = document.getElementById('chat-messages');
-    var message = document.createElement('p');
-    message.innerHTML = '<strong>' + data.username + ': </strong>' + data.message;
-    chatLog.appendChild(message);
-  };
+    chatSocket.onmessage = function (e) {
+      var data = JSON.parse(e.data);
+      var chatLog = document.getElementById('chat-messages');
+      var message = document.createElement('p');
+      message.innerHTML = '<strong>' + data.username + ': </strong>' + data.message;
+      chatLog.appendChild(message);
+    };
 
-  chatSocket.onclose = function (e) {
-    console.error('Chat socket closed unexpectedly');
-  };
+    chatSocket.onclose = function (e) {
+      console.error('Chat socket closed unexpectedly');
+    };
 
-  function enviarMensaje() {
-    var messageInput = document.getElementById('mensaje-input');
-    var message = messageInput.value;
-    chatSocket.send(JSON.stringify({
-      'message': message
-    }));
-    messageInput.value = '';
-  }
-</script>
+      function enviarMensaje() {
+        var messageInput = document.getElementById('mensaje-input');
+        var message = messageInput.value;
+        chatSocket.send(JSON.stringify({
+          'message': message
+        }));
+        messageInput.value = '';
+      }
+    </script>
+  </body>
+
+</html>
 {% endblock %}
+
+{% block SCRIPTS %}
+  
+  {% endblock  %}
+
+
+  

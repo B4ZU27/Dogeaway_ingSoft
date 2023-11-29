@@ -2,24 +2,6 @@ body {
     background-color: rgb(31, 25, 37);
 }
 
-#mascota_imagen {
-    height: 100px;
-    width: auto;
-}
-
-.mascota {
-    display: none;
-    /* Agrega cualquier estilo adicional que necesites para las mascotas individuales */
-}
-
-.carousel-item img {
-    max-width: 100%; 
-    max-height: 700px; 
-    width: auto; 
-    height: auto; 
-    border-radius: 20%;
-}
-
 /* Estilos para el contenedor de las mascotas */
 #mascota-container {
     display: flex;
@@ -152,15 +134,15 @@ body {
     color: #ccc;
 }
 
-/*------------------------------------------------------------------Botones del carrusel---------------------------------------------------------*/
+/*------------------------------------------------------------------Botones del carrusel---------------------------------------------------------
 
-/* Eliminar las imágenes predeterminadas */
+/* Eliminar las imágenes predeterminadas 
 .carousel-control-prev-icon,
 .carousel-control-next-icon {
   background-image: none;
 }
 
-/* Estilizar las flechas personalizadas */
+/* Estilizar las flechas personalizadas 
 .carousel-control-next-icon:after,
 .carousel-control-prev-icon:after {
   content: '>';
@@ -169,7 +151,7 @@ body {
   transform: translateY(-50%);
   font-size: 55px;
   color: transparent;
-  /* Aplicar gradiente */
+  /* Aplicar gradiente 
   background-image: linear-gradient(to right, #4e8cff, #ff4fd8);
   -webkit-background-clip: text;
   background-clip: text;
@@ -183,4 +165,16 @@ body {
 .carousel-control-next-icon:after {
   content: '>';
   right: -50px; 
+}
+*/
+
+.imagenesMascota img {
+    max-width: 100%; 
+    max-height: 500px;
+    width: auto;
+    height: auto;
+    min-width: 100%; 
+    min-height: 500px; 
+    display: block; 
+    margin: 0 auto; 
 }

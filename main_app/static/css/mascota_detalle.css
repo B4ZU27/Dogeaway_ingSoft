@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 * {
     font-family: 'Times New Roman', Times, serif;
 }
@@ -116,11 +117,62 @@ h1 {
     display: flex;
     justify-content: space-around;
 
+=======
+/* Estilos para la página de detalles de mascotas */
+
+/* Estilos generales */
+.detalleMascota {
+    max-width: 800px;
+    margin: 0 auto;
+    padding: 20px;
+    background-color: #f9f9f9;
+    border-radius: 8px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+}
+
+.input-container {
+    margin-bottom: 15px;
+}
+
+.input-container label {
+    font-weight: bold;
+    display: block;
+    margin-bottom: 5px;
+}
+
+.input-container p {
+    margin: 0;
+    padding: 8px;
+    background-color: #fff;
+    border: 1px solid #ddd;
+    border-radius: 4px;
+}
+
+.imagenesMascota {
+    margin-top: 20px;
+}
+
+.imagenesMascota h2 {
+    font-size: 24px;
+    margin-bottom: 10px;
+}
+
+.imagenesMascota img {
+    max-width: 100%;
+    margin-bottom: 10px;
+    border-radius: 8px;
+    box-shadow: 0 0 8px rgba(0, 0, 0, 0.1);
+}
+
+.button-container {
+    margin-top: 20px;
+>>>>>>> cedc3dc3e31ac4c4d816ee2553a918642bcf2cab
 }
 
 .button {
     display: inline-block;
     padding: 10px 20px;
+<<<<<<< HEAD
     margin: 5px;
     text-decoration: none;
     color: #fff;
@@ -133,3 +185,44 @@ h1 {
     transform: scale(1.2); 
     transition: transform 0.3s ease-in-out;
 }
+=======
+    margin-right: 10px;
+    text-decoration: none;
+    color: #fff;
+    background-color: #007bff;
+    border-radius: 4px;
+    transition: background-color 0.3s;
+}
+
+.button:hover {
+    background-color: #0056b3;
+}
+
+/* Estilos adicionales si es necesario */
+
+.informacionMascota {
+    flex: 0 0 45%; 
+}
+
+.imagenesMascota {
+    flex: 0 0 50%; 
+    display: flex;
+    flex-wrap: wrap;
+    gap: 10px;
+}
+
+.imagenesMascota img {
+    width: calc(33.33% - 10px); 
+    border-radius: 8px;
+    box-shadow: 0 0 8px rgba(0, 0, 0, 0.1);
+    margin-bottom: 10px;
+}
+
+/* Estilos específicos para las imágenes */
+.imagenesMascota h2 {
+    font-size: 24px;
+    margin-bottom: 10px;
+    width: 100%;
+}
+
+>>>>>>> cedc3dc3e31ac4c4d816ee2553a918642bcf2cab

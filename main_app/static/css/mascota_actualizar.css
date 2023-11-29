@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 * {
     font-family: 'Times New Roman', Times, serif;
 }
@@ -74,10 +75,28 @@ body {
     border: 1px solid #aeaeae;
     border-radius: 5px;
     box-sizing: border-box;
+=======
+/* Estilos para la página de actualización de información de mascotas */
+
+/* Estilos generales */
+h2 {
+    font-size: 28px;
+    margin-bottom: 20px;
+}
+
+form {
+    max-width: 800px;
+    margin: 0 auto;
+    padding: 20px;
+    background-color: #f9f9f9;
+    border-radius: 8px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+>>>>>>> cedc3dc3e31ac4c4d816ee2553a918642bcf2cab
 }
 
 .mascota-form,
 .imagen-form {
+<<<<<<< HEAD
     display: flex;
     flex-wrap: wrap;
     justify-content: space-around;
@@ -160,3 +179,37 @@ label {
     transition: all 0.3s ease-in-out;
     transform: scale(1.5);
 }
+=======
+    margin-bottom: 20px;
+}
+
+/* Estilos para el botón de guardar cambios */
+button[type="submit"] {
+    padding: 10px 20px;
+    background-color: #007bff;
+    color: #fff;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    transition: background-color 0.3s;
+}
+
+button[type="submit"]:hover {
+    background-color: #0056b3;
+}
+
+/* Estilos para el enlace de regresar */
+a {
+    display: block;
+    margin-top: 20px;
+    text-decoration: none;
+    color: #007bff;
+    transition: color 0.3s;
+}
+
+a:hover {
+    color: #0056b3;
+}
+
+/* Estilos adicionales si es necesario */
+>>>>>>> cedc3dc3e31ac4c4d816ee2553a918642bcf2cab

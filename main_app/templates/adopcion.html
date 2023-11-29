@@ -1,80 +1,61 @@
 {% extends "layouts/base.html" %}
 {% load static %}
+
 {% block estilos_adicionales %}
-<link rel="stylesheet" href="{% static 'css/match.css' %}">
+    <link rel="stylesheet" href="{% static 'css/match.css' %}">
 {% endblock  %}
+
 {% block content %}
     <div style="margin-top: 100px"></div>
     <div id="mascota-container">
-        {% for mascota in mascotas %}
-        <div class="mascota" style="display: none;">
-            <div class="card mb-4">
-                <div class="imagenesMascota">
-                    {% for imagen_mascota in imagenes_mascotas %}
-                        {% if imagen_mascota.mascota.id == mascota.id %}
-                            {% if imagen_mascota.imagen_1 %}
-                                <div class="elemento"><img src="{{ imagen_mascota.imagen_1.url }}" alt="Imagen de {{ mascota.nombre }}"></div>
-                            {% endif %}
-                            {% if imagen_mascota.imagen_2 %}
-                                <div class="elemento"><img src="{{ imagen_mascota.imagen_2.url }}" alt="Imagen de {{ mascota.nombre }}"></div>
-                            {% endif %}
-                            {% if imagen_mascota.imagen_3 %}
-                                <div class="elemento"><img src="{{ imagen_mascota.imagen_3.url }}" alt="Imagen de {{ mascota.nombre }}"></div>
-                            {% endif %}
-                            {% if imagen_mascota.imagen_4 %}
-                                <div class="elemento"><img src="{{ imagen_mascota.imagen_4.url }}" alt="Imagen de {{ mascota.nombre }}"></div>
-                            {% endif %}
-                            {% if imagen_mascota.imagen_5 %}
-                                <div class="elemento"><img src="{{ imagen_mascota.imagen_5.url }}" alt="Imagen de {{ mascota.nombre }}"></div>
-                            {% endif %}
-                            {% if imagen_mascota.imagen_6 %}
-                                <div class="elemento"><img src="{{ imagen_mascota.imagen_6.url }}" alt="Imagen de {{ mascota.nombre }}"></div>
-                            {% endif %}
-                        {% endif %}
-                    {% endfor %}
-                </div>
-                
-                <div class="card text-center">
-                    <div class="card-header">
-                        <h1 class="custom-h1" style="text-decoration: underline;">{{ mascota.nombre }}</h1>
+        {% for mascota in mascotas_adopcion %}
+            <div class="mascota" style="display: none;">
+                <div class="card mb-4">
+                    <div id="carouselExample{{ mascota.id }}" class="carousel slide" data-ride="carousel">
+                        <!-- Lógica del carrusel de imágenes, similar a la de match.html -->
                     </div>
 
-                    <div class="card-body">
-                        
-                        <h5 class="card-title" style="font-size: 32px;"><i class="bi bi-arrow-right"></i> {{ mascota.raza }} <i class="bi bi-arrow-left"></i></h5>
-                        <p class="card-text" id="descripcion">{{ mascota.descripcion }}</p>
-                        <div class="ditails"></div>
+                    <div class="card text-center">
+                        <div class="card-header">
+                            <h1 class="custom-h1" style="text-decoration: underline;">{{ mascota.nombre }}</h1>
+                        </div>
 
+                        <div class="card-body">
                         
+                            <h5 class="card-title" style="font-size: 32px;"><i class="bi bi-arrow-right"></i> {{ mascota.raza }} <i class="bi bi-arrow-left"></i></h5>
+                            <p class="card-text" id="descripcion">{{ mascota.descripcion }}</p>
+                            <div class="ditails"></div>
+                        </div>
+
+                        <div class="d-grid gap-2 d-md-flex justify-content-md-between">
+                            <button type="button" id="dislike" class="btn btn-outline-secondary btn-siguiente-mascota flex-fill mb-2">
+                                <h2><i class="bi bi-hand-thumbs-down-fill"></i></h2>
+                            </button>
+
+                            <button type="button" id="btn-like" class="btn btn-outline-danger btn-siguiente-mascota flex-fill mb-2" data-mascota-id="{{ mascota.id }}">
+                                <h2><i class="bi bi-arrow-through-heart"></i></h2>
+                            </button>
+                        </div>
                     </div>
-                    <div class="d-grid gap-2 d-md-flex justify-content-md-between">
-                        <button type="button" id="dislike" class="btn btn-outline-secondary btn-siguiente-mascota flex-fill mb-2">
-                            <h2><i class="bi bi-hand-thumbs-down-fill"></i></h2>
-                        </button>
-                
-                        <button type="button" id="btn-like" class="btn btn-outline-danger btn-siguiente-mascota flex-fill mb-2" data-mascota-id="{{ mascota.id }}">
-                            <h2><i class="bi bi-arrow-through-heart"></i></h2>
+
+                    <div class="d-grid gap-2">
+                        <button type="button" id="btn-detalles" class="btn btn-outline-secondary" data-edad="{{ mascota.edad }}" data-peso="{{ mascota.peso }}" data-tiene-cartilla="{{ mascota.tiene_cartilla }}">
+                            <i class="bi bi-arrow-down"></i> Más Detalles
                         </button>
                     </div>
-                </div>
-                <div class="d-grid gap-2">
-                    <button type="button" id="btn-detalles" class="btn btn-outline-secondary"  data-edad="{{ mascota.edad }}" data-peso="{{ mascota.peso }}"   data-tiene-cartilla="{{ mascota.tiene_cartilla }}">
-                        <i class="bi bi-arrow-down"></i> Más Detalles
-                    </button>
                 </div>
             </div>
-        </div>
         {% endfor %}
-    </div> 
-    
+    </div>
+
     <div class="alert alert-success" role="alert"></div>
     <div class="alert alert-info" role="alert"></div>
     <div class="alert alert-danger" role="alert"></div>
-    {% endblock %}
+{% endblock %}
 
-    {# ----------------------------------------------------------------------------------- #}
+{# ----------------------------------------------------------------------------------- #}
 
-    {% block SCRIPTS %}
+{% block SCRIPTS %}
     <script>
         window.onload = function() {
             var mascotas = document.getElementsByClassName('mascota');
@@ -108,53 +89,54 @@
         $(document).ready(function () {
             $(".alert").hide();
         });
-        
+
         $(document).on('click', '.btn-outline-danger', function () {
             var mascota_id = $(this).data('mascota-id');
             var csrfToken = '{{ csrf_token }}';
             $.ajax({
                 method: 'POST',
-                url: '/MATCH/like_mascota/',
-                data: { 'mascota_id': mascota_id,
-                'csrfmiddlewaretoken': csrfToken },
+                url: '/ADOPTAR/adoptar_mascota/',
+                data: {
+                    'mascota_id': mascota_id,
+                    'csrfmiddlewaretoken': csrfToken
+                },
                 success: function (data) {
                     console.log(data.status);
-                    if (data.status === 'MATCH') {   
+                    if (data.status === 'MATCH') {
                         var alertDiv = $(".alert-success");
-                        alertDiv.text("!! Match !!");
+                        alertDiv.text("¡Adopción Exitosa!");
                         alertDiv.show();
                         setTimeout(function () {
                             alertDiv.hide();
                         }, 10000); // 10000 milisegundos = 10 segundos
-
                     } else if (data.status === 'like_added_already') {
                         var alertDiv = $(".alert-info");
-                        alertDiv.text("Ya le habias dado like a este");
+                        alertDiv.text("Ya le habías dado like a esta mascota.");
                         alertDiv.show();
                         setTimeout(function () {
                             alertDiv.hide();
-                        }, 5000); // 10000 milisegundos = 10 segundos
-
+                        }, 5000); // 5000 milisegundos = 5 segundos
                     } else if (data.status === 'like_added') {
                         var alertDiv = $(".alert-success");
-                        alertDiv.text("Like agregado");
+                        alertDiv.text("Like agregado. ¡Espera la respuesta del dueño!");
                         alertDiv.show();
                         setTimeout(function () {
                             alertDiv.hide();
-                        }, 4000); // 10000 milisegundos = 10 segundos
+                        }, 4000); // 4000 milisegundos = 4 segundos
                     }
                 },
                 error: function () {
                     // Manejar errores
                     var alertDiv = $(".alert-danger");
-                        alertDiv.text("Error FATAL");
-                        alertDiv.show();
-                        setTimeout(function () {
-                            alertDiv.hide();
-                        }, 4000); // 10000 milisegundos = 10 segundos
+                    alertDiv.text("Error FATAL");
+                    alertDiv.show();
+                    setTimeout(function () {
+                        alertDiv.hide();
+                    }, 4000); // 4000 milisegundos = 4 segundos
                 }
             });
         });
+
         document.querySelectorAll('#btn-detalles').forEach(function(btn) {
             btn.addEventListener('click', function() {
                 var cardBody = this.closest('.mascota').querySelector('.ditails');

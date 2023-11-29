@@ -8,6 +8,7 @@ from django.views.generic.edit import DeleteView
 from django.contrib.auth.mixins import LoginRequiredMixin
 from django.urls import reverse_lazy
 from django.urls import reverse
+import json 
 from django.core.exceptions import ObjectDoesNotExist
 from django.utils.crypto import get_random_string
 from django.contrib import messages
@@ -309,6 +310,55 @@ def like_mascota(request):
 
         return JsonResponse(response_data)
 
+#-----ADOPCION-----*
+@login_required
+def adopcion_view(request):
+    mascota_seleccionada_id = request.session.get('mascota_seleccionada_id')
+
+    if mascota_seleccionada_id:
+        mascota_seleccionada = get_object_or_404(Mascota, id=mascota_seleccionada_id)
+        
+        # Filtra las mascotas para adopción excluyendo las del mismo dueño
+        mascotas_adopcion = Mascota.objects.filter(adopcion=True).exclude(dueño=request.user)
+        longitud_lista = len(mascotas_adopcion)
+        imagenes_mascotas_adopcion = ImagenMascota.objects.filter(mascota__in=mascotas_adopcion)
+
+        for mascota in mascotas_adopcion:
+            print('{- '+mascota.nombre+'|'+mascota.sexo+'>'+str(mascota.id))
+    else:
+        mascota_seleccionada = None
+        return redirect('/')  # Redirige a la página de inicio si no obtiene el objeto
+
+    return render(request, 'adopcion.html', { 
+        'title': "Adopción",
+        'mascota_selec': mascota_seleccionada,
+        'mascotas_adopcion': mascotas_adopcion,
+        'longitud_lista': longitud_lista,
+        'imagenes_mascotas_adopcion': imagenes_mascotas_adopcion})
+#---LIKES ADOPCION---*
+def adoptar_mascota(request):
+    if request.method == 'POST' and request.headers.get('X-Requested-With') == 'XMLHttpRequest':
+        mascota_id = request.POST.get('mascota_id')
+        mascota_seleccionada_id = request.session.get('mascota_seleccionada_id')
+
+        if mascota_seleccionada_id:
+            mascota_seleccionada = get_object_or_404(Mascota, id=mascota_seleccionada_id)
+            mascota_adopcion = get_object_or_404(Mascota, id=mascota_id)
+
+            # Verificar si ya se dio like a la mascota de adopción
+            if mascota_seleccionada.liked_by.filter(id=mascota_id).exists():
+                response_data = {'status': 'like_added_already', 'message': 'Ya has dado like a esta mascota de adopción'}
+            else:
+                # Agregar like y crear el match de adopción
+                mascota_seleccionada.liked_by.add(mascota_adopcion)
+                nuevo_match = Match.objects.create(mascota1=mascota_seleccionada, mascota2=mascota_adopcion)
+                # Asignar el valor adopcion=True después de crear la instancia
+                nuevo_match.adopcion = True
+                nuevo_match.save()
+                response_data = {'status': 'like_added', 'message': 'Has dado like a esta mascota de adopción'}
+
+        return JsonResponse(response_data)
+
 #-----DETALLE USUARIO-----*
 class VerInformacionUsuario(LoginRequiredMixin, DetailView):
     model = Usuario
@@ -430,7 +480,55 @@ def chat_view(request, match_id):
                 mensaje=mensaje
             )
     return render(request, 'chat.html', {'match': match, 'mensajes': mensajes})
+@login_required
+def lobby(request):
+    usuario = request.user
+    mascotas_usuario = Mascota.objects.filter(dueño=usuario)
+    # Construir una consulta Q para obtener los Match asociados a las mascotas del usuario
+    from django.db.models import Q
+    consulta_match = Q(mascota1__in=mascotas_usuario) | Q(mascota2__in=mascotas_usuario)
+    matches_del_usuario = Match.objects.filter(consulta_match)
+    print(usuario.username)
+    for mascota in mascotas_usuario:
+        print(mascota.nombre +'-'+str(mascota.id))
+    if matches_del_usuario:
+        for match in matches_del_usuario:
+            print(match.id)
 
+    return render(request, 'chats/lobby.html', {'title':"Lobby" ,'usuario':usuario, 'mascotas': mascotas_usuario,
+    'matches':matches_del_usuario
+    })
+def get_messages(request, chat_id):
+    # Get the messages for this chat
+    messages = Chat.objects.filter(match_id=chat_id).order_by('fecha_mensaje')
+
+    # Convert the messages to a list of strings
+    messages_list = [str(message) for message in messages]
+
+    # Return the messages as JSON
+    return JsonResponse(messages_list, safe=False)
+
+@csrf_exempt
+def save_message(request):
+    data = json.loads(request.body)
+    message = data['message']
+    chat_id = data['chat_id']
+
+    # Get the match
+    match = Match.objects.get(id=chat_id)
+
+    # Determine the sender and recipient
+    if request.user == match.mascota1.dueño:
+        remitente = match.mascota1.dueño
+        destinatario = match.mascota2.dueño
+    else:
+        remitente = match.mascota2.dueño
+        destinatario = match.mascota1.dueño
+
+    # Save the message to the database
+    Chat.objects.create(match_id=chat_id, mensaje=message, remitente=remitente, destinatario=destinatario)
+
+    return JsonResponse({'status': 'ok'})
 #-----REPORTAR USUARIO-----*
 def reportar_usuario(request, usuario_id):
     usuario_reportado = get_object_or_404(Usuario, id=usuario_id)
