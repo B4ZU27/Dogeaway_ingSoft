@@ -24,7 +24,7 @@
                 {% csrf_token %}
                 <div class="button-container">
                     <p>¿Estás seguro de que deseas eliminar esta mascota?</p>
-                    <a href="{% url 'ver_informacion_usuario' %}">Cancelar</a>
+                    <a href="{% url 'ver_detalle_mascota' mascota.id %}">Cancelar</a>
                     <button type="submit">ELIMINAR</button>
                 </div>
             </form>
