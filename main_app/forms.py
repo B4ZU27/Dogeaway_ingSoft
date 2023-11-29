@@ -141,10 +141,10 @@ class MascotaRedesSocialesForm(forms.ModelForm):
         model = Mascota
         fields = ['facebook_mascota', 'twitter_mascota', 'instagram_mascota', 'tiktok_mascota']
         labels = {
-            'facebook_mascota': 'Facebook URL',
-            'twitter_mascota': 'Twitter URL',
-            'instagram_mascota': 'Instagram URL',
-            'tiktok_mascota': 'TikTok URL',
+            'facebook_mascota': 'Facebook',
+            'twitter_mascota': 'Twitter',
+            'instagram_mascota': 'Instagram',
+            'tiktok_mascota': 'TikTok',
         }
         widgets = {
             'facebook_mascota': forms.URLInput(attrs={'placeholder': 'https://www.facebook.com/'}),
