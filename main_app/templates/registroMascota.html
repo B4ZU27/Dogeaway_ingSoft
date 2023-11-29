@@ -70,6 +70,14 @@
                         {{ mascota_form.tiene_cartilla.errors }}
                     </div>
                 </div>
+
+                <div class="input-container">
+                    {{ mascota_form.adopcion.label_tag }}
+                    {{ mascota_form.adopcion }}
+                    <div style="color: red">
+                        {{ mascota_form.adopcion.errors }}
+                    </div>
+                </div>
         
                 {# Formulario para imágenes de mascota #}
                 <div class="file-upload-container">
