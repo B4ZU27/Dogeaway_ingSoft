@@ -58,9 +58,10 @@ class VerificacionForm(forms.ModelForm):
 class MascotaForm(forms.ModelForm):
     class Meta:
         model = Mascota
-        fields = ['nombre','edad', 'peso', 'sexo', 'tamaño', 'descripcion', 'raza', 'tiene_cartilla']
+        fields = ['nombre','edad', 'peso', 'sexo', 'tamaño', 'descripcion', 'raza', 'tiene_cartilla', 'adopcion']
         labels = {
             'tiene_cartilla': '¿Tiene cartilla de vacunación?',
+            'adopcion': '¿Esta mascota está en adopcion?',
             'nombre': 'Nombre',
             'edad': 'Edad',
             'peso':'Peso en Kg'
@@ -109,7 +110,7 @@ class UserEditForm(forms.ModelForm):
 class MascotaEditForm(forms.ModelForm):
     class Meta:
         model = Mascota
-        fields = ['nombre', 'peso', 'edad', 'sexo', 'tamaño', 'descripcion', 'raza', 'tiene_cartilla']
+        fields = ['nombre', 'peso', 'edad', 'sexo', 'tamaño', 'raza', 'tiene_cartilla', 'descripcion']
 
 
 #-----TEST DE PREFERENCIAS-----*

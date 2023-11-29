@@ -39,7 +39,7 @@
   width: 100%;
   height: 100%;
   object-fit: cover;
-  filter: blur(5px); /* Ajusta el valor según desees */
+  filter: blur(5px); 
 }
 
 @media screen and (min-width: 768px) {
@@ -50,7 +50,7 @@
 
 .content-container {
   border-radius: 30px;
-  width: 90%; /* Ajusta el valor según sea necesario */
+  width: 90%; 
   max-width: 900px;
   font-size: 24px;
   position: relative;
@@ -59,8 +59,8 @@
   flex-direction: column;
   align-items: center;
   text-align: center;
-  margin-top: -20px; /* Ajusta el valor según sea necesario */
-  backdrop-filter: blur(10px); /* Ajusta el valor de desenfoque según sea necesario */
+  margin-top: -20px;
+  backdrop-filter: blur(10px); 
 }
 
 

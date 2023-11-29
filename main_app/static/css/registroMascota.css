@@ -13,18 +13,47 @@ h1 {
     padding: 50px;
     margin-top: auto;
 }
-
-form {
-    background-color: #005264;
-    padding: 40px;
-    border-radius: 40px;
-    width: 900px;
-    box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.1);
-    text-align: center;
-    margin-top: 20px;
+body {
+    background: linear-gradient(45deg, #02586c, #005264, #072931, #005264, #02586c);
+    background-size: 300% 300%;
+    animation: color 15s ease-in-out infinite;
+    margin: 0;
     display: flex;
-    flex-direction: column;
+    justify-content: center;
     align-items: center;
+    min-height: 100vh;
+}
+
+@keyframes color {
+    0% {
+        background-position: 0 50%;
+    }
+    50% {
+        background-position: 100% 50%;
+    }
+    100% {
+        background-position: 0 50%;
+    }
+}
+form {
+    position: relative;
+    background: linear-gradient(45deg, rgba(0, 82, 100, 0.8), rgba(14, 99, 118, 0.8), rgba(73, 115, 125, 0.8), rgba(88, 141, 153, 0.8));
+    background-size: 300% 300%;
+    animation: color 12s ease-in-out infinite;
+    padding: 20px;
+    border-radius: 20px;
+    width: 100%; /* Cambiado a 100% */
+    max-width: 700px; /* Añadido un ancho máximo para evitar que sea demasiado ancho en pantallas grandes */
+    margin: 20px auto;
+    box-shadow: 0px 0px 10px rgba(0, 0, 0, 10);
+    overflow: auto;
+    box-sizing: border-box; /* Añadido para incluir el padding y el borde en el ancho total */
+}
+
+@media screen and (min-width: 768px) {
+    .bk {
+        background-size: cover;
+    }
 }
 
 .input-container,
@@ -91,7 +120,7 @@ form {
 }
 
 .file-upload-container label {
-    background-color: #BD7219;
+    background-color: #0B667A;
     color: white;
     padding: 15px 30px; /* Aumentado el padding para hacer el botón más grande */
     border-radius: 4px;
@@ -100,12 +129,12 @@ form {
 }
 
 .file-upload-container label:hover {
-    background-color: #7f4e12;
+    background-color: #004251;
     transition: background-color 0.3s ease;
 }
 
 .file-upload-container label:active {
-    background-color: #7f4e12;
+    background-color: #0B667A;
 }
 
 .file-upload-container input[type="file"] {
@@ -119,7 +148,7 @@ form {
 }
 
 .button-submit {
-    background-color: #BD7219;
+    background-color: #0B667A;
     color: white;
     padding: 15px 100px; /* Aumentado el padding para hacer el botón más grande */
     border: none;
@@ -129,7 +158,7 @@ form {
 
 .button-submit:hover {
     transition: 0.5s;
-    background-color: #7f4e12;
+    background-color: #01323d;
 }
 
 .alert-error {

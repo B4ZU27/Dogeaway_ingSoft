@@ -7,75 +7,123 @@
 
 
 {% block content %}
+<section class="bk">
+    
+    <div class="capa"></div>
+  </section>
 
-<div class="detalleMascota">
-    <h1>Detalles de Mascota</h1><br><br>
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Detalles Mascota</title>
+</head>
+<body>
+    <div class="container">
+        <div class="detalleMascota">
+            <h1>Detalles de Mascota</h1><br>
+            <div class="left-section">
+                <div class="input-container">
+                <label for="id_nombre">Nombre de la mascota:</label>
+                <p>{{ mascota.nombre }}</p>
+            </div>
+        
+            <div class="input-container">
+                <label for="id_edad">Edad:</label>
+                <p>{{ mascota.edad }}</p>
+            </div>
+        
+            <div class="input-container">
+                <label for="id_raza">Raza:</label>
+                <p>{{ mascota.raza }}</p>
+            </div>
+        
+            <div class="input-container">
+                <label for="id_peso">Peso:</label>
+                <p>{{ mascota.peso }}</p>
+            </div>
 
-    <div class="input-container">
-        <label for="id_nombre">Nombre de la mascota:</label>
-        <p>{{ mascota.nombre }}</p>
+            </div>
+        
+            <div class="input-container">
+                <label for="id_sexo">Sexo:</label>
+                <p>{{ mascota.sexo }}</p>
+            </div>
+        
+            <div class="input-container">
+                <label for="id_tamaño">Tamaño:</label>
+                <p>{{ mascota.tamaño }}</p>
+            </div>
+        
+            <div class="input-container">
+                <label for="id_descripcion">Descripción:</label>
+                <p>{{ mascota.descripcion }}</p>
+            </div>
+        
+
+        </div>
+        <br>
+        <h2>Imagenes de tu mascota</h2><br>
+        <div class="imagenesMascota">
+            {% for imagen in imagenes_mascota %}
+                {% if imagen.imagen_1 %}
+                    <figure>
+                        <img src="{{ imagen.imagen_1.url }}" alt="Imagen de {{ mascota.nombre }}">
+                    </figure>
+                {% endif %}
+            {% endfor %}
+        
+            {% for imagen in imagenes_mascota %}
+                {% if imagen.imagen_2 %}
+                    <figure>
+                        <img src="{{ imagen.imagen_2.url }}" alt="Imagen de {{ mascota.nombre }}">
+                    </figure>
+                {% endif %}
+            {% endfor %}
+        
+            {% for imagen in imagenes_mascota %}
+                {% if imagen.imagen_3 %}
+                    <figure>
+                        <img src="{{ imagen.imagen_3.url }}" alt="Imagen de {{ mascota.nombre }}">
+                    </figure>
+                {% endif %}
+            {% endfor %}
+        
+            {% for imagen in imagenes_mascota %}
+                {% if imagen.imagen_4 %}
+                    <figure>
+                        <img src="{{ imagen.imagen_4.url }}" alt="Imagen de {{ mascota.nombre }}">
+                    </figure>
+                {% endif %}
+            {% endfor %}
+        
+            {% for imagen in imagenes_mascota %}
+                {% if imagen.imagen_5 %}
+                    <figure>
+                        <img src="{{ imagen.imagen_5.url }}" alt="Imagen de {{ mascota.nombre }}">
+                    </figure>
+                {% endif %}
+            {% endfor %}
+        
+            {% for imagen in imagenes_mascota %}
+                {% if imagen.imagen_6 %}
+                    <figure>
+                        <img src="{{ imagen.imagen_6.url }}" alt="Imagen de {{ mascota.nombre }}">
+                    </figure>
+                {% endif %}
+            {% endfor %}
+        </div>
+    
+        <div class="footer">
+            <div class="button-container">
+                <a href="{% url 'editar_mascota' mascota.id %}" class="button">Editar Mascota</a>
+                <a href="{% url 'eliminar_mascota' mascota.id %}" class="button">Eliminar Mascota</a>
+            </div>
+        </div>
     </div>
+    
+</body>
+</html>
 
-    <div class="input-container">
-        <label for="id_edad">Edad:</label>
-        <p>{{ mascota.edad }}</p>
-    </div>
-
-    <div class="input-container">
-        <label for="id_raza">Raza:</label>
-        <p>{{ mascota.raza }}</p>
-    </div>
-
-    <div class="input-container">
-        <label for="id_peso">Peso:</label>
-        <p>{{ mascota.peso }}</p>
-    </div>
-
-    <div class="input-container">
-        <label for="id_sexo">Sexo:</label>
-        <p>{{ mascota.sexo }}</p>
-    </div>
-
-    <div class="input-container">
-        <label for="id_tamaño">Tamaño:</label>
-        <p>{{ mascota.tamaño }}</p>
-    </div>
-
-    <div class="input-container">
-        <label for="id_descripcion">Descripción:</label>
-        <p>{{ mascota.descripcion }}</p>
-    </div>
-
-    <!-- Agregar más campos según sea necesario -->
-
-    <div class="imagenesMascota">
-        <h2>Imágenes de la mascota</h2>
-        {% for imagen in imagenes_mascota %}
-        {% if imagen.imagen_1 %}
-        <img src="{{ imagen.imagen_1.url }}" alt="Imagen de {{ mascota.nombre }}">
-        {% endif %}
-        {% if imagen.imagen_2 %}
-        <img src="{{ imagen.imagen_2.url }}" alt="Imagen de {{ mascota.nombre }}">
-        {% endif %}
-        {% if imagen.imagen_3 %}
-        <img src="{{ imagen.imagen_3.url }}" alt="Imagen de {{ mascota.nombre }}">
-        {% endif %}
-        {% if imagen.imagen_4 %}
-        <img src="{{ imagen.imagen_4.url }}" alt="Imagen de {{ mascota.nombre }}">
-        {% endif %}
-        {% if imagen.imagen_5 %}
-        <img src="{{ imagen.imagen_5.url }}" alt="Imagen de {{ mascota.nombre }}">
-        {% endif %}
-        {% if imagen.imagen_6 %}
-        <img src="{{ imagen.imagen_6.url }}" alt="Imagen de {{ mascota.nombre }}">
-        {% endif %}
-        {% endfor %}
-    </div>
-
-    <div class="button-container">
-        <a href="{% url 'editar_mascota' mascota.id %}" class="button">Editar Mascota</a>
-        <a href="{% url 'eliminar_mascota' mascota.id %}" class="button">Eliminar Mascota</a>
-        <a href="{% url 'editar_redes_sociales' mascota.id %}" class="button">Redes Sociales</a>
-    </div>
-</div>
 {% endblock content %}

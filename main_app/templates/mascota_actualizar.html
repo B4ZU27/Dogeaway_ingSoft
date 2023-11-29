@@ -4,27 +4,40 @@
 <link rel="stylesheet" href="{% static 'css/mascota_actualizar.css' %}">
 {% endblock %}
 
-
-
 {% block content %}
-  <h2>Actualizar Información de Mascota</h2>
+<section class="bk">
+  <div class="capa"></div>
+</section>
 
-  <form method="post" enctype="multipart/form-data">
-    {% csrf_token %}
-    <div class="mascota-form">
-      {{ mascota_form.as_p }}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="{% static 'css/mascota_actualizar.css' %}">
+    <title>Actualizar mascota</title>
+</head>
+
+<body>
+    <div class="container">
+        <form method="post" enctype="multipart/form-data">
+            <h1>Actualizar Información de Mascota</h1>
+            {% csrf_token %}
+            <div class="mascota-form">
+                {{ mascota_form.as_p }}
+            </div>
+
+            <h2>Actualizar Imágenes de Mascota</h2>
+            <div class="image-form">
+                {{ imagen_form.as_p }}
+                <button type="submit">Guardar Cambios</button>
+            </div>
+        </form>
+        <a href="{% url 'ver_detalle_mascota' mascota.id %}">Regresar</a>
     </div>
-
-    <h3>Actualizar Imágenes de Mascota</h3>
-    <form method="post" enctype="multipart/form-data">
-      {% csrf_token %}
-      <div class="imagen-form">
-        {{ imagen_form.as_p }}
-      </div>
-
-      <button type="submit">Guardar Cambios</button>
-    </form>
-  </form>
-
-  <a href="{% url 'ver_detalle_mascota' mascota.id %}">Regresar</a>
+    <section class="bk2">
+        <div class="capa"></div>
+    </section>
+</body>
+</html>
 {% endblock %}
